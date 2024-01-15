@@ -1,7 +1,10 @@
-import MapExample from "../../components/Maps/MapExample.jsx";
+import React from "react";
 
+// components
 
-export default function Maps() {
+import MapExample from "../../components/Maps/MapExample";
+
+function Maps() {
   return (
     <>
       <div className="flex flex-wrap">
@@ -14,3 +17,4 @@ export default function Maps() {
     </>
   );
 }
+export default Maps;

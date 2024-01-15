@@ -1,6 +1,10 @@
-import CardTable from "../../components/Cards/CardTable.jsx";
+import React from "react";
 
-export default function Tables() {
+// components
+
+import CardTable from "../../components/Cards/CardTable";
+
+function Tables() {
   return (
     <>
       <div className="flex flex-wrap mt-4">
@@ -14,3 +18,5 @@ export default function Tables() {
     </>
   );
 }
+
+export default Tables;
