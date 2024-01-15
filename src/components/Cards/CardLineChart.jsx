@@ -1,8 +1,8 @@
-import  { useEffect } from 'react'
-import Chart from "chart.js/auto";
+import React from "react";
+import Chart from 'chart.js/auto';
 
-export default function CardLineChart() {
-  useEffect(() => {
+function CardLineChart() {
+  React.useEffect(() => {
     var config = {
       type: "line",
       data: {
@@ -108,11 +108,11 @@ export default function CardLineChart() {
   }, []);
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-cyan-700">
+      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-slate-700">
         <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
           <div className="flex flex-wrap items-center">
             <div className="relative w-full max-w-full flex-grow flex-1">
-              <h6 className="uppercase text-cyan-100 mb-1 text-xs font-semibold">
+              <h6 className="uppercase text-slate-100 mb-1 text-xs font-semibold">
                 Overview
               </h6>
               <h2 className="text-white text-xl font-semibold">Sales value</h2>
@@ -129,3 +129,4 @@ export default function CardLineChart() {
     </>
   );
 }
+export default CardLineChart;

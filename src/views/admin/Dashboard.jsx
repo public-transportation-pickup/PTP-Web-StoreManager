@@ -1,10 +1,13 @@
+import React from "react";
+
+// components
+
 import CardLineChart from "../../components/Cards/CardLineChart";
-import CardBarChart from "../../components/Cards/CardBarChart.jsx";
-import CardPageVisits from "../../components/Cards/CardPageVisits.jsx";
-import CardSocialTraffic from "../../components/Cards/CardSocialTraffic.jsx";
+import CardBarChart from "../../components/Cards/CardBarChart";
+import CardPageVisits from "../../components/Cards/CardPageVisits";
+import CardSocialTraffic from "../../components/Cards/CardSocialTraffic";
 
-
-export default function Dashboard() {
+function Dashboard() {
   return (
     <>
       <div className="flex flex-wrap">
@@ -26,3 +29,4 @@ export default function Dashboard() {
     </>
   );
 }
+export default Dashboard;

@@ -1,13 +1,15 @@
+import React from "react";
 
+// components
 
-export default function CardSocialTraffic() {
+function CardSocialTraffic() {
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-              <h3 className="font-semibold text-base text-cyan-700">
+              <h3 className="font-semibold text-base text-slate-700">
                 Social traffic
               </h3>
             </div>
@@ -26,13 +28,13 @@ export default function CardSocialTraffic() {
           <table className="items-center w-full bg-transparent border-collapse">
             <thead className="thead-light">
               <tr>
-                <th className="px-6 bg-cyan-50 text-cyan-500 align-middle border border-solid border-cyan-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Referral
                 </th>
-                <th className="px-6 bg-cyan-50 text-cyan-500 align-middle border border-solid border-cyan-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Visitors
                 </th>
-                <th className="px-6 bg-cyan-50 text-cyan-500 align-middle border border-solid border-cyan-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px"></th>
+                <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px"></th>
               </tr>
             </thead>
             <tbody>
@@ -110,10 +112,10 @@ export default function CardSocialTraffic() {
                   <div className="flex items-center">
                     <span className="mr-2">75%</span>
                     <div className="relative w-full">
-                      <div className="overflow-hidden h-2 text-xs flex rounded bg-lightBlue-200">
+                      <div className="overflow-hidden h-2 text-xs flex rounded bg-sky-200">
                         <div
                           style={{ width: "75%" }}
-                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-lightBlue-500"
+                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-sky-500"
                         ></div>
                       </div>
                     </div>
@@ -148,3 +150,4 @@ export default function CardSocialTraffic() {
     </>
   );
 }
+export default CardSocialTraffic;

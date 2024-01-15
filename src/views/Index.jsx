@@ -1,9 +1,23 @@
+/*eslint-disable*/
+import React from "react";
 import { Link } from "react-router-dom";
 
-import IndexNavbar from "../components/Navbars/IndexNavbar.jsx";
-import Footer from "../components/Footers/Footer.jsx";
+import IndexNavbar from "../components/Navbars/IndexNavbar";
+import Footer from "../components/Footers/Footer";
 
-export default function Index() {
+import pic1 from "../assets/img/pattern_react.png"
+import pic2 from "../assets/img/component-profile-card.png"
+import pic3 from "../assets/img/component-info-card.png"
+import pic4 from"../assets/img/component-info-2.png"
+import pic5 from"../assets/img/component-menu.png"
+import pic6 from"../assets/img/component-btn-pink.png"
+import pic7 from"../assets/img/documentation.png"
+import pic8 from"../assets/img/login.jpg"
+import pic9 from"../assets/img/profile.jpg"
+import pic10 from "../assets/img/landing.jpg"
+
+
+function Index() {
   return (
     <>
       <IndexNavbar fixed />
@@ -11,15 +25,16 @@ export default function Index() {
         <div className="container mx-auto items-center flex flex-wrap">
           <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
             <div className="pt-32 sm:pt-0">
-              <h2 className="font-semibold text-4xl text-cyan-600">
+              <h2 className="font-semibold text-4xl text-slate-600">
                 Notus React - A beautiful extension for Tailwind CSS.
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-cyan-500">
+              <p className="mt-4 text-lg leading-relaxed text-slate-500">
                 Notus React is Free and Open Source. It does not change any of
                 the CSS from{" "}
                 <a
                   href="https://tailwindcss.com/?ref=creativetim"
-                  className="text-cyan-600"
+                  className="text-slate-600"
+                  target="_blank"
                 >
                   Tailwind CSS
                 </a>
@@ -29,13 +44,15 @@ export default function Index() {
               <div className="mt-12">
                 <a
                   href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-index"
-                  className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  target="_blank"
+                  className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-sky-500 active:bg-sky-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                 >
                   Get started
                 </a>
                 <a
                   href="https://github.com/creativetimofficial/notus-react?ref=nr-index"
-                  className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-cyan-700 active:bg-cyan-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-slate-700 active:bg-slate-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  target="_blank"
                 >
                   Github Star
                 </a>
@@ -46,12 +63,12 @@ export default function Index() {
 
         <img
           className="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12 max-h-860px"
-          src={require('../assets/img/pattern_react.png')}
+          src={pic1}
           alt="..."
         />
       </section>
 
-      <section className="mt-48 md:mt-40 pb-40 relative bg-cyan-100">
+      <section className="mt-48 md:mt-40 pb-40 relative bg-slate-100">
         <div
           className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
           style={{ transform: "translateZ(0)" }}
@@ -66,7 +83,7 @@ export default function Index() {
             y="0"
           >
             <polygon
-              className="text-cyan-100 fill-current"
+              className="text-slate-100 fill-current"
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
@@ -74,7 +91,7 @@ export default function Index() {
         <div className="container mx-auto">
           <div className="flex flex-wrap items-center">
             <div className="w-10/12 md:w-6/12 lg:w-4/12 px-12 md:px-4 mr-auto ml-auto -mt-32">
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-lightBlue-500">
+              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-sky-500">
                 <img
                   alt="..."
                   src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
@@ -89,7 +106,7 @@ export default function Index() {
                   >
                     <polygon
                       points="-30,95 583,95 583,65"
-                      className="text-lightBlue-500 fill-current"
+                      className="text-sky-500 fill-current"
                     ></polygon>
                   </svg>
                   <h4 className="text-xl font-bold text-white">
@@ -110,13 +127,13 @@ export default function Index() {
                 <div className="w-full md:w-6/12 px-4">
                   <div className="relative flex flex-col mt-4">
                     <div className="px-4 py-5 flex-auto">
-                      <div className="text-cyan-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
+                      <div className="text-slate-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
                         <i className="fas fa-sitemap"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">
                         CSS Components
                       </h6>
-                      <p className="mb-4 text-cyan-500">
+                      <p className="mb-4 text-slate-500">
                         Notus React comes with a huge number of Fully Coded CSS
                         components.
                       </p>
@@ -124,13 +141,13 @@ export default function Index() {
                   </div>
                   <div className="relative flex flex-col min-w-0">
                     <div className="px-4 py-5 flex-auto">
-                      <div className="text-cyan-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
+                      <div className="text-slate-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
                         <i className="fas fa-drafting-compass"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">
                         JavaScript Components
                       </h6>
-                      <p className="mb-4 text-cyan-500">
+                      <p className="mb-4 text-slate-500">
                         We also feature many dynamic components for React,
                         NextJS, Vue and Angular.
                       </p>
@@ -140,11 +157,11 @@ export default function Index() {
                 <div className="w-full md:w-6/12 px-4">
                   <div className="relative flex flex-col min-w-0 mt-4">
                     <div className="px-4 py-5 flex-auto">
-                      <div className="text-cyan-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
+                      <div className="text-slate-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
                         <i className="fas fa-newspaper"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">Pages</h6>
-                      <p className="mb-4 text-cyan-500">
+                      <p className="mb-4 text-slate-500">
                         This extension also comes with 3 sample pages. They are
                         fully coded so you can start working instantly.
                       </p>
@@ -152,13 +169,13 @@ export default function Index() {
                   </div>
                   <div className="relative flex flex-col min-w-0">
                     <div className="px-4 py-5 flex-auto">
-                      <div className="text-cyan-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
+                      <div className="text-slate-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
                         <i className="fas fa-file-alt"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">
                         Documentation
                       </h6>
-                      <p className="mb-4 text-cyan-500">
+                      <p className="mb-4 text-slate-500">
                         Built by developers for developers. You will love how
                         easy is to to work with Notus React.
                       </p>
@@ -173,46 +190,47 @@ export default function Index() {
         <div className="container mx-auto overflow-hidden pb-20">
           <div className="flex flex-wrap items-center">
             <div className="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
-              <div className="text-cyan-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
+              <div className="text-slate-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                 <i className="fas fa-sitemap text-xl"></i>
               </div>
               <h3 className="text-3xl mb-2 font-semibold leading-normal">
                 CSS Components
               </h3>
-              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-cyan-600">
+              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-slate-600">
                 Every element that you need in a product comes built in as a
                 component. All components fit perfectly with each other and can
                 have different colours.
               </p>
               <div className="block pb-6">
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Buttons
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Inputs
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Labels
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Menus
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Navbars
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Pagination
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Progressbars
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Typography
                 </span>
               </div>
               <a
                 href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-index"
-                className="font-bold text-cyan-700 hover:text-cyan-500 ease-linear transition-all duration-150"
+                target="_blank"
+                className="font-bold text-slate-700 hover:text-slate-500 ease-linear transition-all duration-150"
               >
                 View All{" "}
                 <i className="fa fa-angle-double-right ml-1 leading-relaxed"></i>
@@ -223,32 +241,32 @@ export default function Index() {
               <div className="relative flex flex-col min-w-0 w-full mb-6 mt-48 md:mt-0">
                 <img
                   alt="..."
-                  src={require("../assets/img/component-btn.png").default}
+                  src={pic1}
                   className="w-full align-middle rounded absolute shadow-lg max-w-100-px z-3 left-145-px -top-29-px"
                 />
                 <img
                   alt="..."
-                  src={require("../assets/img/component-profile-card.png").default}
+                  src={pic2}
                   className="w-full align-middle rounded-lg absolute shadow-lg -top-160-px left-260-px max-w-210-px"
                 />
                 <img
                   alt="..."
-                  src={require("../assets/img/component-info-card.png").default}
+                  src={pic3}
                   className="w-full align-middle rounded-lg absolute shadow-lg max-w-180-px -top-225-px left-40-px z-2"
                 />
                 <img
                   alt="..."
-                  src={require("../assets/img/component-info-2.png").default}
+                  src={pic4}
                   className="w-full align-middle rounded-lg absolute shadow-2xl max-w-200-px -left-50-px top-25-px"
                 />
                 <img
                   alt="..."
-                  src={require("../assets/img/component-menu.png").default}
+                  src={pic5}
                   className="w-full align-middle rounded absolute shadow-lg max-w-580-px -left-20-px top-210-px"
                 />
                 <img
                   alt="..."
-                  src={require("../assets/img/component-btn-pink.png").default}
+                  src={pic6}
                   className="w-full align-middle rounded absolute shadow-xl max-w-120-px left-195-px top-95-px"
                 />
               </div>
@@ -261,6 +279,7 @@ export default function Index() {
                 <div className="my-4 w-full lg:w-6/12 px-4">
                   <a
                     href="https://www.creative-tim.com/learning-lab/tailwind/svelte/alerts/notus?ref=vtw-index"
+                    target="_blank"
                   >
                     <div className="bg-red-600 shadow-lg rounded-lg text-center p-8">
                       <img
@@ -275,8 +294,9 @@ export default function Index() {
                   </a>
                   <a
                     href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=vtw-index"
+                    target="_blank"
                   >
-                    <div className="bg-lightBlue-500 shadow-lg rounded-lg text-center p-8 mt-8">
+                    <div className="bg-sky-500 shadow-lg rounded-lg text-center p-8 mt-8">
                       <img
                         alt="..."
                         className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
@@ -289,8 +309,9 @@ export default function Index() {
                   </a>
                   <a
                     href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/alerts/notus?ref=vtw-index"
+                    target="_blank"
                   >
-                    <div className="bg-cyan-700 shadow-lg rounded-lg text-center p-8 mt-8">
+                    <div className="bg-slate-700 shadow-lg rounded-lg text-center p-8 mt-8">
                       <img
                         alt="..."
                         className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
@@ -305,6 +326,7 @@ export default function Index() {
                 <div className="my-4 w-full lg:w-6/12 px-4 lg:mt-16">
                   <a
                     href="https://www.creative-tim.com/learning-lab/tailwind/js/alerts/notus?ref=vtw-index"
+                    target="_blank"
                   >
                     <div className="bg-yellow-500 shadow-lg rounded-lg text-center p-8">
                       <img
@@ -319,6 +341,7 @@ export default function Index() {
                   </a>
                   <a
                     href="https://www.creative-tim.com/learning-lab/tailwind/angular/alerts/notus?ref=vtw-index"
+                    target="_blank"
                   >
                     <div className="bg-red-700 shadow-lg rounded-lg text-center p-8 mt-8">
                       <img
@@ -333,6 +356,7 @@ export default function Index() {
                   </a>
                   <a
                     href="https://www.creative-tim.com/learning-lab/tailwind/vue/alerts/notus?ref=vtw-index"
+                    target="_blank"
                   >
                     <div className="bg-emerald-500 shadow-lg rounded-lg text-center p-8 mt-8">
                       <img
@@ -350,50 +374,51 @@ export default function Index() {
             </div>
 
             <div className="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
-              <div className="text-cyan-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
+              <div className="text-slate-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                 <i className="fas fa-drafting-compass text-xl"></i>
               </div>
               <h3 className="text-3xl mb-2 font-semibold leading-normal">
                 Javascript Components
               </h3>
-              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-cyan-600">
+              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-slate-600">
                 In order to create a great User Experience some components
                 require JavaScript. In this way you can manipulate the elements
                 on the page and give more options to your users.
               </p>
-              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-cyan-600">
+              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-slate-600">
                 We created a set of Components that are dynamic and come to help
                 you.
               </p>
               <div className="block pb-6">
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Alerts
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Dropdowns
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Menus
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Modals
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Navbars
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Popovers
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Tabs
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+                <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-slate-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Tooltips
                 </span>
               </div>
               <a
                 href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-index"
-                className="font-bold text-cyan-700 hover:text-cyan-500 ease-linear transition-all duration-150"
+                target="_blank"
+                className="font-bold text-slate-700 hover:text-slate-500 ease-linear transition-all duration-150"
               >
                 View all{" "}
                 <i className="fa fa-angle-double-right ml-1 leading-relaxed"></i>
@@ -406,28 +431,28 @@ export default function Index() {
           <div className="items-center flex flex-wrap">
             <div className="w-full md:w-5/12 ml-auto px-12 md:px-4">
               <div className="md:pr-12">
-                <div className="text-cyan-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
+                <div className="text-slate-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                   <i className="fas fa-file-alt text-xl"></i>
                 </div>
                 <h3 className="text-3xl font-semibold">
                   Complex Documentation
                 </h3>
-                <p className="mt-4 text-lg leading-relaxed text-cyan-500">
-                  {`This extension comes a lot of fully coded examples that help
+                <p className="mt-4 text-lg leading-relaxed text-slate-500">
+                  This extension comes a lot of fully coded examples that help
                   you get started faster. You can adjust the colors and also the
                   programming language. You can change the text and images and
                   you're good to go.
-                `}</p>
+                </p>
                 <ul className="list-none mt-6">
                   <li className="py-2">
                     <div className="flex items-center">
                       <div>
-                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-cyan-50 mr-3">
+                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-slate-500 bg-slate-50 mr-3">
                           <i className="fas fa-fingerprint"></i>
                         </span>
                       </div>
                       <div>
-                        <h4 className="text-cyan-500">
+                        <h4 className="text-slate-500">
                           Built by Developers for Developers
                         </h4>
                       </div>
@@ -436,12 +461,12 @@ export default function Index() {
                   <li className="py-2">
                     <div className="flex items-center">
                       <div>
-                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-cyan-50 mr-3">
+                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-slate-500 bg-slate-50 mr-3">
                           <i className="fab fa-html5"></i>
                         </span>
                       </div>
                       <div>
-                        <h4 className="text-cyan-500">
+                        <h4 className="text-slate-500">
                           Carefully crafted code for Components
                         </h4>
                       </div>
@@ -450,12 +475,12 @@ export default function Index() {
                   <li className="py-2">
                     <div className="flex items-center">
                       <div>
-                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-500 bg-cyan-50 mr-3">
+                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-slate-500 bg-slate-50 mr-3">
                           <i className="far fa-paper-plane"></i>
                         </span>
                       </div>
                       <div>
-                        <h4 className="text-cyan-500">
+                        <h4 className="text-slate-500">
                           Dynamic Javascript Components
                         </h4>
                       </div>
@@ -473,7 +498,7 @@ export default function Index() {
                   transform:
                     "scale(1) perspective(1040px) rotateY(-11deg) rotateX(2deg) rotate(2deg)",
                 }}
-                src={require("../assets/img/documentation.png").default}
+                src={pic7}
               />
             </div>
           </div>
@@ -482,7 +507,7 @@ export default function Index() {
         <div className="justify-center text-center flex flex-wrap mt-24">
           <div className="w-full md:w-6/12 px-12 md:px-4">
             <h2 className="font-semibold text-4xl">Beautiful Example Pages</h2>
-            <p className="text-lg leading-relaxed mt-4 mb-4 text-cyan-500">
+            <p className="text-lg leading-relaxed mt-4 mb-4 text-slate-500">
               Notus React is a completly new product built using our past
               experience in web templates. Take the examples we made for you and
               start playing with them.
@@ -491,7 +516,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="block relative z-1 bg-cyan-600">
+      <section className="block relative z-1 bg-slate-600">
         <div className="container mx-auto">
           <div className="justify-center flex flex-wrap">
             <div className="w-full lg:w-12/12 px-4  -mt-24">
@@ -505,7 +530,7 @@ export default function Index() {
                       <img
                         alt="..."
                         className="align-middle border-none max-w-full h-auto rounded-lg"
-                        src={require("../assets/img/login.jpg").default}
+                        src={pic8}
                       />
                     </div>
                   </Link>
@@ -520,7 +545,7 @@ export default function Index() {
                       <img
                         alt="..."
                         className="align-middle border-none max-w-full h-auto rounded-lg"
-                        src={require("../assets/img/profile.jpg").default}
+                        src={pic9}
                       />
                     </div>
                   </Link>
@@ -535,7 +560,7 @@ export default function Index() {
                       <img
                         alt="..."
                         className="align-middle border-none max-w-full h-auto rounded-lg"
-                        src={require("../assets/img/landing.jpg").default}
+                        src={pic10}
                       />
                     </div>
                   </Link>
@@ -546,21 +571,22 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="py-20 bg-cyan-600 overflow-hidden">
+      <section className="py-20 bg-slate-600 overflow-hidden">
         <div className="container mx-auto pb-64">
           <div className="flex flex-wrap justify-center">
             <div className="w-full md:w-5/12 px-12 md:px-4 ml-auto mr-auto md:mt-64">
-              <div className="text-cyan-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
+              <div className="text-slate-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                 <i className="fas fa-code-branch text-xl"></i>
               </div>
               <h3 className="text-3xl mb-2 font-semibold leading-normal text-white">
                 Open Source
               </h3>
-              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-cyan-400">
+              <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-slate-400">
                 Since{" "}
                 <a
                   href="https://tailwindcss.com/?ref=creativetim"
-                  className="text-cyan-300"
+                  className="text-slate-300"
+                  target="_blank"
                 >
                   Tailwind CSS
                 </a>{" "}
@@ -568,26 +594,27 @@ export default function Index() {
                 too. You can give this version a try to feel the design and also
                 test the quality of the code!
               </p>
-              <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-cyan-400">
+              <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-slate-400">
                 Get it free on Github and please help us spread the news with a
                 Star!
               </p>
               <a
                 href="https://github.com/creativetimofficial/notus-react?ref=nr-index"
-                className="github-star mt-4 inline-block text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-cyan-700 active:bg-cyan-600 uppercase text-sm shadow hover:shadow-lg"
+                target="_blank"
+                className="github-star mt-4 inline-block text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-slate-700 active:bg-slate-600 uppercase text-sm shadow hover:shadow-lg"
               >
                 Github Star
               </a>
             </div>
 
             <div className="w-full md:w-4/12 px-4 mr-auto ml-auto mt-32 relative">
-              <i className="fab fa-github text-cyan-700 absolute -top-150-px -right-100 left-auto opacity-80 text-55"></i>
+              <i className="fab fa-github text-slate-700 absolute -top-150-px -right-100 left-auto opacity-80 text-55"></i>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="pb-16 bg-cyan-200 relative pt-32">
+      <section className="pb-16 bg-slate-200 relative pt-32">
         <div
           className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
           style={{ transform: "translateZ(0)" }}
@@ -602,7 +629,7 @@ export default function Index() {
             y="0"
           >
             <polygon
-              className="text-cyan-200 fill-current"
+              className="text-slate-200 fill-current"
               points="2560 0 2560 100 0 100"
             ></polygon>
           </svg>
@@ -619,7 +646,7 @@ export default function Index() {
               <h3 className="font-semibold text-3xl">
                 Do you love this Starter Kit?
               </h3>
-              <p className="text-cyan-500 text-lg leading-relaxed mt-4 mb-4">
+              <p className="text-slate-500 text-lg leading-relaxed mt-4 mb-4">
                 Cause if you do, it can be yours now. Hit the buttons below to
                 navigate to get the Free version for your next project. Build a
                 new web app or give an old project a new look!
@@ -627,13 +654,15 @@ export default function Index() {
               <div className="sm:block flex flex-col mt-10">
                 <a
                   href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-index"
-                  className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  target="_blank"
+                  className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-sky-500 active:bg-sky-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                 >
                   Get started
                 </a>
                 <a
                   href="https://github.com/creativetimofficial/notus-react?ref=nr-index"
-                  className="github-star sm:ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-cyan-700 active:bg-cyan-600 uppercase text-sm shadow hover:shadow-lg"
+                  target="_blank"
+                  className="github-star sm:ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-slate-700 active:bg-slate-600 uppercase text-sm shadow hover:shadow-lg"
                 >
                   <i className="fab fa-github text-lg mr-1"></i>
                   <span>Help With a Star</span>
@@ -648,3 +677,5 @@ export default function Index() {
     </>
   );
 }
+
+export default Index;

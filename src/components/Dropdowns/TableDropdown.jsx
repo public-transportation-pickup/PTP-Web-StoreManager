@@ -1,11 +1,11 @@
-import {useRef,useState} from "react";
+import React from "react";
 import { createPopper } from "@popperjs/core";
 
-export default function TableDropdown() {
+const NotificationDropdown = () => {
   // dropdown props
-  const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
-  const btnDropdownRef = useRef();
-  const popoverDropdownRef = useRef();
+  const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
+  const btnDropdownRef = React.createRef();
+  const popoverDropdownRef = React.createRef();
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "left-start",
@@ -18,7 +18,7 @@ export default function TableDropdown() {
   return (
     <>
       <a
-        className="text-cyan-500 py-1 px-3"
+        className="text-slate-500 py-1 px-3"
         href="#pablo"
         ref={btnDropdownRef}
         onClick={(e) => {
@@ -38,7 +38,7 @@ export default function TableDropdown() {
         <a
           href="#pablo"
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-cyan-700"
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
           }
           onClick={(e) => e.preventDefault()}
         >
@@ -47,7 +47,7 @@ export default function TableDropdown() {
         <a
           href="#pablo"
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-cyan-700"
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
           }
           onClick={(e) => e.preventDefault()}
         >
@@ -56,7 +56,7 @@ export default function TableDropdown() {
         <a
           href="#pablo"
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-cyan-700"
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
           }
           onClick={(e) => e.preventDefault()}
         >
@@ -65,4 +65,6 @@ export default function TableDropdown() {
       </div>
     </>
   );
-}
+};
+
+export default NotificationDropdown;

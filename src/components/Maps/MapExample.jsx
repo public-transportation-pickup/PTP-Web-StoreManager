@@ -1,8 +1,8 @@
-import { useRef,useEffect } from "react"
+import React from "react";
 
-export default function MapExample() {
-  const mapRef = useRef(null);
-  useEffect(() => {
+function MapExample() {
+  const mapRef = React.useRef(null);
+  React.useEffect(() => {
     let google = window.google;
     let map = mapRef.current;
     let lat = "40.748817";
@@ -86,3 +86,5 @@ export default function MapExample() {
     </>
   );
 }
+
+export default MapExample;
