@@ -45,7 +45,7 @@ function Index() {
                 <a
                   href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-index"
                   target="_blank"
-                  className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-sky-500 active:bg-sky-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-sky-500 active:bg-cyan-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                 >
                   Get started
                 </a>
@@ -655,7 +655,7 @@ function Index() {
                 <a
                   href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-index"
                   target="_blank"
-                  className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-sky-500 active:bg-sky-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-sky-500 active:bg-cyan-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                 >
                   Get started
                 </a>

@@ -297,7 +297,7 @@ function Landing() {
                         <i className="fab fa-twitter"></i>
                       </button>
                       <button
-                        className="bg-sky-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-cyan-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
                         <i className="fab fa-facebook-f"></i>
@@ -332,7 +332,7 @@ function Landing() {
                         <i className="fab fa-google"></i>
                       </button>
                       <button
-                        className="bg-sky-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-cyan-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
                         <i className="fab fa-facebook-f"></i>

@@ -1130,7 +1130,7 @@ select {
   background-color: rgba(14, 165, 233, var(--tw-bg-opacity));
 }
 
-.bg-sky-600 {
+.bg-cyan-600 {
   --tw-bg-opacity: 1;
   background-color: rgba(2, 132, 199, var(--tw-bg-opacity));
 }
@@ -1240,12 +1240,12 @@ select {
   background-color: rgba(30, 41, 59, var(--tw-bg-opacity));
 }
 
-.active\:bg-indigo-600:active {
+.active\:bg-cyan-600:active {
   --tw-bg-opacity: 1;
   background-color: rgba(79, 70, 229, var(--tw-bg-opacity));
 }
 
-.active\:bg-sky-600:active {
+.active\:bg-cyan-600:active {
   --tw-bg-opacity: 1;
   background-color: rgba(2, 132, 199, var(--tw-bg-opacity));
 }

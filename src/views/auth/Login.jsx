@@ -1,9 +1,48 @@
-import React from "react";
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 import pic1 from "../../assets/img/github.svg"
 import pic2 from "../../assets/img/google.svg"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import {app} from '../../firebase.js'
+import {useDispatch, useSelector} from 'react-redux'
+import { signInStart, signInSuccess,signInFailure } from '../../redux/user/userSlice.js';
 
 function Login() {
+  const [formData,setFormData]=useState({});
+
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const {loading}=useSelector((state)=>state.user);
+
+  const handleChange=(e)=>{
+    setFormData({
+      ...formData,
+      [e.target.id]:e.target.value,
+    });
+    console.log("HandleChange: ",e.target.id);
+  };
+
+
+  const handleSubmitSignIn=async ()=>{
+    try {
+      //dispatch(signInStart());
+      const auth = getAuth(app);
+      const userCredential= await signInWithEmailAndPassword(auth, formData.email, formData.password)
+    // Signed up 
+    //const user = userCredential.user;
+    console.log("user credetial:",userCredential);
+    // if(user === null){
+    //   dispatch(signInFailure());
+    // }
+    // dispatch(signInSuccess(user));
+    // navigate('/');
+    console.log("Login ok");
+    
+    } catch (error) {
+      console.log("Sign In firebase fail",error);
+    }
+  }
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -46,7 +85,7 @@ function Login() {
                 <div className="text-slate-400 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
                 </div>
-                <form>
+                <form onSubmit={handleSubmitSignIn}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-slate-600 text-xs font-bold mb-2"
@@ -58,6 +97,9 @@ function Login() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
+                      id='email'
+                      required
+                      onChange={handleChange}
                     />
                   </div>
 
@@ -72,6 +114,9 @@ function Login() {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      required
+                      id='password'
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -90,9 +135,9 @@ function Login() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="submit"
                     >
-                      Sign In
+                      {loading?'Sign In' : 'Sign In ...'}
                     </button>
                   </div>
                 </form>

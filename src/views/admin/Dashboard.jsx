@@ -1,8 +1,7 @@
-import React from "react";
 
 // components
 
-import CardLineChart from "../../components/Cards/CardLineChart";
+//import CardLineChart from "../../components/Cards/CardLineChart";
 import CardBarChart from "../../components/Cards/CardBarChart";
 import CardPageVisits from "../../components/Cards/CardPageVisits";
 import CardSocialTraffic from "../../components/Cards/CardSocialTraffic";
@@ -12,18 +11,22 @@ function Dashboard() {
     <>
       <div className="flex flex-wrap">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-          <CardLineChart />
+          {/* <CardLineChart /> */}
+          App1
         </div>
         <div className="w-full xl:w-4/12 px-4">
-          <CardBarChart />
+          {/* <CardBarChart /> */}
+          App2
         </div>
       </div>
       <div className="flex flex-wrap mt-4">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-          <CardPageVisits />
+          {/* <CardPageVisits /> */}
+          App3
         </div>
         <div className="w-full xl:w-4/12 px-4">
-          <CardSocialTraffic />
+          {/* <CardSocialTraffic /> */}
+          App4  
         </div>
       </div>
     </>
