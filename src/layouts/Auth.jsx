@@ -1,10 +1,12 @@
-import { Outlet } from "react-router-dom";
+
+import { useState } from "react";
 import pic1 from "../assets/img/register_bg_2.png"
 
 // components
 
-import Navbar from "../components/Navbars/AuthNavbar";
+//import Navbar from "../components/Navbars/AuthNavbar";
 import FooterSmall from "../components/Footers/FooterSmall";
+import Login from "../views/auth/Login";
 
 // views
 
@@ -12,9 +14,10 @@ import FooterSmall from "../components/Footers/FooterSmall";
 // import Register from "views/auth/Register.js";
 
 function Auth() {
+
   return (
     <>
-      <Navbar transparent />
+      {/* <Navbar transparent /> */}
       <main>
         <section className="relative w-full h-full py-40 min-h-screen">
           <div
@@ -29,7 +32,10 @@ function Auth() {
             <Route path="/auth/register" exact component={Register} />
             <Redirect from="/auth" to="/auth/login" />
           </Switch> */}
-          <Outlet/>
+          <div>
+
+          </div>
+          <Login/>
           <FooterSmall absolute />
         </section>
       </main>

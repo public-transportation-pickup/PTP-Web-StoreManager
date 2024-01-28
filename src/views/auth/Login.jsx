@@ -8,11 +8,12 @@ import {app} from '../../firebase.js'
 import {useDispatch, useSelector} from 'react-redux'
 import { signInStart, signInSuccess,signInFailure } from '../../redux/user/userSlice.js';
 
-function Login() {
+function Login({errorLogin}) {
   const [formData,setFormData]=useState({});
 
   const navigate=useNavigate();
   const dispatch=useDispatch();
+  const [error, setError]=useState('');
   const {loading}=useSelector((state)=>state.user);
 
   const handleChange=(e)=>{
@@ -23,21 +24,29 @@ function Login() {
     console.log("HandleChange: ",e.target.id);
   };
 
-
+  console.log("Form dâta", formData)
   const handleSubmitSignIn=async ()=>{
     try {
-      //dispatch(signInStart());
+      dispatch(signInStart());
       const auth = getAuth(app);
-      const userCredential= await signInWithEmailAndPassword(auth, formData.email, formData.password)
-    // Signed up 
-    //const user = userCredential.user;
-    console.log("user credetial:",userCredential);
-    // if(user === null){
-    //   dispatch(signInFailure());
-    // }
-    // dispatch(signInSuccess(user));
-    // navigate('/');
-    console.log("Login ok");
+      if(formData.email.includes('store')){
+        const userCredential= await signInWithEmailAndPassword(auth, formData.email, formData.password)
+        // Signed up 
+        const user = userCredential.user;
+        console.log("user credetial:",userCredential);
+        if(user === null){
+          dispatch(signInFailure());
+        }
+        await dispatch(signInSuccess(user));
+        navigate('/');
+        console.log("Login ok");
+      }else{
+        console.log("No 'store' in email");
+        setError("Email or password is invalid");
+        errorLogin(error);
+      }
+      
+    
     
     } catch (error) {
       console.log("Sign In firebase fail",error);
@@ -85,7 +94,7 @@ function Login() {
                 <div className="text-slate-400 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
                 </div>
-                <form onSubmit={handleSubmitSignIn}>
+                <form>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-slate-600 text-xs font-bold mb-2"
@@ -135,7 +144,8 @@ function Login() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="submit"
+                      type="button"
+                      onClick={handleSubmitSignIn}
                     >
                       {loading?'Sign In' : 'Sign In ...'}
                     </button>

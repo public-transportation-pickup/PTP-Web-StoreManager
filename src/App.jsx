@@ -30,10 +30,10 @@ function App() {
             </Route>
           </Route>
           {/* auth */}
-          <Route path="/auth" exact element={<Auth />} >
-            <Route path="/auth/login" index element={<Login />} />
+          {/* <Route path="/auth" exact element={<Auth />} > */}
+            <Route path="/auth/login" index element={<Auth />} />
             <Route path="/auth/register" element={<Register />} />
-          </Route>
+          {/* </Route> */}
 
 
         </Routes>
