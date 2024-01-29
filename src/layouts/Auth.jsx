@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import pic1 from "../assets/img/register_bg_2.png"
 
 // components

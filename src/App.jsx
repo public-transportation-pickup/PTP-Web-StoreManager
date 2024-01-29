@@ -7,7 +7,6 @@ import Auth from "./layouts/Auth";
 
 // views without layouts
 import Login from "./views/auth/Login";
-import Register from "./views/auth/Register";
 import Dashboard from "./views/admin/Dashboard";
 import Maps from "./views/admin/Maps";
 import Settings from "./views/admin/Settings";
@@ -32,7 +31,7 @@ function App() {
           {/* auth */}
           {/* <Route path="/auth" exact element={<Auth />} > */}
             <Route path="/auth/login" index element={<Auth />} />
-            <Route path="/auth/register" element={<Register />} />
+            <Route path="/auth/register" element={<Login />} />
           {/* </Route> */}
 
 

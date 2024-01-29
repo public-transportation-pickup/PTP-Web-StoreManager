@@ -7,13 +7,15 @@ import { useNavigate } from "react-router-dom";
 import {app} from '../../firebase.js'
 import {useDispatch, useSelector} from 'react-redux'
 import { signInStart, signInSuccess,signInFailure } from '../../redux/user/userSlice.js';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Login({errorLogin}) {
+function Login() {
   const [formData,setFormData]=useState({});
 
   const navigate=useNavigate();
   const dispatch=useDispatch();
-  const [error, setError]=useState('');
+  //const [error, setError]=useState('');
   const {loading}=useSelector((state)=>state.user);
 
   const handleChange=(e)=>{
@@ -42,8 +44,7 @@ function Login({errorLogin}) {
         console.log("Login ok");
       }else{
         console.log("No 'store' in email");
-        setError("Email or password is invalid");
-        errorLogin(error);
+        await toast.warning("Email or password is invalid",{autoClose:2000});
       }
       
     
@@ -54,6 +55,7 @@ function Login({errorLogin}) {
   }
   return (
     <>
+    <ToastContainer className="w-24 h-10"/>
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
