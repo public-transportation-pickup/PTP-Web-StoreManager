@@ -12,10 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const [formData,setFormData]=useState({});
-
   const navigate=useNavigate();
   const dispatch=useDispatch();
-  //const [error, setError]=useState('');
   const {loading}=useSelector((state)=>state.user);
 
   const handleChange=(e)=>{
@@ -44,7 +42,7 @@ function Login() {
         console.log("Login ok");
       }else{
         console.log("No 'store' in email");
-        await toast.warning("Email or password is invalid",{autoClose:2000});
+        await toast.warning("Email or password is invalid",{autoClose:900});
       }
       
     

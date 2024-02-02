@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import NotificationDropdown from "../Dropdowns/NotificationDropdown";
 import UserDropdown from "../Dropdowns/UserDropdown";
 
+
 function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   return (
@@ -189,16 +190,6 @@ function Sidebar() {
                 >
                   <i className="fas fa-fingerprint text-slate-400 mr-2 text-sm"></i>{" "}
                   Login
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className="text-slate-700 hover:text-slate-500 text-xs uppercase py-3 font-bold block"
-                  to="/auth/register"
-                >
-                  <i className="fas fa-clipboard-list text-slate-300 mr-2 text-sm"></i>{" "}
-                  Register
                 </Link>
               </li>
             </ul>
