@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import pic1 from "../../assets/img/github.svg"
 import pic2 from "../../assets/img/google.svg"
@@ -9,12 +9,16 @@ import {useDispatch, useSelector} from 'react-redux'
 import { signInStart, signInSuccess,signInFailure } from '../../redux/user/userSlice.js';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAPIRequest } from '../../libs/Commons/api-request.js';
+import { authentication } from '../../api/auth-api.js';
 
 function Login() {
   const [formData,setFormData]=useState({});
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const {loading}=useSelector((state)=>state.user);
+  const [user,setUser]= useState();
+  const [loginState,requestLogin]=useAPIRequest(authentication);
 
   const handleChange=(e)=>{
     setFormData({
@@ -24,7 +28,7 @@ function Login() {
     console.log("HandleChange: ",e.target.id);
   };
 
-  console.log("Form dâta", formData)
+  //console.log("Form data", formData)
   const handleSubmitSignIn=async ()=>{
     try {
       dispatch(signInStart());
@@ -33,7 +37,14 @@ function Login() {
         const userCredential= await signInWithEmailAndPassword(auth, formData.email, formData.password)
         // Signed up 
         const user = userCredential.user;
-        console.log("user credetial:",userCredential);
+        //console.log("user credetial:",userCredential.user.accessToken);
+
+        requestLogin(
+          userCredential.user.accessToken,
+          'StoreManager'
+        );
+
+        console.log(loginState.payload);
         if(user === null){
           dispatch(signInFailure());
         }
@@ -44,13 +55,12 @@ function Login() {
         console.log("No 'store' in email");
         await toast.warning("Email or password is invalid",{autoClose:900});
       }
-      
-    
     
     } catch (error) {
       console.log("Sign In firebase fail",error);
     }
   }
+  
   return (
     <>
     <ToastContainer className="w-24 h-10"/>
@@ -59,12 +69,12 @@ function Login() {
           <div className="w-full lg:w-4/12 px-4">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-slate-200 border-0">
               <div className="rounded-t mb-0 px-6 py-6">
-                <div className="text-center mb-3">
-                  <h6 className="text-slate-500 text-sm font-bold">
-                    Sign in with
+                <div className="text-center">
+                  <h6 className="text-700 text-xl font-bold">
+                    Sign in
                   </h6>
                 </div>
-                <div className="btn-wrapper text-center">
+                {/* <div className="btn-wrapper text-center">
                   <button
                     className="bg-white active:bg-slate-50 text-slate-700 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
@@ -88,12 +98,12 @@ function Login() {
                     Google
                   </button>
                 </div>
-                <hr className="mt-6 border-b-1 border-slate-300" />
+                <hr className="mt-6 border-b-1 border-slate-300" /> */}
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <div className="text-slate-400 text-center mb-3 font-bold">
+                {/* <div className="text-slate-400 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
-                </div>
+                </div> */}
                 <form>
                   <div className="relative w-full mb-3">
                     <label
@@ -147,7 +157,8 @@ function Login() {
                       type="button"
                       onClick={handleSubmitSignIn}
                     >
-                      {loading?'Sign In' : 'Sign In ...'}
+                      Sign In
+                      {/* {loading?'Sign In' : 'Sign In ...'} */}
                     </button>
                   </div>
                 </form>
