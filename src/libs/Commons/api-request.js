@@ -42,10 +42,9 @@ export function useAPIRequest(invoker = async (params) => {}) {
       }
       invoker(params)
         .then((payload) => {
-          console.log(payload);
-          mountedRef.current = true;
+          //console.log(payload);
+          //mountedRef.current = true;
           if (mountedRef.current) {
-            console.log(mountedRef.current);
             dispatch({ type: Actions.success, payload: payload });
           }
         })

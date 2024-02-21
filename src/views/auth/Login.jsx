@@ -1,69 +1,142 @@
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import pic1 from "../../assets/img/github.svg"
-import pic2 from "../../assets/img/google.svg"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import {app} from '../../firebase.js'
 import {useDispatch, useSelector} from 'react-redux'
-import { signInStart, signInSuccess,signInFailure } from '../../redux/user/userSlice.js';
+import { signInStart, signInSuccess,signInFailure, updateUserSuccess } from '../../redux/user/userSlice.js';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAPIRequest } from '../../libs/Commons/api-request.js';
+import { Actions,useAPIRequest } from '../../libs/Commons/api-request.js';
 import { authentication } from '../../api/auth-api.js';
-
+import React from 'react';
+import { useFormik } from "formik";
 function Login() {
-  const [formData,setFormData]=useState({});
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
-  const {loading}=useSelector((state)=>state.user);
-  const [user,setUser]= useState();
-  const [loginState,requestLogin]=useAPIRequest(authentication);
+  // const [formData,setFormData]=useState({});
+   const navigate=useNavigate();
+   const dispatch=useDispatch();
+  // const {loading}=useSelector((state)=>state.user);
+   const [user,setUser]= useState();
+   const [loginState,requestLogin]=useAPIRequest(authentication);
 
-  const handleChange=(e)=>{
-    setFormData({
-      ...formData,
-      [e.target.id]:e.target.value,
-    });
-    console.log("HandleChange: ",e.target.id);
-  };
+// -----
+
+  const formik = useFormik({
+    initialValues: {email: "store32@gmail.com", password: "@Abcaz12345"} ,
+    validate: (values) => {
+      let errors = {};
+      if (!values.email) {
+        errors.email = "Please enter email address.";
+        toast.warning("Please enter email address.",{autoClose:900});
+      }
+      if (!values.password) {
+        errors.password = "Please enter password.";
+      }
+      return errors;
+    },
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: (values) => {
+        handleSubmitSignIn(values);
+    },
+  });
+
+
+  const handleSubmitSignIn= async (model) =>{
+    try {
+          console.log(model);
+          dispatch(signInStart());
+          const auth = getAuth(app);
+          if(model.email.includes('store')){
+            const userCredential= await signInWithEmailAndPassword(auth, model.email, model.password)
+            // Signed up 
+            const user = userCredential.user;
+            //console.log("user credetial:",userCredential.user.accessToken);
+    
+            requestLogin(
+              userCredential.user.accessToken,
+              'StoreManager'
+            );
+    
+            // if(user === null){
+            //   dispatch(signInFailure());
+            // }
+            // await dispatch(signInSuccess(user));
+            // navigate('/');
+            // console.log("Login ok");
+          }else{
+            console.log("No 'store' in email");
+            dispatch(signInFailure());
+            toast.warning("Email or password is invalid",{autoClose:900});
+          }
+        
+        } catch (error) {
+          toast.warning("Login fail!",{autoClose:900});
+          console.log("Sign In firebase fail",error);
+        }
+  }
+
+  useEffect(() => {
+    if (loginState.status !== Actions.loading) {
+      formik.setSubmitting(false);
+    }
+    if (loginState.status === Actions.success) {
+      dispatch(signInSuccess(loginState.payload));
+      console.log(loginState.payload)
+      navigate('/');
+      console.log("Login ok");
+    }else{
+      dispatch(signInFailure());
+    }
+  }, [loginState]);
+
+//------
+
+  // const handleChange=(e)=>{
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.id]:e.target.value,
+  //   });
+  //   console.log("HandleChange: ",e.target.id);
+  // };
+
 
   //console.log("Form data", formData)
-  const handleSubmitSignIn=async ()=>{
-    try {
-      dispatch(signInStart());
-      const auth = getAuth(app);
-      if(formData.email.includes('store')){
-        const userCredential= await signInWithEmailAndPassword(auth, formData.email, formData.password)
-        // Signed up 
-        const user = userCredential.user;
-        //console.log("user credetial:",userCredential.user.accessToken);
+  // const handleSubmitSignIn=async ()=>{
+  //   try {
+  //     dispatch(signInStart());
+  //     const auth = getAuth(app);
+  //     if(formData.email.includes('store')){
+  //       const userCredential= await signInWithEmailAndPassword(auth, formData.email, formData.password)
+  //       // Signed up 
+  //       const user = userCredential.user;
+  //       //console.log("user credetial:",userCredential.user.accessToken);
 
-        requestLogin(
-          userCredential.user.accessToken,
-          'StoreManager'
-        );
+  //       requestLogin(
+  //         userCredential.user.accessToken,
+  //         'StoreManager'
+  //       );
 
-        console.log(loginState.payload);
-        if(user === null){
-          dispatch(signInFailure());
-        }
-        await dispatch(signInSuccess(user));
-        navigate('/');
-        console.log("Login ok");
-      }else{
-        console.log("No 'store' in email");
-        await toast.warning("Email or password is invalid",{autoClose:900});
-      }
+  //       if(user === null){
+  //         dispatch(signInFailure());
+  //       }
+  //       await dispatch(signInSuccess(user));
+  //       navigate('/');
+  //       console.log("Login ok");
+  //     }else{
+  //       console.log("No 'store' in email");
+  //       await toast.warning("Email or password is invalid",{autoClose:900});
+  //     }
     
-    } catch (error) {
-      console.log("Sign In firebase fail",error);
-    }
-  }
+  //   } catch (error) {
+  //     console.log("Sign In firebase fail",error);
+  //   }
+  // }
   
   return (
     <>
-    <ToastContainer className="w-24 h-10"/>
+    <ToastContainer className="w-100 h-10"/>
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
@@ -104,7 +177,7 @@ function Login() {
                 {/* <div className="text-slate-400 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
                 </div> */}
-                <form>
+                <form onSubmit={formik.handleSubmit}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-slate-600 text-xs font-bold mb-2"
@@ -117,9 +190,13 @@ function Login() {
                       className="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
                       id='email'
-                      required
-                      onChange={handleChange}
-                    />
+                      //required
+                      name='email'
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      error={formik.errors.email}
+                      // onChange={handleChange}
+                    />         
                   </div>
 
                   <div className="relative w-full mb-3">
@@ -133,9 +210,13 @@ function Login() {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
-                      required
+                      //required
                       id='password'
-                      onChange={handleChange}
+                      // onChange={handleChange}
+                      name='password'
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      error={formik.errors.password}
                     />
                   </div>
                   <div>
@@ -154,8 +235,11 @@ function Login() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-slate-800 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={handleSubmitSignIn}
+                      // type="button"
+                      // onClick={handleSubmitSignIn}
+                      type="submit" 
+                      // disabled={formik.isSubmitting} 
+                      // loading={formik.isSubmitting}
                     >
                       Sign In
                       {/* {loading?'Sign In' : 'Sign In ...'} */}
@@ -164,7 +248,7 @@ function Login() {
                 </form>
               </div>
             </div>
-            <div className="flex flex-wrap mt-6 relative">
+            {/* <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">
                 <a
                   href="#pablo"
@@ -179,7 +263,7 @@ function Login() {
                   <small>Create new account</small>
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
