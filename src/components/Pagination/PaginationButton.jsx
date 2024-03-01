@@ -51,9 +51,9 @@ return (
                     </span>
                 ):null
             }
-            containerClassName='flex item-center justify-center mt-8 mb-4'
+            containerClassName='flex item-center justify-center mt-3 mb-1'
             pageClassName='block border border-solid border-gray-50 w-10 h-10 hover:bg-gray-200 flex items-center justify-center rounded-md'
-            activeClassName='bg-purple-50 text-white'
+            activeClassName='bg-purple-200 text-gray-400'
         />
     </motion.div>
 )
