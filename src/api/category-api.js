@@ -3,8 +3,8 @@ import { BASE_URL, BEAR_TOKEN } from "../libs/constants";
 import GetCurrentUser from "../libs/constants";
 
 export async function getCategories() {
-  var user = GetCurrentUser();
-  console.log(user.stsTokenManager.accessToken);
+  let user = await GetCurrentUser();
+  console.log(user);
 
   //console.log(BEAR_TOKEN);
   //   console.log("Get All Categories!");
