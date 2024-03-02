@@ -3,8 +3,9 @@ import { BASE_URL, BEAR_TOKEN } from "../libs/constants";
 import GetCurrentUser from "../libs/constants";
 
 export async function getCategories() {
-  let user = await GetCurrentUser();
-  console.log(user);
+  //let user = await GetCurrentUser();
+  console.log("user");
+  //console.log(user);
 
   //console.log(BEAR_TOKEN);
   //   console.log("Get All Categories!");

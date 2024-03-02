@@ -22,8 +22,8 @@ function ProductTable() {
 
   useEffect(() => {
     requestCategories();
+    return(console.log("oke"));
   }, []);
-
 
   return (
     <>

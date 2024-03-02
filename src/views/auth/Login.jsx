@@ -54,19 +54,13 @@ function Login() {
             const userCredential= await signInWithEmailAndPassword(auth, model.email, model.password)
             // Signed up 
             const user = userCredential.user;
-            console.log("user credetial:",userCredential.user.accessToken);
+            //console.log("user credetial:",userCredential.user.accessToken);
     
             requestLogin(
               userCredential.user.accessToken,
               'StoreManager'
             );
     
-            // if(user === null){
-            //   dispatch(signInFailure());
-            // }
-            // await dispatch(signInSuccess(user));
-            // navigate('/');
-            // console.log("Login ok");
           }else{
             console.log("No 'store' in email");
             dispatch(signInFailure());
@@ -85,7 +79,8 @@ function Login() {
     }
     if (loginState.status === Actions.success) {
       dispatch(signInSuccess(loginState.payload));
-      console.log(loginState.payload)
+      localStorage.setItem("User",loginState.payload);
+      //console.log(loginState.payload)
       navigate('/');
       console.log("Login ok");
     }else{
@@ -93,48 +88,7 @@ function Login() {
     }
   }, [loginState]);
 
-//------
 
-  // const handleChange=(e)=>{
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.id]:e.target.value,
-  //   });
-  //   console.log("HandleChange: ",e.target.id);
-  // };
-
-
-  //console.log("Form data", formData)
-  // const handleSubmitSignIn=async ()=>{
-  //   try {
-  //     dispatch(signInStart());
-  //     const auth = getAuth(app);
-  //     if(formData.email.includes('store')){
-  //       const userCredential= await signInWithEmailAndPassword(auth, formData.email, formData.password)
-  //       // Signed up 
-  //       const user = userCredential.user;
-  //       //console.log("user credetial:",userCredential.user.accessToken);
-
-  //       requestLogin(
-  //         userCredential.user.accessToken,
-  //         'StoreManager'
-  //       );
-
-  //       if(user === null){
-  //         dispatch(signInFailure());
-  //       }
-  //       await dispatch(signInSuccess(user));
-  //       navigate('/');
-  //       console.log("Login ok");
-  //     }else{
-  //       console.log("No 'store' in email");
-  //       await toast.warning("Email or password is invalid",{autoClose:900});
-  //     }
-    
-  //   } catch (error) {
-  //     console.log("Sign In firebase fail",error);
-  //   }
-  // }
   
   return (
     <>
