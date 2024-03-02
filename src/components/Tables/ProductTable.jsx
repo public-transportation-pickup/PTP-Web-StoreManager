@@ -10,16 +10,26 @@ import pic7 from "../../assets/img/sketch.jpg"
 import pic8 from "../../assets/img/react.jpg"
 import pic9 from "../../assets/img/vue.jpg"
 // components
+import { useEffect } from "react";
 import PaginationButton from "../../components/Pagination/PaginationButton";
 import TableDropdown from "../Dropdowns/TableDropdown";
+import { Actions,useAPIRequest } from '../../libs/Commons/api-request.js';
+import { getCategories } from '../../api/category-api.js';
 
-function ProductTable({ color }) {
+
+function ProductTable() {
+  const [listState, requestCategories] = useAPIRequest(getCategories);
+
+  useEffect(() => {
+    requestCategories();
+  }, []);
+
+
   return (
     <>
       <div
         className={
-          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
-          (color === "light" ? "bg-white" : "bg-sky-900 text-white")
+          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white" 
         }
       >
         {/* <div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -44,20 +54,14 @@ function ProductTable({ color }) {
               <tr>
                 <th
                   className={
-                    "w-80 px-9 align-middle border border-solid py-3 uppercase border-l-0  border-r-2 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-amber-300 text-slate-700 border-gray-200"
-                      : "bg-sky-800 text-sky-300 border-sky-700")
+                    "w-80 px-9 align-middle border border-solid py-3 uppercase border-l-0  border-r-2 whitespace-nowrap font-semibold text-left bg-amber-300 text-slate-700 border-gray-200"
                   }
                 >
                   Danh Mục
                 </th>
                 <th
                   className={
-                    "px-20 align-middle border border-solid py-3 uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-amber-300 text-slate-700 border-slate-100"
-                      : "bg-sky-800 text-sky-300 border-sky-700")
+                    "px-20 align-middle border border-solid py-3 uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-amber-300 text-slate-700 border-slate-100"
                   }
                 >
                   Sản phẩm
@@ -374,8 +378,8 @@ function ProductTable({ color }) {
                   <div className="h-[33rem]">
                     <label
                       className=" w-full rounded-lg border-gray-200 border-b-2  dark:bg-neutral-700 flex flex-col  hover:bg-gray-200
-                      has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200
-                      ">
+                      has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200"
+                      onClick={()=>document.getElementById('my_modal_2').showModal()}>
                       <div className="flex flex-row">
                         <img
                             src={pic4}
@@ -415,179 +419,6 @@ function ProductTable({ color }) {
                         </div>
                       </div>
                     </label>
-                    <label
-                      className=" w-full rounded-lg border-gray-200 border-b-2  dark:bg-neutral-700 flex flex-col  hover:bg-gray-200
-                      has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200
-                      ">
-                      <div className="flex flex-row">
-                        <img
-                            src={pic4}
-                            alt="..."
-                            className="my-1 w-[6rem] h-[6.1rem] ml-3 rounded-md border-2 border-slate-50 shadow "></img>
-                        <div className="w-full flex flex-row">
-                          <div className="border-0 pl-3 border-red-200 w-fit flex flex-col" >
-                            <span 
-                              className="text-2xl px-4 pt-2 font-serif text-red-500">
-                              Coca Cola
-                            </span>
-                            <span 
-                              className="text-base pt-1 px-9 text-gray-600"> 
-                              <i className="fa-regular fa-clock pr-2"> </i>
-                              Thời gian chuẩn bị: 1h 30min
-                            </span>
-                            <span
-                              className="text-base pt-1 px-9 text-gray-600">
-                              <i className="fa-solid fa-money-bill pr-2"></i>
-                              Giá:
-                              20000 VNĐ
-                            </span>
-                          </div>
-                          <div className="border-0 w-full flex flex-col">
-                              {/* <span 
-                                className="text-base pt-11 text-gray-600 flex flex-row">
-                                  <p className="pr-2">Ngày sản xuất:</p> 14 - 2 - 2020
-                              </span>
-                              <span
-                                className="text-base pt-1 text-gray-600 flex flex-row">
-                                   <p className="pr-3">Ngày hết hạn:</p> 14 - 2 - 2020
-                              </span> */}
-                          </div>
-                        </div>
-                        <div className="border-0 w-fit align-right px-2"> 
-                          <input name="product" type="radio" className="hidden checked:border-indigo-500" />
-                        </div>
-                      </div>
-                    </label>
-                    <label
-                      className=" w-full rounded-lg border-gray-200 border-b-2  dark:bg-neutral-700 flex flex-col  hover:bg-gray-200
-                      has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200
-                      ">
-                      <div className="flex flex-row">
-                        <img
-                            src={pic4}
-                            alt="..."
-                            className="my-1 w-[6rem] h-[6.1rem] ml-3 rounded-md border-2 border-slate-50 shadow "></img>
-                        <div className="w-full flex flex-row">
-                          <div className="border-0 pl-3 border-red-200 w-fit flex flex-col" >
-                            <span 
-                              className="text-2xl px-4 pt-2 font-serif text-red-500">
-                              Coca Cola
-                            </span>
-                            <span 
-                              className="text-base pt-1 px-9 text-gray-600"> 
-                              <i className="fa-regular fa-clock pr-2"> </i>
-                              Thời gian chuẩn bị: 1h 30min
-                            </span>
-                            <span
-                              className="text-base pt-1 px-9 text-gray-600">
-                              <i className="fa-solid fa-money-bill pr-2"></i>
-                              Giá:
-                              20000 VNĐ
-                            </span>
-                          </div>
-                          <div className="border-0 w-full flex flex-col">
-                              {/* <span 
-                                className="text-base pt-11 text-gray-600 flex flex-row">
-                                  <p className="pr-2">Ngày sản xuất:</p> 14 - 2 - 2020
-                              </span>
-                              <span
-                                className="text-base pt-1 text-gray-600 flex flex-row">
-                                   <p className="pr-3">Ngày hết hạn:</p> 14 - 2 - 2020
-                              </span> */}
-                          </div>
-                        </div>
-                        <div className="border-0 w-fit align-right px-2"> 
-                          <input name="product" type="radio" className="hidden checked:border-indigo-500" />
-                        </div>
-                      </div>
-                    </label>
-                    <label
-                      className=" w-full rounded-lg border-gray-200 border-b-2  dark:bg-neutral-700 flex flex-col  hover:bg-gray-200
-                      has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200
-                      ">
-                      <div className="flex flex-row">
-                        <img
-                            src={pic4}
-                            alt="..."
-                            className="my-1 w-[6rem] h-[6.1rem] ml-3 rounded-md border-2 border-slate-50 shadow "></img>
-                        <div className="w-full flex flex-row">
-                          <div className="border-0 pl-3 border-red-200 w-fit flex flex-col" >
-                            <span 
-                              className="text-2xl px-4 pt-2 font-serif text-red-500">
-                              Coca Cola
-                            </span>
-                            <span 
-                              className="text-base pt-1 px-9 text-gray-600"> 
-                              <i className="fa-regular fa-clock pr-2"> </i>
-                              Thời gian chuẩn bị: 1h 30min
-                            </span>
-                            <span
-                              className="text-base pt-1 px-9 text-gray-600">
-                              <i className="fa-solid fa-money-bill pr-2"></i>
-                              Giá:
-                              20000 VNĐ
-                            </span>
-                          </div>
-                          <div className="border-0 w-full flex flex-col">
-                              {/* <span 
-                                className="text-base pt-11 text-gray-600 flex flex-row">
-                                  <p className="pr-2">Ngày sản xuất:</p> 14 - 2 - 2020
-                              </span>
-                              <span
-                                className="text-base pt-1 text-gray-600 flex flex-row">
-                                   <p className="pr-3">Ngày hết hạn:</p> 14 - 2 - 2020
-                              </span> */}
-                          </div>
-                        </div>
-                        <div className="border-0 w-fit align-right px-2"> 
-                          <input name="product" type="radio" className="hidden checked:border-indigo-500" />
-                        </div>
-                      </div>
-                    </label>
-                    <label
-                      className=" w-full rounded-lg border-gray-200 border-b-2  dark:bg-neutral-700 flex flex-col  hover:bg-gray-200
-                      has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200
-                      ">
-                      <div className="flex flex-row">
-                        <img
-                            src={pic4}
-                            alt="..."
-                            className="my-1 w-[6rem] h-[6.1rem] ml-3 rounded-md border-2 border-slate-50 shadow "></img>
-                        <div className="w-full flex flex-row">
-                          <div className="border-0 pl-3 border-red-200 w-fit flex flex-col" >
-                            <span 
-                              className="text-2xl px-4 pt-2 font-serif text-red-500">
-                              Coca Cola
-                            </span>
-                            <span 
-                              className="text-base pt-1 px-9 text-gray-600"> 
-                              <i className="fa-regular fa-clock pr-2"> </i>
-                              Thời gian chuẩn bị: 1h 30min
-                            </span>
-                            <span
-                              className="text-base pt-1 px-9 text-gray-600">
-                              <i className="fa-solid fa-money-bill pr-2"></i>
-                              Giá:
-                              20000 VNĐ
-                            </span>
-                          </div>
-                          <div className="border-0 w-full flex flex-col">
-                              {/* <span 
-                                className="text-base pt-11 text-gray-600 flex flex-row">
-                                  <p className="pr-2">Ngày sản xuất:</p> 14 - 2 - 2020
-                              </span>
-                              <span
-                                className="text-base pt-1 text-gray-600 flex flex-row">
-                                   <p className="pr-3">Ngày hết hạn:</p> 14 - 2 - 2020
-                              </span> */}
-                          </div>
-                        </div>
-                        <div className="border-0 w-fit align-right px-2"> 
-                          <input name="product" type="radio" className="hidden checked:border-indigo-500" />
-                      </div>
-                      </div>
-                    </label>
-
                   </div>
                   
                   {/* <div>
@@ -604,54 +435,23 @@ function ProductTable({ color }) {
       </div>
       {/* <!-- Bottom Right Modal --> */}
 
-<div className="block space-y-4 md:flex md:space-y-0 md:space-x-4 md:rtl:space-x-reverse">
-    <button data-modal-target="top-right-modal" data-modal-toggle="top-right-modal" className="block w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    Top right
-    </button>
-</div>
-
-
-{/* <!-- Top Right Modal --> */}
-<div id="top-right-modal" data-modal-placement="top-right" tabIndex="-1" className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div className="relative w-full max-w-2xl max-h-full">
-        {/* <!-- Modal content --> */}
-        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            {/* <!-- Modal header --> */}
-            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                    Top right modal
-                </h3>
-                <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="top-right-modal">
-                    <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span className="sr-only">Close modal</span>
-                </button>
-            </div>
-            {/* <!-- Modal body --> */}
-            <div className="p-4 md:p-5 space-y-4">
-                <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
-                </p>
-                <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
-                </p>
-            </div>
-            {/* <!-- Modal footer --> */}
-            <div className="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="top-right-modal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                <button data-modal-hide="top-right-modal" type="button" className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
-            </div>
-        </div>
+{/* <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button> */}
+<dialog id="my_modal_2" className="modal w-max h-screen">
+  <div
+    className="mb-2 border-2 bg-slate-200 border-red-500 w-1/3 h-full fixed top-0 right-0"
+  >
+    <div className="modal-box">
+      <h3 className="font-bold text-lg">Hello!</h3>
+      <p className="py-4">Press ESC key or click outside to close</p>
     </div>
-</div>
+    <form method="dialog" className="modal-backdrop">
+      <button>close</button>
+    </form>
+  </div>
+</dialog>
     </>
   );
 }
-
-ProductTable.defaultProps = {
-  color: "light",
-};
 
 
 export default ProductTable;
