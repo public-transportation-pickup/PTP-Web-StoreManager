@@ -5,9 +5,16 @@ import { Link } from "react-router-dom";
 import NotificationDropdown from "../Dropdowns/NotificationDropdown";
 import UserDropdown from "../Dropdowns/UserDropdown";
 
+import { useAuth } from "../../views/auth/AuthProvider";
 
 function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-[14rem] z-10 py-4 px-6">
@@ -206,13 +213,13 @@ function Sidebar() {
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
-                <Link
+                <button
                   className="text-slate-700 hover:text-slate-500 text-xs uppercase py-3 font-bold block"
-                  to="/auth/login"
+                  onClick={handleLogout}
                 >
                   <i className="fas fa-right-from-bracket text-slate-400 mr-2 text-sm"></i>{" "}
                   Logout
-                </Link>
+                </button>
               </li>
             </ul>
           </div>

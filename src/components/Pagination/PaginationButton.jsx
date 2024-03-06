@@ -60,7 +60,7 @@ return (
 }
 
 PaginationButton.propTypes = {
-    setCurrentPage: PropTypes.object.isRequired,
-    currentPage:PropTypes.object.isRequired,
-    totalPages:PropTypes.object.isRequired
+    // setCurrentPage: PropTypes.fu.isRequired,
+    currentPage:PropTypes.number.isRequired,
+    totalPages:PropTypes.number.isRequired
 };

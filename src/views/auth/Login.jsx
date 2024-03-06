@@ -1,11 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
-import pic1 from "../../assets/img/github.svg"
+import { useEffect } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import {app} from '../../firebase.js'
-import {useDispatch, useSelector} from 'react-redux'
-import { signInStart, signInSuccess,signInFailure, updateUserSuccess } from '../../redux/user/userSlice.js';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Actions,useAPIRequest } from '../../libs/Commons/api-request.js';
@@ -13,19 +8,16 @@ import { authentication } from '../../api/auth-api.js';
 import React from 'react';
 import { useFormik } from "formik";
 
+import {useAuth} from './AuthProvider.jsx';
 
 function Login() {
-  // const [formData,setFormData]=useState({});
-   const navigate=useNavigate();
-   const dispatch=useDispatch();
-  // const {loading}=useSelector((state)=>state.user);
-   const [user,setUser]= useState();
+   const { login } = useAuth();
    const [loginState,requestLogin]=useAPIRequest(authentication);
 
 // -----
 
   const formik = useFormik({
-    initialValues: {email: "store29@gmail.com", password: "@Abcaz12345"} ,
+    initialValues: {email: "store118@gmail.com", password: "@Abcaz12345"} ,
     validate: (values) => {
       let errors = {};
       if (!values.email) {
@@ -40,36 +32,34 @@ function Login() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values) => {
-        handleSubmitSignIn(values);
+       handleSubmitSignIn(values);
     },
   });
-
 
   const handleSubmitSignIn= async (model) =>{
     try {
           console.log(model);
-          dispatch(signInStart());
+
           const auth = getAuth(app);
           if(model.email.includes('store')){
             const userCredential= await signInWithEmailAndPassword(auth, model.email, model.password)
             // Signed up 
             const user = userCredential.user;
-            //console.log("user credetial:",userCredential.user.accessToken);
-    
+            // console.log("user credetial:",userCredential.user.accessToken);
+            
             requestLogin(
               userCredential.user.accessToken,
               'StoreManager'
             );
-    
+           
           }else{
             console.log("No 'store' in email");
-            dispatch(signInFailure());
             toast.warning("Email or password is invalid",{autoClose:900});
           }
         
         } catch (error) {
           toast.warning("Login fail!",{autoClose:900});
-          console.log("Sign In firebase fail",error);
+          console.log("Sign In fail:",error);
         }
   }
 
@@ -78,13 +68,9 @@ function Login() {
       formik.setSubmitting(false);
     }
     if (loginState.status === Actions.success) {
-      dispatch(signInSuccess(loginState.payload));
-      localStorage.setItem("User",loginState.payload);
-      //console.log(loginState.payload)
-      navigate('/');
-      console.log("Login ok");
-    }else{
-      dispatch(signInFailure());
+
+      login(loginState.payload);
+      //console.log("Login ok");
     }
   }, [loginState]);
 
