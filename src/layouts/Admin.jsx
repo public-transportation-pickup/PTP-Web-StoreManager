@@ -18,7 +18,7 @@ function Admin() {
   return (
     <>
       <Sidebar />
-      <div className="relative md:ml-64 bg-slate-100">
+      <div className="relative md:ml-[220px] bg-slate-100">
         <AdminNavbar />
         {/* Header */}
         <HeaderStats />
