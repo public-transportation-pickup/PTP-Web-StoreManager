@@ -1,9 +1,12 @@
-import { useSelector } from "react-redux"
 import {Outlet,Navigate} from 'react-router-dom'
+import { useAuth } from "./AuthProvider";
+
 
 export default function PrivateRoute() {
-    const {currentUser}= useSelector(state=>state.user);
-    return (
-      currentUser ?<Outlet/>:<Navigate to={'/auth/login'}/>
-    )
+  const { user } = useAuth();
+  if (!user) {
+    // user is not authenticated
+    return <Navigate to="/auth/login" />;
+  }
+  return <Outlet />;
 }
