@@ -11,7 +11,8 @@ import {AuthProvider} from './views/auth/AuthProvider';
 import Dashboard from "./views/admin/Dashboard";
 import Maps from "./views/admin/Maps";
 import Settings from "./views/admin/Settings";
-import Tables from "./views/admin/Tables";
+import Menus from "./views/admin/Menus";
+import Products from "./views/admin/Products";
 import PrivateRoutes from './views/auth/PrivateRoute';
 
 
@@ -27,7 +28,8 @@ function App() {
                 <Route path="/" index element={<Dashboard />} />
                 <Route path="/admin/maps" element={<Maps />} />
                 <Route path="/admin/settings" element={<Settings />} />
-                <Route path="/admin/tables" element={<Tables />} />
+                <Route path="/admin/products" element={<Products />} />
+                <Route path="/admin/menus" element={<Menus />} />
               </Route>
             </Route>
           </Routes>

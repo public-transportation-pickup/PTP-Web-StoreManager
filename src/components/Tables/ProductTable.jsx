@@ -8,6 +8,7 @@ import {Actions, useAPIRequest } from '../../libs/Commons/api-request.js';
 import { getCategories } from '../../api/category-api.js';
 import { getProductByStoreId } from "../../api/product-api.js";
 import { ToastContainer,toast } from "react-toastify";
+import CreateModal from "../Modals/Modal.jsx";
 
 function ProductTable() {
   const [categoriesState, requestCategories] = useAPIRequest(getCategories);
@@ -17,7 +18,9 @@ function ProductTable() {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
 
-
+  const [showAdd, setShowAdd] = useState(false);
+  const [product,setProduct]=useState();
+  //#region Load page
   useEffect(() => {
       requestProducts(currentPage);
   }, [currentPage]);
@@ -48,38 +51,21 @@ function ProductTable() {
     }
  },[categoriesState]);
   
-
-//  useEffect(()=>{
-//     requestProducts(currentPage);
-//  },[currentPage]);
+//#endregion
 
   return (
     <>
+
+      <CreateModal title="Add Product" isOpen={showAdd}>
+
+      </CreateModal>
+
       <ToastContainer className="w-100 h-10"/>
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white" 
         }
       >
-
-       <>
-        {/* <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <div className="flex flex-wrap items-center">
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-              <h3
-                className={
-                  "font-semibold text-lg " +
-                  (color === "light" ? "text-slate-700" : "text-white")
-                }
-              >
-                Card Tables
-              </h3>
-             
-            </div>
-          </div>
-        </div> */}
-
-        </>
         <div className="block w-full overflow-x-auto">
           {/* Projects table */}
           <table className="items-center w-full bg-transparent border-collapse">
@@ -147,7 +133,8 @@ function ProductTable() {
                           key={p.id}
                           className=" w-full rounded-lg border-gray-200 border-b-2  dark:bg-neutral-700 flex flex-col  hover:bg-gray-200
                           has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200"
-                          onClick={()=>document.getElementById('my_modal_2').showModal()}>
+                          onClick={()=>setShowAdd(true)}
+                          >
                           <div className="flex flex-row">
                             <img
                                 src={p.imageURL}
@@ -196,7 +183,7 @@ function ProductTable() {
                     <PaginationButton
                       setCurrentPage={setCurrentPage}
                       currentPage={currentPage}
-                      totalPages={2}/>
+                      totalPages={totalPage}/>
                   </div>
                 </td>
               </tr>
@@ -205,9 +192,10 @@ function ProductTable() {
         </div>
       </div>
       {/* <!-- Bottom Right Modal --> */}
+<>
 
 {/* <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button> */}
-<dialog id="my_modal_2" className="modal w-max h-screen">
+{/* <dialog id="my_modal_2" className="modal w-max h-screen">
   <div
     className="mb-2 border-2 bg-slate-200 border-red-500 w-1/3 h-full fixed top-0 right-0"
   >
@@ -219,7 +207,8 @@ function ProductTable() {
       <button>close</button>
     </form>
   </div>
-</dialog>
+</dialog> */}
+</>
     </>
   );
 }

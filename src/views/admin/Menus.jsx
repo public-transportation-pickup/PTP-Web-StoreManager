@@ -4,21 +4,17 @@ import React from "react";
 
 import CardTable from "../../components/Cards/CardTable";
 import ProductTable from "../../components/Tables/ProductTable";
-
-function Tables() {
+import ScheduleMenuPage from "../../components/Tables/MenuTable";
+function Menus() {
   return (
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          {/* <CardTable /> */}
-          <ProductTable/>
+          <ScheduleMenuPage/>
         </div>
-        {/* <div className="w-full mb-12 px-4">
-          <CardTable color="dark" />
-        </div> */}
       </div>
     </>
   );
 }
 
-export default Tables;
+export default Menus;
