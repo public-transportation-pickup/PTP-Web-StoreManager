@@ -13,6 +13,10 @@ import Maps from "./views/admin/Maps";
 import Settings from "./views/admin/Settings";
 import Tables from "./views/admin/Tables";
 import PrivateRoutes from './views/auth/PrivateRoute';
+import ProductItemTemp from "./components/menus/ProductItemTemp";
+import CreateMenuPage from "./views/menu/CreateMenuPage";
+import OrderMainPage from "./views/order/OrderMainPage";
+import OrderTableList from "./views/order/OrderTableList";
 
 
 function App() {
@@ -30,9 +34,21 @@ function App() {
                 <Route path="/admin/tables" element={<Tables />} />
               </Route>
             </Route>
+            <Route path="/productitemtemp" element={<ProductItemTemp/>}/>
+            <Route path="/menu" element={<CreateMenuPage/>}/>
+            <Route path="/order" element={<OrderMainPage/>}>
+              {/* <Route index element={<OrderMainPage/>}/> */}
+              <Route path="confirming" index element={<OrderTableList/>}/>
+              <Route path="preparing" element={<OrderTableList/>}/>
+              <Route path="delivering" element={<OrderTableList/>}/>
+              <Route path="completed" element={<OrderTableList/>}/>
+              <Route path="reject" element={<OrderTableList/>}/>
+            </Route>
           </Routes>
         </AuthProvider>
+        
       </Router>
+      
     </div>
   )
 }

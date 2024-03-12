@@ -73,3 +73,36 @@ export const STORE_BOTTOM_SIDE_BAR_LINK=[
         icon:<HiLogout />
     }
 ]
+
+export const TABS_ORDER=[
+    {
+        key:'confirming',
+        label:'Chờ xác nhận',
+        path:'/order/confirming',
+        icon:<HiCreditCard/>
+    },
+    {
+        key:'preparing',
+        label:'Đang chuẩn bị',
+        path:'/order/preparing',
+        icon:<HiCreditCard/>
+    },
+    {
+        key:'delivering',
+        label:'Chờ giao hàng',
+        path:'/order/delivering',
+        icon:<HiCreditCard/>
+    },
+    {
+        key:'completed',
+        label:'Hoàn thành',
+        path:'/order/completed',
+        icon:<HiCreditCard/>
+    },
+    {
+        key:'reject',
+        label:'Đã hủy',
+        path:'/order/reject',
+        icon:<HiCreditCard/>
+    }
+]
