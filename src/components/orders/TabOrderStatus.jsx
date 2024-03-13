@@ -4,15 +4,15 @@ import classNames from "classnames";
 import { TABS_ORDER } from "../../libs/constants/navigation";
 
 
-const propertiesActive='inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg dark:text-blue-500 dark:border-blue-500'
-const propertiesInActivce='inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+const propertiesCommom='inline-block p-4 border-b-2 rounded-t-lg'
+const propertiesActive=' text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500'
+const propertiesInActivce='  border-transparent  hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
 function TabsNavigate({item}){
-    const {pathName}= useLocation();
+    const {pathname}= useLocation();
     return (
         
-    <Link to={item.path} className={classNames(pathName===item.path?propertiesActive : propertiesInActivce)}>
+    <Link to={item.path} className={classNames(pathname===item.path?propertiesActive : propertiesInActivce,propertiesCommom)}>
             {item.label}
-            {console.log("TCheck:",pathName===item.path?'true':'false')}
     </Link>
     )
 }
@@ -35,18 +35,6 @@ export default function TabOrderStatus() {
                 ))
             }
         </li>
-        {/* <li className="me-2">
-            <a href="#" className="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Đã xác nhận</a>
-        </li>
-        <li className="me-2">
-            <a href="#" className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Đã hoàn thành</a>
-        </li>
-        <li className="me-2">
-            <a href="#" className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Tất cả đơn</a>
-        </li>
-        <li>
-            <a className="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
-        </li> */}
     </ul>
 </div>
 

@@ -5,9 +5,6 @@ import "./assets/styles/tailwind.css";
 import Admin from "./layouts/Admin";
 import Auth from "./layouts/Auth";
 import {AuthProvider} from './views/auth/AuthProvider';
-
-// views without layouts
-//import Login from "./views/auth/Login";
 import Dashboard from "./views/admin/Dashboard";
 import Maps from "./views/admin/Maps";
 import Settings from "./views/admin/Settings";
@@ -17,6 +14,7 @@ import ProductItemTemp from "./components/menus/ProductItemTemp";
 import CreateMenuPage from "./views/menu/CreateMenuPage";
 import OrderMainPage from "./views/order/OrderMainPage";
 import OrderTableList from "./views/order/OrderTableList";
+import OrderConfirmTable from "./views/order/OrderConfirmTable";
 
 
 function App() {
@@ -37,8 +35,7 @@ function App() {
             <Route path="/productitemtemp" element={<ProductItemTemp/>}/>
             <Route path="/menu" element={<CreateMenuPage/>}/>
             <Route path="/order" element={<OrderMainPage/>}>
-              {/* <Route index element={<OrderMainPage/>}/> */}
-              <Route path="confirming" index element={<OrderTableList/>}/>
+              <Route path="confirming" index element={<OrderConfirmTable/>}/>
               <Route path="preparing" element={<OrderTableList/>}/>
               <Route path="delivering" element={<OrderTableList/>}/>
               <Route path="completed" element={<OrderTableList/>}/>
