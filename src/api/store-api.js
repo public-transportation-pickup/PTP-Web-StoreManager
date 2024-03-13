@@ -10,5 +10,6 @@ export async function getStoreByUserId() {
     .catch((err) => {
       console.log(err.message);
     });
+
   return response.data;
 }

@@ -3,6 +3,7 @@
 import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../libs/Commons/UseLocalStorage";
+import PropTypes from 'prop-types';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -37,3 +38,8 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+
+AuthProvider.propTypes={
+  children:PropTypes.any
+}
+
