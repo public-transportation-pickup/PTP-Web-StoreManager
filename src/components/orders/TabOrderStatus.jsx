@@ -31,7 +31,10 @@ export default function TabOrderStatus() {
         <li className="me-2">
             {
                 TABS_ORDER.map((tab)=>(
-                    <TabsNavigate key={tab.key} item={tab}/>
+                    <div key={tab.key}>
+                        <TabsNavigate item={tab}/>
+                    </div>
+                    
                 ))
             }
         </li>

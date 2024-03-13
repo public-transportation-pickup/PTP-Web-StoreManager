@@ -51,9 +51,9 @@ export default function OrderDeliveryTable() {
                             09:00
                         </td>
                         <td className="px-6 py-4 border border-slate-300">
-                            <div>
+                            <div className="flex gap-3">
                                 <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Đã giao</button>
-                                <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button>
+                                <button className=" bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button>
                             </div>
                         </td>
                     </tr>

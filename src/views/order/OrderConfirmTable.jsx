@@ -1,6 +1,19 @@
+import { useState } from "react";
+import Note from "../../components/shared/Note";
 
 
 export default function OrderConfirmTable() {
+    const [orderConfirmModal,setOrderConfirmModal]=useState({
+        id:'',
+        cancelReason:'',
+        status:''
+    })
+    console.log("orderConfirmModal",orderConfirmModal);
+    const handleReason=async(value)=>{
+        console.log("Reason value on order confirm table:",value);
+        await setOrderConfirmModal({...orderConfirmModal, cancelReason:value})
+        
+    }
   return (
     <div className="flex flex-col gap-4">
         <div className="w-full">
@@ -53,8 +66,8 @@ export default function OrderConfirmTable() {
                             <td className="px-6 py-4 border border-slate-300">
                                 <div className="flex gap-3">
                                     <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
-                                    <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button>
-
+                                    {/* <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button> */}
+                                    <Note button="Hủy đơn" noteStringFunc={handleReason}/>
                                 </div>
                             </td>
                         </tr>
