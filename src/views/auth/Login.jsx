@@ -16,7 +16,7 @@ function Login() {
 // -----
 
   const formik = useFormik({
-    initialValues: {email: "store118@gmail.com", password: "@Abcaz12345"} ,
+    initialValues: {email: "store70@gmail.com", password: "@Abcaz12345"} ,
     validate: (values) => {
       let errors = {};
       if (!values.email) {
@@ -43,8 +43,8 @@ function Login() {
           if(model.email.includes('store')){
             const userCredential= await signInWithEmailAndPassword(auth, model.email, model.password)
             // Signed up 
-            //const user = userCredential.user;
-            // console.log("user credetial:",userCredential.user.accessToken);
+           // const user = userCredential.user;
+             console.log("user credetial:",userCredential.user.accessToken);
             
             requestLogin(
               userCredential.user.accessToken,

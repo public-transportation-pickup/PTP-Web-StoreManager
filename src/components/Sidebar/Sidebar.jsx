@@ -140,21 +140,21 @@ function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/tables") !== -1
+                    (window.location.href.indexOf("/admin/menus") !== -1
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/admin/tables"
+                  to="/admin/menus"
                 >
                   <i
                     className={
                       "fas fa-table mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/tables") !== -1
+                      (window.location.href.indexOf("/admin/menus") !== -1
                         ? "opacity-75"
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Tables
+                  Menus
                 </Link>
               </li>
 
@@ -162,16 +162,16 @@ function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/tables") !== -1
+                    (window.location.href.indexOf("/admin/products") !== -1
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/admin/tables"
+                  to="/admin/products"
                 >
                   <i
                     className={
                       "fas fa-table mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/tables") !== -1
+                      (window.location.href.indexOf("/admin/products") !== -1
                         ? "opacity-75"
                         : "text-slate-300")
                     }

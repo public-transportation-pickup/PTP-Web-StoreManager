@@ -4,7 +4,7 @@ export const BASE_URL = "http://localhost:5066/api";
 
 const GetUser = () => {
   var user = localStorage.getItem("user");
-  return JSON.parse(user);
+  return JSON.stringify(user);
 };
 
 export const CURRENT_USER = GetUser();

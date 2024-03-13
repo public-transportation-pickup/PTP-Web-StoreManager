@@ -3,7 +3,7 @@ import { BASE_URL, CURRENT_USER } from "../libs/constants";
 import { GetLocalValue } from "../libs/Commons/UseLocalStorage";
 
 export async function getProductByStoreId(pageNumber) {
-  console.log(CURRENT_USER.token);
+  // console.log(CURRENT_USER.token);
   let STOREID = GetLocalValue("store").id;
   var response = await axios
     .get(

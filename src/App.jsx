@@ -8,13 +8,17 @@ import {AuthProvider} from './views/auth/AuthProvider';
 import Dashboard from "./views/admin/Dashboard";
 import Maps from "./views/admin/Maps";
 import Settings from "./views/admin/Settings";
-import Tables from "./views/admin/Tables";
+import Menus from "./views/admin/Menus";
+import Products from "./views/admin/Products";
 import PrivateRoutes from './views/auth/PrivateRoute';
 import ProductItemTemp from "./components/menus/ProductItemTemp";
 import CreateMenuPage from "./views/menu/CreateMenuPage";
 import OrderMainPage from "./views/order/OrderMainPage";
 import OrderTableList from "./views/order/OrderTableList";
 import OrderConfirmTable from "./views/order/OrderConfirmTable";
+import OrderPrepareTable from "./views/order/OrderPrepareTable";
+import OrderDeliveryTable from "./views/order/OrderDeliveryTable";
+import OrderCompleteTable from "./views/order/OrderCompleteTable";
 
 
 function App() {
@@ -29,16 +33,17 @@ function App() {
                 <Route path="/" index element={<Dashboard />} />
                 <Route path="/admin/maps" element={<Maps />} />
                 <Route path="/admin/settings" element={<Settings />} />
-                <Route path="/admin/tables" element={<Tables />} />
+                <Route path="/admin/products" element={<Products />} />
+                <Route path="/admin/menus" element={<Menus />} />
               </Route>
             </Route>
             <Route path="/productitemtemp" element={<ProductItemTemp/>}/>
             <Route path="/menu" element={<CreateMenuPage/>}/>
             <Route path="/order" element={<OrderMainPage/>}>
               <Route path="confirming" index element={<OrderConfirmTable/>}/>
-              <Route path="preparing" element={<OrderTableList/>}/>
-              <Route path="delivering" element={<OrderTableList/>}/>
-              <Route path="completed" element={<OrderTableList/>}/>
+              <Route path="preparing" element={<OrderPrepareTable/>}/>
+              <Route path="delivering" element={<OrderDeliveryTable/>}/>
+              <Route path="completed" element={<OrderCompleteTable/>}/>
               <Route path="reject" element={<OrderTableList/>}/>
             </Route>
           </Routes>

@@ -3,9 +3,9 @@
 export default function OrderConfirmTable() {
   return (
     <div className="flex flex-col gap-4">
-        <div className="w-full flex justify-between">
-            <div className="w-1/3 border border-indigo-300 p-4">
-            Hướng dẫn chung cho page:
+        <div className="w-full">
+            <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
+            <p>Hướng dẫn chung cho page:</p>
             <p>Vui lòng xác nhận các đơn hàng trước <strong>10:00</strong></p>
             </div>   
         </div>
@@ -51,7 +51,11 @@ export default function OrderConfirmTable() {
                                 09:00
                             </td>
                             <td className="px-6 py-4 border border-slate-300">
-                                <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
+                                <div className="flex gap-3">
+                                    <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
+                                    <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button>
+
+                                </div>
                             </td>
                         </tr>
                     
