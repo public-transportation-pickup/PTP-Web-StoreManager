@@ -44,11 +44,10 @@ function Login() {
             const userCredential= await signInWithEmailAndPassword(auth, model.email, model.password)
             // Signed up 
            // const user = userCredential.user;
-             console.log("user credetial:",userCredential.user.accessToken);
+            // console.log("user credetial:",userCredential.user.accessToken);
             
             requestLogin(
-              userCredential.user.accessToken,
-              'StoreManager'
+              userCredential.user.accessToken
             );
            
           }else{
