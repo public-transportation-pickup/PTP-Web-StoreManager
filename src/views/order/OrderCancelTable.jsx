@@ -5,11 +5,12 @@ export default function OrderCancelTable() {
     <div className="flex flex-col gap-4">
         <div className="w-full">
             <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
-            <p>Hướng dẫn chung cho page:</p>
+            <p className="text-xl underline">Hướng dẫn chung:</p>
             <p>Vui lòng xác nhận các đơn hàng trước <strong>10:00</strong></p>
             </div>   
         </div>
         <div>
+            <h2 className="pb-4 text-center text-2xl">Danh sách đơn hàng đã hủy</h2>
             <div className="relative overflow-x-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

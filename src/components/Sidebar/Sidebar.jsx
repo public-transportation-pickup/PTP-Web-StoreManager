@@ -122,7 +122,7 @@ function Sidebar() {
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/admin/settings"
+                  to="/order/confirming"
                 >
                   <i
                     className={
@@ -132,7 +132,7 @@ function Sidebar() {
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Settings
+                  Order
                 </Link>
               </li>
 

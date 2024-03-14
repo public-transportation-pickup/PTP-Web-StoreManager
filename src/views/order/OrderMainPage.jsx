@@ -4,7 +4,7 @@ import TabOrderStatus from "../../components/orders/TabOrderStatus";
 
 export default function OrderMainPage() {
   return (
-    <div className="">
+    <div className="relative h-full">
         <div>
             <TabOrderStatus/>
         </div>
