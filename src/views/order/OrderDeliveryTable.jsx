@@ -1,15 +1,29 @@
+import { useState } from "react";
+import Note from "../../components/shared/Note";
 
 
 export default function OrderDeliveryTable() {
+    const [orderDeliveryModal,setOrderDeliveryModal]=useState({
+        id:'',
+        cancelReason:'',
+        status:''
+    })
+    console.log("orderConfirmModal",orderDeliveryModal);
+    const handleReason=async(value)=>{
+        console.log("Reason value on order confirm table:",value);
+        await setOrderDeliveryModal({...orderDeliveryModal, cancelReason:value})
+        
+    }
   return (
     <div className="flex flex-col gap-4">
     <div className="w-full">
         <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
-        <p>Hướng dẫn chung cho page:</p>
+        <p className="text-xl underline">Hướng dẫn chung:</p>
         <p>Vui lòng xác nhận các đơn hàng trước <strong>10:00</strong></p>
         </div>   
     </div>
     <div>
+        <h2 className="pb-4 text-center text-2xl">Danh sách đơn hàng cần được giao</h2>
         <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -53,7 +67,8 @@ export default function OrderDeliveryTable() {
                         <td className="px-6 py-4 border border-slate-300">
                             <div className="flex gap-3">
                                 <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Đã giao</button>
-                                <button className=" bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button>
+                                {/* <button className=" bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button> */}
+                                <Note button="Hủy đơn" noteStringFunc={handleReason}/>
                             </div>
                         </td>
                     </tr>
