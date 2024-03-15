@@ -9,39 +9,38 @@ export default function CreateModal({ title, isOpen, onClose = () => {}, childre
     return(
         <>
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog
-                    as="div"
-                    className="w-1/3 h-full top-0 right-0 border-2 bg-slate-200 border-red-500 absolute z-[9999]"
-                    onClose={onClose}
-                >
-                    <Dialog.Overlay className="fixed inset-0 bg-black opacity-40 "  />
-                    <div className="min-h-screen  px-0 text-center">
-                    <span
-                        className="inline-block h-screen align-top"
-                        aria-hidden="true"
+                    <Dialog
+                        as="div"
+                        className="w-1/3 h-full top-0 right-0 border-2 bg-slate-200 border-red-500 fixed z-[9999]"
+                        onClose={onClose}
                     >
-                        &#8203;
-                    </span>
-                    <Transition.Child
-                        as={Fragment}
-                      
-                    >
-                        <div 
-                            className="inline-block w-full py-3  px-6  overflow-hidden
-                            text-left align-middle transition-all transform bg-white shadow-xl rounded-md
-                            border-2  border-red-500">
-                        <Dialog.Title
-                            as="h3"
-                            className="text-xl font-semibold leading-6 text-gray-700 mb-3"
+                        <Dialog.Overlay className="fixed inset-0 bg-black opacity-40 "  />
+                        <div className="min-h-screen  px-0 text-center">
+                        <span
+                            className="inline-block h-screen align-top"
+                            aria-hidden="true"
                         >
-                            {title}
-                        </Dialog.Title>
+                            &#8203;
+                        </span>
+                        <Transition.Child
+                            as={Fragment}
+                        
+                        >
+                            <div 
+                                className="inline-block w-full py-0  px-0  overflow-hidden
+                                text-left align-middle transition-all transform bg-white shadow-xl rounded-md">
+                            {/* <Dialog.Title
+                                as="h3"
+                                className="text-xl font-semibold leading-6 text-gray-700 mb-3"
+                            >
+                                {title}
+                            </Dialog.Title> */}
 
-                        {children}
+                            {children}
+                            </div>
+                        </Transition.Child>
                         </div>
-                    </Transition.Child>
-                    </div>
-                </Dialog>
+                    </Dialog>
             </Transition>
             
         </>

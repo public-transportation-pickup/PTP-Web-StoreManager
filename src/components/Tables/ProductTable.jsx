@@ -9,8 +9,7 @@ import { getCategories } from '../../api/category-api.js';
 import { getProductByStoreId } from "../../api/product-api.js";
 import { ToastContainer,toast } from "react-toastify";
 import CreateModal from "../Modals/Modal.jsx";
-import { ProductDialog } from "../Modals/Modal.jsx";
-
+import CreateProductPage from "../../views/product/CreateProductPage.jsx";
 function ProductTable() {
   //#region  Call Api
   const [categoriesState, requestCategories] = useAPIRequest(getCategories);
@@ -21,12 +20,11 @@ function ProductTable() {
   const [categories,setCategories]=useState([]);
   const [products,setProducts]=useState([]);
  //#endregion
-  
+  const [product,setProduct]=useState(null);
   const [cateName,setCateName]=useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
-  const [showAdd, setShowAdd] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
 
   //#region Load page
   useEffect(() => {
@@ -62,6 +60,10 @@ function ProductTable() {
     }
  },[categoriesState]);
   
+const handleEdit=(product)=>{
+  setShowModal(true);
+  setProduct(product);
+};
 
 //#endregion
 
@@ -144,7 +146,7 @@ function ProductTable() {
                           key={p.id}
                           className=" w-full rounded-lg border-gray-200 border-b-2  dark:bg-neutral-700 flex flex-col  hover:bg-gray-200
                           has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200"
-                          onClick={()=>setShowAdd(true)}
+                          onClick={()=>handleEdit(p)}
                           >
                           <div className="flex flex-row">
                             <img
@@ -202,16 +204,16 @@ function ProductTable() {
           </table>
         </div>
       </div>
-      {/* <!-- Bottom Right Modal --> */}
-      {/* <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button> */}
-      {/* <ProductDialog
-        isOpen={showAdd}
-        setIsOpen={setShowAdd}/> */}
+      {/* <!--  Modal --> */}
         <CreateModal 
           title={'Product'}
-          isOpen={showAdd}
-          onClose={()=>setShowAdd(false)}
-          />
+          isOpen={showModal}
+          onClose={()=>setShowModal(false)}
+          >
+            <CreateProductPage
+              product={product}
+            />
+        </CreateModal>
     </>
   );
 }
