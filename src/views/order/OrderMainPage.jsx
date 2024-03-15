@@ -4,8 +4,8 @@ import TabOrderStatus from "../../components/orders/TabOrderStatus";
 
 export default function OrderMainPage() {
   return (
-    <div className="relative h-full">
-        <div>
+    <div className="relative h-full rounded-lg">
+        <div className="flex justify-center">
             <TabOrderStatus/>
         </div>
         <div className="pt-8">
