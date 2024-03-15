@@ -13,7 +13,7 @@ function HeaderStats() {
           <div>
             {/* Card stats */}
             {/* <div className="flex flex-wrap"> */}
-              {/* {pathname==="/"? ( */}
+              {pathname==="/"? (
                 <div className="flex flex-wrap">
                   <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
@@ -64,7 +64,7 @@ function HeaderStats() {
                 />
               </div>
                 </div>
-              {/* ):(<div></div>)} */}
+              ):(<div></div>)}
           </div>
         </div>
       </div>
