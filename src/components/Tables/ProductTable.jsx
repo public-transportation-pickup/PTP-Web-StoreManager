@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useEffect } from "react";
 
 // components
@@ -9,21 +9,32 @@ import { getCategories } from '../../api/category-api.js';
 import { getProductByStoreId } from "../../api/product-api.js";
 import { ToastContainer,toast } from "react-toastify";
 import CreateModal from "../Modals/Modal.jsx";
+import { ProductDialog } from "../Modals/Modal.jsx";
 
 function ProductTable() {
+  //#region  Call Api
   const [categoriesState, requestCategories] = useAPIRequest(getCategories);
-  const [categories,setCategories]=useState([]);
   const [productsState, requestProducts] = useAPIRequest(getProductByStoreId);
+ //#endregion
+ 
+ //#region Set List
+  const [categories,setCategories]=useState([]);
   const [products,setProducts]=useState([]);
+ //#endregion
+  
+  const [cateName,setCateName]=useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
-
   const [showAdd, setShowAdd] = useState(false);
-  const [product,setProduct]=useState();
+
+
   //#region Load page
   useEffect(() => {
-      requestProducts(currentPage);
-  }, [currentPage]);
+    requestProducts({
+      name:cateName,
+      pageNumber:currentPage
+    });
+  }, [cateName,currentPage]);
 
   useEffect(() => {
       requestCategories();
@@ -51,14 +62,13 @@ function ProductTable() {
     }
  },[categoriesState]);
   
+
 //#endregion
 
   return (
     <>
 
-      <CreateModal title="Add Product" isOpen={showAdd}>
 
-      </CreateModal>
 
       <ToastContainer className="w-100 h-10"/>
       <div
@@ -98,7 +108,8 @@ function ProductTable() {
                             className="relative flex flex-row w-full font-medium
                             border-b border-gray-200 rounded hover:bg-gray-200 
                             has-[:checked]:bg-purple-300 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200"
-                          >
+                            onClick={()=>setCateName(c.name)}
+                         >
                             <div className="w-full border-0 flex flex-row " >
                               <img
                                 src={c.imageURL}
@@ -192,23 +203,15 @@ function ProductTable() {
         </div>
       </div>
       {/* <!-- Bottom Right Modal --> */}
-<>
-
-{/* <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button> */}
-{/* <dialog id="my_modal_2" className="modal w-max h-screen">
-  <div
-    className="mb-2 border-2 bg-slate-200 border-red-500 w-1/3 h-full fixed top-0 right-0"
-  >
-    <div className="modal-box">
-      <h3 className="font-bold text-lg">Hello!</h3>
-      <p className="py-4">Press ESC key or click outside to close</p>
-    </div>
-    <form method="dialog" className="modal-backdrop">
-      <button>close</button>
-    </form>
-  </div>
-</dialog> */}
-</>
+      {/* <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button> */}
+      {/* <ProductDialog
+        isOpen={showAdd}
+        setIsOpen={setShowAdd}/> */}
+        <CreateModal 
+          title={'Product'}
+          isOpen={showAdd}
+          onClose={()=>setShowAdd(false)}
+          />
     </>
   );
 }

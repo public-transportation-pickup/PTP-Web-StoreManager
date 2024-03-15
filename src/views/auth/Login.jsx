@@ -5,7 +5,6 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Actions,useAPIRequest } from '../../libs/Commons/api-request.js';
 import { authentication } from '../../api/auth-api.js';
-import React from 'react';
 import { useFormik } from "formik";
 
 import {useAuth} from './AuthProvider.jsx';
@@ -17,7 +16,7 @@ function Login() {
 // -----
 
   const formik = useFormik({
-    initialValues: {email: "store70@gmail.com", password: "@Abcaz12345"} ,
+    initialValues: {email: "store91@gmail.com", password: "@Abcaz12345"} ,
     validate: (values) => {
       let errors = {};
       if (!values.email) {
@@ -44,12 +43,11 @@ function Login() {
           if(model.email.includes('store')){
             const userCredential= await signInWithEmailAndPassword(auth, model.email, model.password)
             // Signed up 
-            const user = userCredential.user;
+           // const user = userCredential.user;
             // console.log("user credetial:",userCredential.user.accessToken);
-            
+          
             requestLogin(
-              userCredential.user.accessToken,
-              'StoreManager'
+              userCredential.user.accessToken
             );
            
           }else{
@@ -68,7 +66,6 @@ function Login() {
       formik.setSubmitting(false);
     }
     if (loginState.status === Actions.success) {
-
       login(loginState.payload);
       //console.log("Login ok");
     }
@@ -136,7 +133,7 @@ function Login() {
                       name='email'
                       value={formik.values.email}
                       onChange={formik.handleChange}
-                      error={formik.errors.email}
+                      //error={formik.errors.email}
                       // onChange={handleChange}
                     />         
                   </div>
@@ -158,7 +155,7 @@ function Login() {
                       name='password'
                       value={formik.values.password}
                       onChange={formik.handleChange}
-                      error={formik.errors.password}
+                      //error={formik.errors.password}
                     />
                   </div>
                   <div>

@@ -4,14 +4,14 @@ import { Fragment } from "react";
 
 
 export default function CreateModal({ title, isOpen, onClose = () => {}, children }){
-console.log(isOpen);
+// console.log(isOpen);
 
     return(
         <>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog
                     as="div"
-                    className="w-1/3 h-full fixed top-0 right-0 border-2 bg-slate-200 border-red-500"
+                    className="w-1/3 h-full top-0 right-0 border-2 bg-slate-200 border-red-500 absolute z-[9999]"
                     onClose={onClose}
                 >
                     <Dialog.Overlay className="fixed inset-0 bg-black opacity-40 "  />
@@ -46,4 +46,27 @@ console.log(isOpen);
             
         </>
     );
+
+
 }
+
+
+export function ProductDialog({setIsOpen,isOpen}){
+    return(
+        <>
+        <dialog className="absolute  modal w-max h-screen z-[9999]" open={isOpen}>
+          <div
+            className="mb-2 border-2 bg-slate-200 border-red-500 w-1/3 h-full fixed top-0 right-0"
+          >
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">Hello!</h3>
+              <p className="py-4">Press ESC key or click outside to close</p>
+            </div>
+              <button onClick={()=>setIsOpen(false)}>close</button>
+          </div>
+        </dialog>
+        </>
+    );
+    return ProductDialog;
+}
+
