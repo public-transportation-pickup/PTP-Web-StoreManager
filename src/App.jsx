@@ -14,11 +14,12 @@ import PrivateRoutes from './views/auth/PrivateRoute';
 import ProductItemTemp from "./components/menus/ProductItemTemp";
 import CreateMenuPage from "./views/menu/CreateMenuPage";
 import OrderMainPage from "./views/order/OrderMainPage";
-import OrderTableList from "./views/order/OrderTableList";
+//import OrderTableList from "./views/order/OrderTableList";
 import OrderConfirmTable from "./views/order/OrderConfirmTable";
 import OrderPrepareTable from "./views/order/OrderPrepareTable";
 import OrderDeliveryTable from "./views/order/OrderDeliveryTable";
 import OrderCompleteTable from "./views/order/OrderCompleteTable";
+import OrderCancelTable from "./views/order/OrderCancelTable";
 
 
 function App() {
@@ -35,17 +36,20 @@ function App() {
                 <Route path="/admin/settings" element={<Settings />} />
                 <Route path="/admin/products" element={<Products />} />
                 <Route path="/admin/menus" element={<Menus />} />
+                {/* url order */}
+                <Route path="order" element={<OrderMainPage/>}>
+                  <Route path="confirming" element={<OrderConfirmTable/>}/>
+                  <Route path="preparing" element={<OrderPrepareTable/>}/>
+                  <Route path="delivering" element={<OrderDeliveryTable/>}/>
+                  <Route path="completed" element={<OrderCompleteTable/>}/>
+                  <Route path="reject" element={<OrderCancelTable/>}/>
+                </Route>
               </Route>
             </Route>
             <Route path="/productitemtemp" element={<ProductItemTemp/>}/>
             <Route path="/menu" element={<CreateMenuPage/>}/>
-            <Route path="/order" element={<OrderMainPage/>}>
-              <Route path="confirming" index element={<OrderConfirmTable/>}/>
-              <Route path="preparing" element={<OrderPrepareTable/>}/>
-              <Route path="delivering" element={<OrderDeliveryTable/>}/>
-              <Route path="completed" element={<OrderCompleteTable/>}/>
-              <Route path="reject" element={<OrderTableList/>}/>
-            </Route>
+
+           
           </Routes>
         </AuthProvider>
         

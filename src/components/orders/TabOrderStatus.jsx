@@ -23,12 +23,12 @@ TabsNavigate.propTypes={
 
 export default function TabOrderStatus() {
   return (
-    <div>
+    <div className="">
         
 
 <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-    <ul className="flex flex-wrap -mb-px">
-        <li className="me-2">
+    <ul className="flex flex-wrap -px">
+        <li className="me-2 flex flex-row">
             {
                 TABS_ORDER.map((tab)=>(
                     <div key={tab.key}>
