@@ -16,7 +16,7 @@ function Login() {
 // -----
 
   const formik = useFormik({
-    initialValues: {email: "store70@gmail.com", password: "@Abcaz12345"} ,
+    initialValues: {email: "store91@gmail.com", password: "@Abcaz12345"} ,
     validate: (values) => {
       let errors = {};
       if (!values.email) {
@@ -45,7 +45,7 @@ function Login() {
             // Signed up 
            // const user = userCredential.user;
             // console.log("user credetial:",userCredential.user.accessToken);
-            
+          
             requestLogin(
               userCredential.user.accessToken
             );
@@ -66,7 +66,6 @@ function Login() {
       formik.setSubmitting(false);
     }
     if (loginState.status === Actions.success) {
-
       login(loginState.payload);
       //console.log("Login ok");
     }
