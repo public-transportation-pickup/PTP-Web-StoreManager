@@ -32,3 +32,7 @@ export async function getProductByStoreId(param) {
     });
   return response.data;
 }
+
+export async function UpdateProduct(product) {
+  console.log(product);
+}

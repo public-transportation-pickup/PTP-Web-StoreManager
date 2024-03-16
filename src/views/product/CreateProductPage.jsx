@@ -1,15 +1,19 @@
-import { useEffect,useState } from "react";
+import { useEffect,useState,useRef } from "react";
 import { useFormik } from "formik";
 import { ToastContainer,toast } from "react-toastify";
 import {Actions, useAPIRequest } from '../../libs/Commons/api-request.js';
 //#region  Components
 import { getCategories } from '../../api/category-api.js';
-
+import { UpdateProduct } from "../../api/product-api.js";
 //#endregion
-export default function CreateProductPage({product}) {
-    console.log(product);
-    //#region Call api
 
+
+
+  
+export default function CreateProductPage({product}) {
+    // console.log(product);
+    //#region Call api
+    const [updateState,requestUpdate]= useAPIRequest(UpdateProduct);
     const [categoriesState, requestCategories] = useAPIRequest(getCategories);
 
     //#endregion
@@ -46,16 +50,75 @@ export default function CreateProductPage({product}) {
         validateOnBlur: false,
         validateOnChange: false,
         onSubmit: (values) => {
-          requestSave(values);
+          requestUpdate(values);
         },
       });
 
+      const uploadInputRef = useRef(null);
+      const filenameLabelRef = useRef(null);
+      const imagePreviewRef = useRef(null);
+    
+      let isEventListenerAdded = false;
+    
+      useEffect(() => {
+        const uploadInput = uploadInputRef.current;
+        const filenameLabel = filenameLabelRef.current;
+        const imagePreview = imagePreviewRef.current;
+    
+        uploadInput.addEventListener('change', (event) => {
+          const file = event.target.files[0];
+    
+          if (file) {
+             filenameLabel.textContent = file.name;
+             formik.setFieldValue("file", file)
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              imagePreview.innerHTML =
+                `<img src="${e.target.result}" class="h-full rounded-lg mx-auto" alt="Image preview" />`;
+              imagePreview.classList.remove('border-dashed', 'border-2', 'border-gray-400');
+    
+              // Add event listener for image preview only once
+              if (!isEventListenerAdded) {
+                imagePreview.addEventListener('click', () => {
+                  uploadInput.click();
+                });
+    
+                isEventListenerAdded = true;
+              }
+            };
+            reader.readAsDataURL(file);
+          } else {
+            formik.unregisterField('file');
+            filenameLabel.textContent = '';
+            imagePreview.innerHTML =
+              `<div class="bg-gray-200 h-full w-full my-auto  rounded-lg flex items-center justify-center text-gray-500">No image preview</div>`;
+            //imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
+    
+            // Remove the event listener when there's no image
+            imagePreview.removeEventListener('click', () => {
+              uploadInput.click();
+            });
+            
+            isEventListenerAdded = false;
+          }
+        });
+    
+        uploadInput.addEventListener('click', (event) => {
+          event.stopPropagation();
+        });
+    
+        return () => {
+          uploadInput.removeEventListener('change', () => {});
+          uploadInput.removeEventListener('click', () => {});
+          imagePreview.removeEventListener('click', () => {});
+        };
+      }, []);
 
     return (
     <div className="flex flex-row ">
         <div className="w-full ">
             <section className="bg-white dark:bg-gray-900 h-screen overflow-y-scroll  ">
-                <h2 className="mb-0 py-2 px-4 text-xl font-bold text-gray-900 dark:text-white sticky top-0 bg-slate-200 ">{product===null? 'Tạo mới sản phẩm':'Cập nhật thông tin sản phẩm'}</h2>
+                <h2 className="mb-0 py-2 px-4 text-xl font-bold text-gray-900 dark:text-white sticky top-0 bg-slate-200 ">{product.id===undefined? 'Tạo mới sản phẩm':'Cập nhật thông tin sản phẩm'}</h2>
                 <div className="py-8 px-4 mx-auto max-w-2xl lg:py-6  ">       
                     <form  onSubmit={formik.handleSubmit} >
                         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
@@ -96,8 +159,7 @@ export default function CreateProductPage({product}) {
                                         }
                                     )}
                                 </select>
-                            </div>
-                            
+                            </div>                          
                             <div className="w-full">
                                 <label htmlFor="ManufacturingDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày sản xuất</label>
                                 <input 
@@ -118,7 +180,6 @@ export default function CreateProductPage({product}) {
                                     onChange={formik.handleChange}   
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1-2-2002" required=""/>
                             </div>
-
                             <div className="w-full">
                                 <label htmlFor="preparetime" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Thời gian chuẩn bị</label>
                                 <input type="number" 
@@ -139,7 +200,6 @@ export default function CreateProductPage({product}) {
                                     onChange={formik.handleChange}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nhập số lượng . . ." required=""/>
                             </div>
-                           
                             <div className="sm:col-span-2">
                                 <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mô tả</label>
                                 <textarea 
@@ -151,23 +211,59 @@ export default function CreateProductPage({product}) {
                                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Your description here"></textarea>
                             </div>
                         </div>
-                        <div className="flex items-center justify-center w-full pt-9 ">
-                            <label htmlFor="dropzone-file" className=" flex flex-col items-center justify-center w-full h-52 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                <div className="flex flex-col items-center justify-center py-5 ">
-                                    <svg className="w-8 h-8 mb-4  text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                        <path stroke="currentColor"  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                    </svg>
-                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                                </div>
-                                <input id="dropzone-file" type="file" className="hidden" />
-                                Hình ảnh
-                            </label>
-                        </div> 
+                                          
+                        <section className="container w-full mx-auto items-center mt-9 ">
+                            <div className="w-full h-52 mx-auto bg-white rounded-lg shadow-md overflow-hidden items-center border-dashed border-2 border-gray-400">
+                                <div id="image-preview"  ref={imagePreviewRef} className="w-full h-52 p-8 mb-0 bg-gray-100  rounded-lg items-center mx-auto text-center cursor-pointer">
+                                    <input id="upload" type="file" className="hidden"  accept="image/*" ref={uploadInputRef} />
+                                    {product.imageURL===null?
+                                        <>
+                                            <label htmlFor="upload" className="cursor-pointer">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 text-gray-700 mx-auto mb-4">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                                                </svg>
+                                                <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
+                                                <p className="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be less than <b className="text-gray-600">2mb</b></p>
+                                                <p className="font-normal text-sm text-gray-400 md:px-6">and should be in <b className="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                                            </label>
+                                        </>
+                                        :
+                                        <>
+                                            <label htmlFor="upload" className="cursor-pointer">
+                                                <img src={product.imageURL} className="h-full rounded-lg mx-auto" alt="Image preview" />
+                                            </label>
+                                        </>
+                                    }
 
-                        <button type="button" className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-blue-50 bg-blue-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                            Add product
-                        </button>
+                                    
+                                </div>
+                            </div>
+                        </section>
+                        <div className="flex items-center text-center justify-center w-full pt-2" >
+                            <span id="filename"  className="text-gray-500 " ref={filenameLabelRef} >{product===null?'':product.imageName}</span>
+                        </div>
+                        
+                        {product.id===undefined?
+                        <>
+                            <button type="submit"
+                                className=" w-full text-center px-5 py-2.5 mt-4 sm:mt-6 text-base font-medium  text-white border-2 border-gray-400 bg-green-500
+                                        rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">      
+                                Tạo mới sản phẩm
+                            </button>
+                        </>
+                        :
+                        <>
+                            <button type="submit"
+                                className=" w-full text-center px-5 py-2 mt-4 sm:mt-6 text-base font-medium  text-green-500 border-2 border-gray-400
+                                        rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">      
+                                Lưu thông tin
+                            </button>
+                            <button type="submit"
+                                className=" w-full text-center px-5 py-2 mt-1 sm:mt-1 text-base font-medium  text-white border-2 border-gray-400 bg-red-500
+                                        rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">      
+                                Xóa sản phẩm
+                            </button>
+                        </>}
                     </form>
                 </div>
             </section>
@@ -176,6 +272,8 @@ export default function CreateProductPage({product}) {
         
         </div>
     </div>
+    
+
     )
 }
-  
+
