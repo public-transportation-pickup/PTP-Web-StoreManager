@@ -14,6 +14,7 @@ import PrivateRoutes from './views/auth/PrivateRoute';
 import ProductItemTemp from "./components/menus/ProductItemTemp";
 import CreateMenuPage from "./views/menu/CreateMenuPage";
 import OrderMainPage from "./views/order/OrderMainPage";
+import CreateProductPage from "./views/product/CreateProductPage";
 //import OrderTableList from "./views/order/OrderTableList";
 import OrderConfirmTable from "./views/order/OrderConfirmTable";
 import OrderPrepareTable from "./views/order/OrderPrepareTable";
@@ -49,7 +50,7 @@ function App() {
                 </Route>
               </Route>
             </Route>
-            <Route path="/productitemtemp" element={<ProductItemTemp/>}/>
+            <Route path="/productitemtemp" element={<CreateProductPage/>}/>
             <Route path="/menu" element={<CreateMenuPage/>}/>
             <Route path="/textpage" element={<TextPage/>}/>
            

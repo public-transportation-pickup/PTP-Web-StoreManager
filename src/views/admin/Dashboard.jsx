@@ -6,7 +6,7 @@ import { useLocalStorage } from "../../libs/Commons/UseLocalStorage";
 
 // import CardLineChart from "../../components/Cards/CardLineChart";
 import { ToastContainer,toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import CardBarChart from "../../components/Cards/CardBarChart";
 import CardPageVisits from "../../components/Cards/CardPageVisits";
 import CardSocialTraffic from "../../components/Cards/CardSocialTraffic";
@@ -15,21 +15,27 @@ function Dashboard() {
   const [store,setStore]=useState();
   const [storeState,requestStore]=useAPIRequest(getStoreByUserId);
   const [storeLocal, setStoreLocal] = useLocalStorage("store", null);
-  
+
 
   useEffect(()=>{
+    console.log('oke');
     requestStore();
   },[]);
 
   useEffect(()=>{
-    if(storeState.status==Actions.success){
+    if(storeState.status==Actions.success ){
       setStore(storeState.payload);
       setStoreLocal(storeState.payload);
     }
-    if(storeState.status==Actions.failure){
-      toast.warning("Loading store fail!",{autoClose:900});
-    }
+
   },[storeState]);
+
+  useEffect(()=>{
+    if(storeState.status==Actions.success ){
+      setStoreLocal(storeState.payload);
+    }
+
+  },[storeState.payload]);
 
   return (
     <>

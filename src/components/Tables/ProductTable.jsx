@@ -9,21 +9,46 @@ import { getCategories } from '../../api/category-api.js';
 import { getProductByStoreId } from "../../api/product-api.js";
 import { ToastContainer,toast } from "react-toastify";
 import CreateModal from "../Modals/Modal.jsx";
+import CreateProductPage from "../../views/product/CreateProductPage.jsx";
+
+export const initialProductData = {
+  categoryId:undefined,
+  name:'',
+  numProcessParallel:1,
+  preparationTime:1,
+  price:1,
+  expirationDate:'2024-03-23T00:00:00',
+  manufacturingDate:'2024-03-23T00:00:00',
+  id:undefined,
+  description:'',
+  imageURL:null
+};
+
+
 
 function ProductTable() {
+  //#region  Call Api
   const [categoriesState, requestCategories] = useAPIRequest(getCategories);
-  const [categories,setCategories]=useState([]);
   const [productsState, requestProducts] = useAPIRequest(getProductByStoreId);
+ //#endregion
+ 
+ //#region Set List
+  const [categories,setCategories]=useState([]);
   const [products,setProducts]=useState([]);
+ //#endregion
+  const [product,setProduct]=useState(null);
+  const [cateName,setCateName]=useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
+  const [showModal, setShowModal] = useState(false);
 
-  const [showAdd, setShowAdd] = useState(false);
-  const [product,setProduct]=useState();
   //#region Load page
   useEffect(() => {
-      requestProducts(currentPage);
-  }, [currentPage]);
+    requestProducts({
+      name:cateName,
+      pageNumber:currentPage
+    });
+  }, [cateName,currentPage]);
 
   useEffect(() => {
       requestCategories();
@@ -51,22 +76,55 @@ function ProductTable() {
     }
  },[categoriesState]);
   
+const handleEdit=(product)=>{
+  setShowModal(true);
+  setProduct(product);
+};
+
+const handleAdd=()=>{
+  setShowModal(true);
+  setProduct(initialProductData);
+};
 //#endregion
 
   return (
     <>
-
-      <CreateModal title="Add Product" isOpen={showAdd}>
-
-      </CreateModal>
-
       <ToastContainer className="w-100 h-10"/>
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded h-screen" 
         }
       >
-        <div className="block w-full overflow-x-auto  ">
+
+        <div className="rounded-t px-4 py-2 border-0 ">
+          <div className="flex flex-row items-center w-fit float-right">
+           
+            <div className="relative w-full px-0 max-w-full flex-grow flex-1 ">
+              <form className="w-96">   
+                  <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                  <div className="relative">
+                      <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                          <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                          </svg>
+                      </div>
+                      <input type="search" id="default-search" className="block w-full p-[0.55rem] ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tìm theo tên sản phẩm ..." required />
+                      <button type="submit" className="text-white absolute end-[0.1rem] bottom-[0.12rem] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                  </div>
+              </form>  
+            </div>
+
+            <div className="relative w-fit px-2 max-w-fit flex-grow flex-1">
+              <button 
+              onClick={()=>handleAdd()}
+              className="bg-transparent text-base font-medium  text-gray-400  py-[0.4rem] px-4 border border-gray-300 hover:border-blue-400 rounded">
+                Thêm mới
+              </button>   
+            </div>
+
+          </div>
+        </div>
+        <div className="block w-full overflow-x-auto">
           {/* Projects table */}
           <table className="items-center w-full bg-transparent border-collapse h-screen">
             <thead>
@@ -97,8 +155,9 @@ function ProductTable() {
                             key={c.id}
                             className="relative flex flex-row w-full font-medium
                             border-b border-gray-200 rounded hover:bg-gray-200 
-                            has-[:checked]:bg-purple-300 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200"
-                          >
+                            has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200"
+                            onClick={()=>setCateName(c.name)}
+                         >
                             <div className="w-full border-0 flex flex-row " >
                               <img
                                 src={c.imageURL}
@@ -133,7 +192,7 @@ function ProductTable() {
                           key={p.id}
                           className=" w-full rounded-lg border-gray-200 border-b-2  dark:bg-neutral-700 flex flex-col  hover:bg-gray-200
                           has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200"
-                          onClick={()=>setShowAdd(true)}
+                          onClick={()=>handleEdit(p)}
                           >
                           <div className="flex flex-row">
                             <img
@@ -191,24 +250,16 @@ function ProductTable() {
           </table>
         </div>
       </div>
-      {/* <!-- Bottom Right Modal --> */}
-<>
-
-{/* <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button> */}
-{/* <dialog id="my_modal_2" className="modal w-max h-screen">
-  <div
-    className="mb-2 border-2 bg-slate-200 border-red-500 w-1/3 h-full fixed top-0 right-0"
-  >
-    <div className="modal-box">
-      <h3 className="font-bold text-lg">Hello!</h3>
-      <p className="py-4">Press ESC key or click outside to close</p>
-    </div>
-    <form method="dialog" className="modal-backdrop">
-      <button>close</button>
-    </form>
-  </div>
-</dialog> */}
-</>
+      {/* <!--  Modal --> */}
+        <CreateModal 
+          title={'Product'}
+          isOpen={showModal}
+          onClose={()=>setShowModal(false)}
+          >
+            <CreateProductPage
+              product={product}
+            />
+        </CreateModal>
     </>
   );
 }
