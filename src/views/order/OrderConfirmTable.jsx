@@ -3,6 +3,7 @@ import Note from "../../components/shared/Note";
 
 
 export default function OrderConfirmTable() {
+    //status preparing
     const [orderConfirmModal,setOrderConfirmModal]=useState({
         id:'',
         cancelReason:'',
@@ -70,7 +71,8 @@ export default function OrderConfirmTable() {
                                 <p>Nên xác nhận trước 08:00</p>
                             </td>
                             <td className="px-6 py-4 border border-slate-300">
-                                Ghi chú
+                                <p>Số đt người đặt</p>
+                                <p>Note</p>
                             </td>
                             <td className="px-6 py-4 border border-slate-300">
                                 <div className="flex gap-3">

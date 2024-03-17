@@ -3,12 +3,6 @@
 export default function OrderCompleteTable() {
   return (
     <div className="flex flex-col gap-4">
-    <div className="w-full">
-        <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
-        <p className="text-xl underline">Hướng dẫn chung:</p>
-        <p>Vui lòng xác nhận các đơn hàng trước <strong>10:00</strong></p>
-        </div>   
-    </div>
     <div>
         <h2 className="pb-4 text-center text-2xl">Danh sách đơn hàng đã hoàn thành</h2>
         <div className="relative overflow-x-auto">
@@ -23,6 +17,9 @@ export default function OrderCompleteTable() {
                         </th>
                         <th scope="col" className="px-6 py-3 border border-slate-300">
                             Tổng thanh toán
+                        </th>
+                        <th scope="col" className="px-6 py-3 border border-slate-300">
+                            Ghi chú
                         </th>
                         <th scope="col" className="px-6 py-3 border border-slate-300">
                             Thời gian lấy ước tính
@@ -45,6 +42,10 @@ export default function OrderCompleteTable() {
                         </td>
                         <td className="px-6 py-4 border border-slate-300">
                                 Tổng giá
+                        </td>
+                        <td className="px-6 py-4 border border-slate-300">
+                            <p>Số đt người đặt</p>
+                            <p>Note</p>
                         </td>
                         <td className="px-6 py-4 border border-slate-300">
                             09:00

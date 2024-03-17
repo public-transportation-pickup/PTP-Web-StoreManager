@@ -63,12 +63,12 @@ function ProductTable() {
       <ToastContainer className="w-100 h-10"/>
       <div
         className={
-          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white" 
+          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded h-screen" 
         }
       >
-        <div className="block w-full overflow-x-auto">
+        <div className="block w-full overflow-x-auto  ">
           {/* Projects table */}
-          <table className="items-center w-full bg-transparent border-collapse">
+          <table className="items-center w-full bg-transparent border-collapse h-screen">
             <thead>
               <tr>
                 <th
@@ -88,7 +88,7 @@ function ProductTable() {
               </tr>
             </thead>
             <tbody>
-               <tr className="h-[32rem]">
+               <tr className="h-96 bg-white">
                 <th className="w-80 h-full border-t-0 align-top border-l-0 border-r-2 text-xs border border-gray-200 whitespace-nowrap text-left ">
                   <div className="flex h-[37rem] flex-col w-full overflow-y-scroll">
                     {categories.map((c)=>{

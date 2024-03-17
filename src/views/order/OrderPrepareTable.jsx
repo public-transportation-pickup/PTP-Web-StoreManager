@@ -3,6 +3,8 @@ import Note from "../../components/shared/Note";
 
 
 export default function OrderPrepareTable() {
+    //waiting -> preparing sẽ qua đây 
+    //status send Prepared
     const [orderPrepareModal,setOrderPrepareModal]=useState({
         id:'',
         cancelReason:'',
@@ -41,6 +43,9 @@ export default function OrderPrepareTable() {
                             Thời gian lấy ước tính
                         </th>
                         <th scope="col" className="px-6 py-3 border border-slate-300">
+                            Ghi chú
+                        </th>
+                        <th scope="col" className="px-6 py-3 border border-slate-300">
                             Trạng thái
                         </th>
                     </tr>
@@ -63,6 +68,10 @@ export default function OrderPrepareTable() {
                         </td>
                         <td className="px-6 py-4 border border-slate-300">
                             09:00
+                        </td>
+                        <td className="px-6 py-4 border border-slate-300">
+                            <p>Số đt người đặt</p>
+                            <p>Note</p>
                         </td>
                         <td className="px-6 py-4 border border-slate-300">
                             <div className="flex gap-3">
