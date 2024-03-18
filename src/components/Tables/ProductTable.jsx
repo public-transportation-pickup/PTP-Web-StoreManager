@@ -107,7 +107,7 @@ const handleSearch = () => {
         <ToastContainer className="w-100 h-10"/>
       <div
         className={
-          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded h-screen" 
+          "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded h-fit" 
         }
       >
 
@@ -147,7 +147,7 @@ const handleSearch = () => {
         </div>
         <div className="block w-full overflow-x-auto">
           {/* Projects table */}
-          <table className="items-center w-full bg-transparent border-collapse h-screen">
+          <table className="items-center w-full bg-transparent border-collapse h-fit">
             <thead>
               <tr>
                 <th
