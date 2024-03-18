@@ -258,6 +258,13 @@ const handleAdd=()=>{
           >
             <CreateProductPage
               product={product}
+              handleClose={()=>{
+                setShowModal(false)
+                requestProducts({
+                  name:cateName,
+                  pageNumber:currentPage
+                })
+              }}
             />
         </CreateModal>
     </>

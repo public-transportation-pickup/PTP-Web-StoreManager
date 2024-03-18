@@ -4,16 +4,18 @@ import { ToastContainer,toast } from "react-toastify";
 import {Actions, useAPIRequest } from '../../libs/Commons/api-request.js';
 //#region  Components
 import { getCategories } from '../../api/category-api.js';
-import { UpdateProduct } from "../../api/product-api.js";
+import { UpdateProduct,CreateProduct,DeleteProduct } from "../../api/product-api.js";
 //#endregion
 
 
 
   
-export default function CreateProductPage({product}) {
+export default function CreateProductPage({product,handleClose}) {
     // console.log(product);
     //#region Call api
     const [updateState,requestUpdate]= useAPIRequest(UpdateProduct);
+    const [createState,requestCreate]= useAPIRequest(CreateProduct);
+    const [deleteState,requestDelete]= useAPIRequest(DeleteProduct);
     const [categoriesState, requestCategories] = useAPIRequest(getCategories);
 
     //#endregion
@@ -36,7 +38,6 @@ export default function CreateProductPage({product}) {
         }
     },[categoriesState]);
 
-
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: { ...product },
@@ -50,10 +51,41 @@ export default function CreateProductPage({product}) {
         validateOnBlur: false,
         validateOnChange: false,
         onSubmit: (values) => {
-          requestUpdate(values);
+            if(values.id===undefined){
+                requestCreate(values);
+            }else{
+                requestUpdate(values);
+            }
         },
       });
 
+    useEffect(()=>{
+        if (updateState.status !== Actions.loading || createState.status!==Actions.loading ) {
+            formik.setSubmitting(false);
+        }
+
+        if ( updateState.status === Actions.success ||  createState.status === Actions.success) {
+            toast.success("Lưu thông tin thành công!",{autoClose:900});
+            handleClose();
+        }
+        
+    },[updateState,createState]);
+
+
+    useEffect(()=>{
+
+        if(deleteState.status === Actions.success){
+            toast.success("Xóa sản phẩm thành công!",{autoClose:900});
+            handleClose();
+        } 
+    },[deleteState]);
+
+
+    const handleDelete=(id)=>{
+        requestDelete(id)
+    };
+
+    //#region Input Image
       const uploadInputRef = useRef(null);
       const filenameLabelRef = useRef(null);
       const imagePreviewRef = useRef(null);
@@ -113,9 +145,11 @@ export default function CreateProductPage({product}) {
           imagePreview.removeEventListener('click', () => {});
         };
       }, []);
+    //#endregion
 
     return (
     <div className="flex flex-row ">
+        <ToastContainer className="w-100 h-10"/>
         <div className="w-full ">
             <section className="bg-white dark:bg-gray-900 h-screen overflow-y-scroll  ">
                 <h2 className="mb-0 py-2 px-4 text-xl font-bold text-gray-900 dark:text-white sticky top-0 bg-slate-200 ">{product.id===undefined? 'Tạo mới sản phẩm':'Cập nhật thông tin sản phẩm'}</h2>
@@ -258,7 +292,7 @@ export default function CreateProductPage({product}) {
                                         rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">      
                                 Lưu thông tin
                             </button>
-                            <button type="submit"
+                            <button onClick={()=>handleDelete(product.id)}
                                 className=" w-full text-center px-5 py-2 mt-1 sm:mt-1 text-base font-medium  text-white border-2 border-gray-400 bg-red-500
                                         rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">      
                                 Xóa sản phẩm
