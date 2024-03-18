@@ -21,6 +21,8 @@ import OrderPrepareTable from "./views/order/OrderPrepareTable";
 import OrderDeliveryTable from "./views/order/OrderDeliveryTable";
 import OrderCompleteTable from "./views/order/OrderCompleteTable";
 import OrderCancelTable from "./views/order/OrderCancelTable";
+import OrderAllTable from "./views/order/OrderAllTable";
+import TextPage from "./views/TextPage";
 
 
 function App() {
@@ -44,12 +46,13 @@ function App() {
                   <Route path="delivering" element={<OrderDeliveryTable/>}/>
                   <Route path="completed" element={<OrderCompleteTable/>}/>
                   <Route path="reject" element={<OrderCancelTable/>}/>
+                  <Route path="all" element={<OrderAllTable/>}/>
                 </Route>
               </Route>
             </Route>
             <Route path="/productitemtemp" element={<CreateProductPage/>}/>
             <Route path="/menu" element={<CreateMenuPage/>}/>
-
+            <Route path="/textpage" element={<TextPage/>}/>
            
           </Routes>
         </AuthProvider>

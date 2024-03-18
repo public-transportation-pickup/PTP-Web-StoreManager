@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 // components
 
@@ -15,20 +15,17 @@ import HeaderStats from "../components/Headers/HeaderStats";
 // import Tables from "views/admin/Tables.js";
 
 function Admin() {
+  const {pathname}=useLocation();
+  
   return (
-    <div className="flex flex-row">
+    <div className="h-screen flex flex-row">
       <div><Sidebar /></div>
-      <div className="md:ml-[220px] w-full bg-slate-100">
+      <div className=" h-full w-screen ml-56 bg-[#f7f7ff]">
         <AdminNavbar />
-        <div className="h-screen bg-fuchsia-50">
-           {/* Header */}
-          <HeaderStats />
-          <div className="px-4 md:px-10 mx-auto -m-28">
+           {pathname==="/"?(<HeaderStats />):(<></>)}
+          
+          <div className=" mx-auto -m-28">
             <Outlet />
-            {/* <div className="fixed bottom-0">
-            <FooterAdmin />
-            </div> */}
-          </div>
         </div>
       </div>
     </div>

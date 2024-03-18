@@ -1,10 +1,10 @@
 
 
-export default function OrderCancelTable() {
+export default function OrderAllTable() {
   return (
     <div className="flex flex-col gap-4">
         <div>
-            <h2 className="pb-4 text-center text-2xl">Danh sách đơn hàng đã hủy</h2>
+            <h2 className="pb-4 text-center text-2xl">Danh sách tất cả đơn hàng</h2>
             <div className="relative overflow-x-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -22,8 +22,9 @@ export default function OrderCancelTable() {
                                 Ghi chú
                             </th>
                             <th scope="col" className="px-6 py-3 border border-slate-300">
-                                Thời gian lấy ước tính
+                                Trạng thái
                             </th>
+                            
                         </tr>
                     </thead>
                     <tbody >
@@ -47,7 +48,7 @@ export default function OrderCancelTable() {
                                 <p>Note</p>
                             </td>
                             <td className="px-6 py-4 border border-slate-300">
-                                09:00
+                                <p><span className='bg-green-300 p-2 rounded-lg'>Completed</span></p>
                             </td>
                             
                         </tr>

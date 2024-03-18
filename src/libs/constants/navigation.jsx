@@ -104,5 +104,11 @@ export const TABS_ORDER=[
         label:'Đã hủy',
         path:'/order/reject',
         icon:<HiCreditCard/>
+    },
+    {
+        key:'all',
+        label:'Tất cả đơn',
+        path:'/order/all',
+        icon:<HiCreditCard/>
     }
 ]
