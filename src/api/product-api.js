@@ -12,7 +12,7 @@ export async function getProductByStoreId(param) {
     param.pageNumber +
     "&pageSize=5";
 
-  if (param.name !== null) {
+  if (param.cateName !== null && param.cateName !== undefined) {
     url =
       BASE_URL +
       "/stores/" +
@@ -21,8 +21,21 @@ export async function getProductByStoreId(param) {
       param.pageNumber +
       "&pageSize=5" +
       "&CategoryName=" +
-      param.name;
+      param.cateName;
   }
+
+  if (param.productName !== null && param.productName !== undefined) {
+    url =
+      BASE_URL +
+      "/stores/" +
+      STOREID +
+      "/products?pageNumber=0" +
+      param.pageNumber +
+      "&pageSize=5" +
+      "&Name=" +
+      param.productName;
+  }
+  console.log(url);
   var response = await axios
     .get(url, {
       headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
@@ -34,7 +47,6 @@ export async function getProductByStoreId(param) {
 }
 
 export async function UpdateProduct(product) {
-  console.log(product);
   var formData = new FormData();
   formData.append("Id", product.id);
   formData.append("CategoryId", product.categoryId);
@@ -60,14 +72,11 @@ export async function UpdateProduct(product) {
     .catch((error) => {
       console.error("There was an error!", error);
     });
-
-  console.log(response);
   return response;
 }
 
 export async function CreateProduct(product) {
   let STOREID = GetLocalValue("store").id;
-  console.log(product);
   var formData = new FormData();
   formData.append("CategoryId", product.categoryId);
   formData.append("Name", product.name);
@@ -98,7 +107,6 @@ export async function DeleteProduct(id) {
     .delete(BASE_URL + "/products/" + id, {
       headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
     })
-    .then(() => console.log("Deleted"))
     .catch((err) => {
       console.log(err.message);
     });
