@@ -35,7 +35,6 @@ export async function getProductByStoreId(param) {
       "&Name=" +
       param.productName;
   }
-  console.log(url);
   var response = await axios
     .get(url, {
       headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
@@ -72,6 +71,7 @@ export async function UpdateProduct(product) {
     .catch((error) => {
       console.error("There was an error!", error);
     });
+  // console.log("product-api: " + response);
   return response;
 }
 

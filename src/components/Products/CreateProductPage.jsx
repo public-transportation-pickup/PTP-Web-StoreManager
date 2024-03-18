@@ -56,9 +56,9 @@ export default function CreateProductPage({product,handleClose}) {
           if (!values.price || values.price === 0) {
             errors.price = "Please enter price.";
           }
-          if (!values.categoryId || values.categoryId==='Select category') {
-            errors.categoryId = "Please select category.";
-          }
+        //   if (!values.categoryId || values.categoryId==='Select category') {
+        //     errors.categoryId = "Please select category.";
+        //   }
           if (!values.description ) {
             errors.description = "Please enter description.";
           }
@@ -91,7 +91,7 @@ export default function CreateProductPage({product,handleClose}) {
             toast.success("Lưu thông tin thành công!",{autoClose:900});
             handleClose();
         }
-        else if(updateState.status === Actions.success && updateState.payload === undefined){
+        else if(updateState.status === Actions.failure){
             toast.warning("Lưu thông tin thất bại!",{autoClose:900})
         }
         
@@ -106,7 +106,7 @@ export default function CreateProductPage({product,handleClose}) {
             toast.success("Thêm sản phẩm thành công!",{autoClose:900});
             handleClose();
         }
-        else if( createState.status === Actions.success  && createState.payload === undefined){
+        else if( createState.status === Actions.failure ){
             toast.warning("Tạo sản phẩm thất bại!",{autoClose:900})
         }
         
