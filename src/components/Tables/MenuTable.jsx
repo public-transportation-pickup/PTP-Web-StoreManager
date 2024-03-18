@@ -114,7 +114,7 @@ const selectedDayMenus = menus.filter((menu) =>
         </div>
         <div className="block w-full overflow-x-auto">
             <div className="py-5">
-                <div className="max-w-md px-4 mx-auto sm:px-2 md:max-w-full md:px-3 mx-3 border-0 border-black">
+                <div className="max-w-md px-4 mx-auto sm:px-2 md:max-w-full md:px-3 border-0 border-black">
                     <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200 border-0 border-black">
                         <div className="py-2 lg:w-full lg:px-16 sm:px-0  border-0 border-red-600">
                             <div className="flex items-center border-0 border-blue-600">
