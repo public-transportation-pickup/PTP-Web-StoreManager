@@ -12,7 +12,8 @@ export const AuthProvider = ({ children }) => {
 
   // call this function when you want to authenticate the user
   const login = async (data) => {
-    //console.log(data);
+    // console.log(data);
+    localStorage.setItem("accessToken", data.token);
     setUser(data);
     navigate("/");
   };

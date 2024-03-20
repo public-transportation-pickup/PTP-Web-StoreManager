@@ -3,7 +3,8 @@ import { BASE_URL, CURRENT_USER } from "../libs/constants";
 import { GetLocalValue } from "../libs/Commons/UseLocalStorage";
 
 export async function getProductByStoreId(param) {
-  let STOREID = GetLocalValue("store").id;
+  let STOREID = CURRENT_USER.user.storeId;
+  // console.log(STOREID);
   let url =
     BASE_URL +
     "/stores/" +
@@ -76,7 +77,7 @@ export async function UpdateProduct(product) {
 }
 
 export async function CreateProduct(product) {
-  let STOREID = GetLocalValue("store").id;
+  let STOREID = CURRENT_USER.user.storeId;
   var formData = new FormData();
   formData.append("CategoryId", product.categoryId);
   formData.append("Name", product.name);
