@@ -82,12 +82,12 @@ export default function CreateProductPage({product,handleClose}) {
       });
 
     useEffect(()=>{
-
+        // console.log(updateState);
         if (updateState.status !== Actions.loading ) {
             formik.setSubmitting(false);
         }
 
-        if ( updateState.status === Actions.success && updateState.payload !==undefined  ) {
+        if ( updateState.status === Actions.success  ) {
             toast.success("Lưu thông tin thành công!",{autoClose:900});
             handleClose();
         }
@@ -98,11 +98,12 @@ export default function CreateProductPage({product,handleClose}) {
     },[updateState]);
 
     useEffect(()=>{
+       
         if (createState.status!==Actions.loading ) {
             formik.setSubmitting(false);
         }
 
-        if ( createState.status === Actions.success  && createState.payload !==undefined ) {
+        if ( createState.status === Actions.success  ) {
             toast.success("Thêm sản phẩm thành công!",{autoClose:900});
             handleClose();
         }
@@ -117,7 +118,9 @@ export default function CreateProductPage({product,handleClose}) {
         if(deleteState.status === Actions.success){
             toast.success("Xóa sản phẩm thành công!",{autoClose:900});
             handleClose();
-        } 
+        } else if( deleteState.status === Actions.failure ){
+            toast.warning("Xóa sản phẩm thất bại!",{autoClose:900})
+        }
     },[deleteState]);
 
 

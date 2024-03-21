@@ -42,12 +42,8 @@ export function useAPIRequest(invoker = async (params) => {}) {
       }
       invoker(params)
         .then((payload) => {
-          // console.log("api-request: " + payload);
-          //mountedRef.current = true;
-          if (mountedRef.current && payload !== undefined) {
+          if (mountedRef.current) {
             dispatch({ type: Actions.success, payload: payload });
-          } else {
-            dispatch({ type: Actions.failure, error: "Fail!" });
           }
         })
         .catch((error) => {

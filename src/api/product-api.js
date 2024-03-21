@@ -4,7 +4,7 @@ import { GetLocalValue } from "../libs/Commons/UseLocalStorage";
 
 export async function getProductByStoreId(param) {
   let STOREID = CURRENT_USER.user.storeId;
-  // console.log(STOREID);
+  // console.log(param);
   let url =
     BASE_URL +
     "/stores/" +
@@ -35,14 +35,11 @@ export async function getProductByStoreId(param) {
       "&pageSize=5" +
       "&Name=" +
       param.productName;
+    // console.log("ProductName:", param.productName);
   }
-  var response = await axios
-    .get(url, {
-      headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  var response = await axios.get(url, {
+    headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+  });
   return response.data;
 }
 
@@ -62,17 +59,16 @@ export async function UpdateProduct(product) {
     formData.append("Image", product.file);
   }
 
-  const response = await axios
-    .put(BASE_URL + "/products/" + product.id, formData, {
+  const response = await axios.put(
+    BASE_URL + "/products/" + product.id,
+    formData,
+    {
       headers: {
         "Content-Type": " multipart/form-data",
         Authorization: `Bearer ${CURRENT_USER.token}`,
       },
-    })
-    .catch((error) => {
-      console.error("There was an error!", error);
-    });
-  // console.log("product-api: " + response);
+    }
+  );
   return response;
 }
 
@@ -90,27 +86,19 @@ export async function CreateProduct(product) {
   formData.append("StoreId", STOREID);
   formData.append("Image", product.file);
 
-  const response = await axios
-    .post(BASE_URL + "/products", formData, {
-      headers: {
-        "Content-Type": " multipart/form-data",
-        Authorization: `Bearer ${CURRENT_USER.token}`,
-      },
-    })
-    .catch((error) => {
-      console.error("There was an error!", error);
-    });
+  const response = await axios.post(BASE_URL + "/products", formData, {
+    headers: {
+      "Content-Type": " multipart/form-data",
+      Authorization: `Bearer ${CURRENT_USER.token}`,
+    },
+  });
+
   return response;
 }
 
 export async function DeleteProduct(id) {
-  const response = await axios
-    .delete(BASE_URL + "/products/" + id, {
-      headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-
+  const response = await axios.delete(BASE_URL + "/products/" + id, {
+    headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+  });
   return response;
 }

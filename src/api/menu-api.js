@@ -10,12 +10,8 @@ export async function GetMenuByStoreId() {
     STOREID +
     "/menus?dateApply=2024-03-22T00%3A00%3A00";
 
-  var response = await axios
-    .get(url, {
-      headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  var response = await axios.get(url, {
+    headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+  });
   return response.data;
 }

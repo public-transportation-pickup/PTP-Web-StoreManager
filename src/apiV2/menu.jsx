@@ -5,7 +5,7 @@ export const getMenus = async () => {
     
     const response = await api.get("/stores/" +
     STOREID +
-    "/menus?dateApply=2024-03-22T00%3A00%3A00");
+    "/menus?dateApply=2024-03-29T00:00:00");
     // console.log(response.data);
     return response.data;
   };
