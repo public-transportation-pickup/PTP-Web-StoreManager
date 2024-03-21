@@ -16,7 +16,7 @@ function Login() {
 // -----
 
   const formik = useFormik({
-    initialValues: {email: "store91@gmail.com", password: "@Abcaz12345"} ,
+    initialValues: {email: "store123@gmail.com", password: "@Abcaz12345"} ,
     validate: (values) => {
       let errors = {};
       if (!values.email) {
@@ -37,7 +37,7 @@ function Login() {
 
   const handleSubmitSignIn= async (model) =>{
     try {
-          console.log(model);
+          // console.log(model);
 
           const auth = getAuth(app);
           if(model.email.includes('store')){

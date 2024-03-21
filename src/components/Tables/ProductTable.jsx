@@ -44,6 +44,7 @@ function ProductTable() {
 
   //#region Load page
   useEffect(() => {
+    console.log(productName);
     requestProducts({
       productName:productName,
       cateName:cateName,
@@ -92,12 +93,14 @@ const inputRef = useRef();
 
 const handleSearch = () => {
   const searchValue = inputRef.current.value;
+  // console.log("Input value:", searchValue);
   if(searchValue===''){
-    console.log("Input value empty:");
-    setProduct(null)
+    // console.log("Input value empty:");
+    setProductName(null)
+  }else{
+    console.log("Input value:", searchValue);
+    setProductName(searchValue)
   }
-  console.log("Input value:", searchValue);
-  setProductName(searchValue)
 };
 
 //#endregion

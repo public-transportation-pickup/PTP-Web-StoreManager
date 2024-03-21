@@ -56,9 +56,9 @@ export default function CreateProductPage({product,handleClose}) {
           if (!values.price || values.price === 0) {
             errors.price = "Please enter price.";
           }
-          if (!values.categoryId || values.categoryId==='Select category') {
-            errors.categoryId = "Please select category.";
-          }
+        //   if (!values.categoryId || values.categoryId==='Select category') {
+        //     errors.categoryId = "Please select category.";
+        //   }
           if (!values.description ) {
             errors.description = "Please enter description.";
           }
@@ -82,31 +82,32 @@ export default function CreateProductPage({product,handleClose}) {
       });
 
     useEffect(()=>{
-
+        // console.log(updateState);
         if (updateState.status !== Actions.loading ) {
             formik.setSubmitting(false);
         }
 
-        if ( updateState.status === Actions.success && updateState.payload !==undefined  ) {
+        if ( updateState.status === Actions.success  ) {
             toast.success("Lưu thông tin thành công!",{autoClose:900});
             handleClose();
         }
-        else if(updateState.status === Actions.success && updateState.payload === undefined){
+        else if(updateState.status === Actions.failure){
             toast.warning("Lưu thông tin thất bại!",{autoClose:900})
         }
         
     },[updateState]);
 
     useEffect(()=>{
+       
         if (createState.status!==Actions.loading ) {
             formik.setSubmitting(false);
         }
 
-        if ( createState.status === Actions.success  && createState.payload !==undefined ) {
+        if ( createState.status === Actions.success  ) {
             toast.success("Thêm sản phẩm thành công!",{autoClose:900});
             handleClose();
         }
-        else if( createState.status === Actions.success  && createState.payload === undefined){
+        else if( createState.status === Actions.failure ){
             toast.warning("Tạo sản phẩm thất bại!",{autoClose:900})
         }
         
@@ -117,7 +118,9 @@ export default function CreateProductPage({product,handleClose}) {
         if(deleteState.status === Actions.success){
             toast.success("Xóa sản phẩm thành công!",{autoClose:900});
             handleClose();
-        } 
+        } else if( deleteState.status === Actions.failure ){
+            toast.warning("Xóa sản phẩm thất bại!",{autoClose:900})
+        }
     },[deleteState]);
 
 
