@@ -11,7 +11,6 @@ import Settings from "./views/admin/Settings";
 import Menus from "./views/admin/Menus";
 import Products from "./views/admin/Products";
 import PrivateRoutes from './views/auth/PrivateRoute';
-import ProductItemTemp from "./components/menus/ProductItemTemp";
 import CreateMenuPage from "./views/menu/CreateMenuPage";
 import OrderMainPage from "./views/order/OrderMainPage";
 import CreateProductPage from "./views/product/CreateProductPage";
@@ -23,6 +22,7 @@ import OrderCompleteTable from "./views/order/OrderCompleteTable";
 import OrderCancelTable from "./views/order/OrderCancelTable";
 import OrderAllTable from "./views/order/OrderAllTable";
 import TextPage from "./views/TextPage";
+import OrderDetailPage from "./views/order/OrderDetailPage";
 
 
 function App() {
@@ -48,11 +48,13 @@ function App() {
                   <Route path="reject" element={<OrderCancelTable/>}/>
                   <Route path="all" element={<OrderAllTable/>}/>
                 </Route>
+                <Route path="order/:orderId" element={<OrderDetailPage/>}/>
               </Route>
             </Route>
-            <Route path="/productitemtemp" element={<CreateProductPage/>}/>
+            {/* <Route path="/productitemtemp" element={<CreateProductPage/>}/> */}
             <Route path="/menu" element={<CreateMenuPage/>}/>
             <Route path="/textpage" element={<TextPage/>}/>
+            <Route path="/testpage" element={<OrderDetailPage/>}/>
            
           </Routes>
         </AuthProvider>

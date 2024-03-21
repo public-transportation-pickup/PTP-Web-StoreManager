@@ -17,14 +17,15 @@ export const getOrder= async (orderId)=>{
 export const updateOrder = async (orderModel)=>{
     try {
         const res =await fetch(`${BASE_URL}/order/${orderModel.Id}`,{
-            headers:{
-                "method":"PUT"
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json',
             },
-            body: orderModel
+            body: JSON.stringify(orderModel),
         });
         const data= await res.json();
         console.log
-        if(res.status===400) return "Lỗi truy cập hệ thống"
+        if(res.status===400 && res.status===500) return "Lỗi truy cập hệ thống"
         else if (res.status ===401) return "Vui lòng đăng nhập để sử dụng tính năng này"
         else return data;
     } catch (error) {

@@ -25,7 +25,7 @@ function Navbar() {
               <input
                 type="text"
                 placeholder="Search here..."
-                className="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-slate-100 rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
+                className="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-slate-100 rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
               />
             </div>
           </form>

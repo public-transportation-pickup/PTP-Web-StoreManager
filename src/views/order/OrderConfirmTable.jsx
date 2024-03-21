@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Note from "../../components/shared/Note";
+import { useNavigate } from "react-router-dom";
+import { getOrdersByStoreId } from "../../api/store-api";
+import { ToastContainer } from 'react-toastify';
 
 
 export default function OrderConfirmTable() {
@@ -15,6 +18,41 @@ export default function OrderConfirmTable() {
         await setOrderConfirmModal({...orderConfirmModal, cancelReason:value})
         
     }
+    const navigate= useNavigate();
+    const handleOnclickRow=(orderId)=>{
+        navigate(`/order/${orderId}`);
+    }
+
+    
+    const usePrevious = (value) => {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        });
+        return ref.current;
+    };
+
+    const [listConfirmOrder, setListConfirmOrder]=useState([]);
+    console.log("List order: ",listConfirmOrder);
+
+    const previousValue= usePrevious(listConfirmOrder);
+
+
+    useEffect(()=>{
+        const fetchData= async()=>{
+            try {
+                let userStorage= JSON.parse(localStorage.getItem("store"));
+                console.log("storeId: ", userStorage.user.id);
+                const responseAPI= await getOrdersByStoreId(userStorage.user.id,"Waiting");
+                console.log("Responseapi",JSON.parse(responseAPI));
+                await setListConfirmOrder({ ...listConfirmOrder, responseAPI  });
+
+            } catch (error) {
+                console.error("fetch data order complete table exception", error)
+            }            
+        } 
+        fetchData();
+    },[previousValue])
   return (
     <div className="flex flex-col gap-4">
         <div className="w-full">
@@ -27,7 +65,8 @@ export default function OrderConfirmTable() {
         <div>
             <h2 className="pb-4 text-center text-2xl">Danh sách đơn hàng cần xác nhận</h2>
             <div className="relative overflow-x-auto">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
+                {listConfirmOrder.length >0 ?(
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="px-4 py-3 border border-slate-300 items-center">
@@ -51,7 +90,8 @@ export default function OrderConfirmTable() {
                         </tr>
                     </thead>
                     <tbody >
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300">
+                        {/* <Link to={`order/orderid`}> */}
+                        <tr onClick={()=>handleOnclickRow("orderId")} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300 hover:bg-slate-200">
                             <td className="px-6 py-4 border border-slate-300">
                                 1
                             </td>
@@ -82,9 +122,11 @@ export default function OrderConfirmTable() {
                                 </div>
                             </td>
                         </tr>
-                    
+                    {/* </Link> */}
                     </tbody>
                 </table>
+                ):(<ToastContainer/>)}
+                
             </div>
         </div>
     </div>

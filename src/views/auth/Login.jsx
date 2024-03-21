@@ -43,8 +43,8 @@ function Login() {
           if(model.email.includes('store')){
             const userCredential= await signInWithEmailAndPassword(auth, model.email, model.password)
             // Signed up 
-           // const user = userCredential.user;
-            // console.log("user credetial:",userCredential.user.accessToken);
+           const user = userCredential.user;
+            console.log("user credetial:",user);
           
             requestLogin(
               userCredential.user.accessToken

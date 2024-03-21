@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Note from "../../components/shared/Note";
+import {useNavigate} from 'react-router-dom'
+import { getOrdersByStoreId } from "../../api/store-api";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function OrderDeliveryTable() {
@@ -16,6 +20,40 @@ export default function OrderDeliveryTable() {
         await setOrderDeliveryModal({...orderDeliveryModal, cancelReason:value})
         
     }
+    const navigate= useNavigate();
+    const handleOnclickRow=(orderId)=>{
+        navigate(`/order/${orderId}`);
+    }
+
+    const usePrevious = (value) => {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        });
+        return ref.current;
+    };
+
+    const [listDeliveryOrder, setListDeliveryOrder]=useState([]);
+    console.log("List order: ",listDeliveryOrder);
+
+    const previousValue= usePrevious(listDeliveryOrder);
+
+    useEffect(()=>{
+        const fetchData= async()=>{
+            try {
+                let userStorage= JSON.parse(localStorage.getItem("user"));
+                console.log("storeId: ", userStorage.user.id);
+                const responseAPI= await getOrdersByStoreId(userStorage.user.id,"Cancel");
+                console.log("Responseapi",JSON.parse(responseAPI));
+                await setListDeliveryOrder({ ...listDeliveryOrder, responseAPI  });
+
+            } catch (error) {
+                console.error("fetch data order complete table exception", error)
+            }            
+        } 
+        fetchData();
+    },[previousValue])
+
   return (
     <div className="flex flex-col gap-4">
     <div className="w-full">
@@ -27,9 +65,11 @@ export default function OrderDeliveryTable() {
     <div>
         <h2 className="pb-4 text-center text-2xl">Danh sách đơn hàng cần được giao</h2>
         <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
+            {listDeliveryOrder.length >0 ?(
+                listDeliveryOrder.map((item,index)=>(
+                    <table key={index} className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
+                    <tr onClick={()=>handleOnclickRow("orderId")}>
                         <th scope="col" className="px-4 py-3 border border-slate-300 items-center">
                             Số thứ tự
                         </th>
@@ -84,6 +124,9 @@ export default function OrderDeliveryTable() {
                 
                 </tbody>
             </table>
+                ))
+            ):(<ToastContainer/>)}
+            
         </div>
     </div>
 </div>
