@@ -42,8 +42,6 @@ export function useAPIRequest(invoker = async (params) => {}) {
       }
       invoker(params)
         .then((payload) => {
-          //console.log(payload);
-          //mountedRef.current = true;
           if (mountedRef.current) {
             dispatch({ type: Actions.success, payload: payload });
           }

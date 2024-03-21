@@ -16,7 +16,7 @@ function Login() {
 // -----
 
   const formik = useFormik({
-    initialValues: {email: "store91@gmail.com", password: "@Abcaz12345"} ,
+    initialValues: {email: "store123@gmail.com", password: "@Abcaz12345"} ,
     validate: (values) => {
       let errors = {};
       if (!values.email) {
@@ -37,7 +37,7 @@ function Login() {
 
   const handleSubmitSignIn= async (model) =>{
     try {
-          console.log(model);
+          // console.log(model);
 
           const auth = getAuth(app);
           if(model.email.includes('store')){
@@ -75,7 +75,7 @@ function Login() {
   
   return (
     <>
-    <ToastContainer className="w-100 h-10"/>
+      <ToastContainer className="w-100 h-10"/>
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">

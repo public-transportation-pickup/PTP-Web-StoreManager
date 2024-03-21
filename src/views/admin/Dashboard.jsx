@@ -12,30 +12,30 @@ import CardPageVisits from "../../components/Cards/CardPageVisits";
 import CardSocialTraffic from "../../components/Cards/CardSocialTraffic";
 
 function Dashboard() {
-  const [store,setStore]=useState();
-  const [storeState,requestStore]=useAPIRequest(getStoreByUserId);
-  const [storeLocal, setStoreLocal] = useLocalStorage("store", null);
+  // const [store,setStore]=useState();
+  // const [storeState,requestStore]=useAPIRequest(getStoreByUserId);
+  // const [storeLocal, setStoreLocal] = useLocalStorage("store", null);
 
 
-  useEffect(()=>{
-    console.log('oke');
-    requestStore();
-  },[]);
+  // useEffect(()=>{
+  //   console.log('oke');
+  //   requestStore();
+  // },[]);
 
-  useEffect(()=>{
-    if(storeState.status==Actions.success ){
-      setStore(storeState.payload);
-      setStoreLocal(storeState.payload);
-    }
+  // useEffect(()=>{
+  //   if(storeState.status==Actions.success ){
+  //     setStore(storeState.payload);
+  //     setStoreLocal(storeState.payload);
+  //   }
 
-  },[storeState]);
+  // },[storeState]);
 
-  useEffect(()=>{
-    if(storeState.status==Actions.success ){
-      setStoreLocal(storeState.payload);
-    }
+  // useEffect(()=>{
+  //   if(storeState.status==Actions.success ){
+  //     setStoreLocal(storeState.payload);
+  //   }
 
-  },[storeState.payload]);
+  // },[storeState.payload]);
 
   return (
     <>

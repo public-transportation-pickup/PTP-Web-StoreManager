@@ -10,26 +10,33 @@ import {
 
 
 export default function MenuItem({menuItem}) {
-    let startDateTime = parseISO(menuItem.startDatetime)
-    let endDateTime = parseISO(menuItem.endDatetime)
-  
+    // let startDateTime = parseISO(menuItem.startDatetime)
+    // let endDateTime = parseISO(menuItem.endDatetime)
+    const formatTime = (time) => {
+      const [hours, minutes, seconds] = time.split(':');
+      const formattedHours = parseInt(hours) % 12 || 12;
+      const amPm = parseInt(hours) < 12 ? 'AM' : 'PM';
+      return `${formattedHours}:${minutes} ${amPm}`;
+    };
+    
     return (
       <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
         <img
-          src={menuItem.imageUrl}
+          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           alt=""
           className="flex-none w-10 h-10 rounded-full"
         />
         <div className="flex-auto">
           <p className="text-gray-900">{menuItem.name}</p>
           <p className="mt-0.5">
-            <time dateTime={menuItem.startDatetime}>
+            {/* <time dateTime={menuItem.startTime}>
               {format(startDateTime, 'h:mm a')}
             </time>{' '}
             -{' '}
-            <time dateTime={menuItem.endDatetime}>
+            <time dateTime={menuItem.endTime}>
               {format(endDateTime, 'h:mm a')}
-            </time>
+            </time> */}
+            {formatTime(menuItem.startTime)} - {formatTime(menuItem.endTime)}
           </p>
         </div>
         <Menu

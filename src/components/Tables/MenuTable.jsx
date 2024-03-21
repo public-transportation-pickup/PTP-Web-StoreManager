@@ -14,58 +14,34 @@ import {
   parseISO,
   startOfToday,
 } from 'date-fns'
-
-
+import { useDispatch,useSelector } from "react-redux";
+import { selectMenu,fetchMenus } from "../../redux/features/menuSlice";
 import MenuItem from "../Menus/MenuItem";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { getMenus } from "../../apiV2/menu";
 
 export default function ScheduleMenuPage() {
-    const menus = [
-        {
-          id: 1,
-          name: 'Leslie Alexander',
-          imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-          startDatetime: '2024-03-11T13:00',
-          endDatetime: '2024-03-11T19:30',
-        },
-        {
-          id: 2,
-          name: 'Michael Foster',
-          imageUrl:
-            'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-          startDatetime: '2024-03-20T09:00',
-          endDatetime: '2024-03-20T11:30',
-        },
-        {
-          id: 3,
-          name: 'Dries Vincent',
-          imageUrl:
-            'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-          startDatetime: '2024-03-20T17:00',
-          endDatetime: '2024-03-20T18:30',
-        },
-        {
-          id: 4,
-          name: 'Leslie Alexander',
-          imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-          startDatetime: '2024-03-09T13:00',
-          endDatetime: '2024-03-09T14:30',
-        },
-        {
-          id: 5,
-          name: 'Michael Foster',
-          imageUrl:
-            'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-          startDatetime: '2024-03-13T14:00',
-          endDatetime: '2024-03-13T18:30',
-        },
-      ]
-      function classNames(...classes) {
-        return classes.filter(Boolean).join(' ')
-      }
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // Dispatch the fetchMenus action when the component mounts
+    dispatch(fetchMenus());
+  }, [dispatch]);
 
+  const menusV2 = useSelector(selectMenu);
+  console.log(menusV2);
+  var menu={
+    id: 3,
+    name: 'Dries Vincent',
+    imageUrl:
+      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    startDatetime: '2024-03-20T17:00',
+    endDatetime: '2024-03-20T18:30',
+  }
+
+  function classNames(...classes) {
+      return classes.filter(Boolean).join(' ')
+    }
+//#region Date Config
   let today = startOfToday()
   let [selectedDay, setSelectedDay] = useState(today)
   let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
@@ -85,16 +61,20 @@ export default function ScheduleMenuPage() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: 1 })
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
   }
-/*
-console.log("menu.startDatetime",menu.startDatetime)
-  console.log("selectedDay",selectedDay)
-  console.log("isSameDay",isSameDay(parseISO(menu.startDatetime), selectedDay))
-*/
-const selectedDayMenus = menus.filter((menu) =>
-  isSameDay(parseISO(menu.startDatetime), selectedDay)
+
+  // console.log("menu.startDatetime",menu.startDatetime)
+  // console.log("selectedDay",selectedDay)
+  // console.log("isSameDay",isSameDay(parseISO(menu.startDatetime), selectedDay))
+
+const selectedDayMenus = menusV2.filter((menu) =>
+  isSameDay(parseISO(menu.dateApply), selectedDay)
 )
-  console.log("selectedDayMenus",selectedDayMenus)
+  // console.log("selectedDayMenus",selectedDayMenus)
+  // console.log("selectedDay",selectedDay)
   //console.log("selectedDayMenus",selectedDayMenus)
+  
+  //#endregion
+ 
   return (
    <>
     <div
@@ -114,7 +94,7 @@ const selectedDayMenus = menus.filter((menu) =>
         </div>
         <div className="block w-full overflow-x-auto">
             <div className="py-5">
-                <div className="max-w-md px-4 mx-auto sm:px-2 md:max-w-full md:px-3 mx-3 border-0 border-black">
+                <div className="max-w-md px-4 mx-auto sm:px-2 md:max-w-full md:px-3 border-0 border-black">
                     <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200 border-0 border-black">
                         <div className="py-2 lg:w-full lg:px-16 sm:px-0  border-0 border-red-600">
                             <div className="flex items-center border-0 border-blue-600">
@@ -188,8 +168,8 @@ const selectedDayMenus = menus.filter((menu) =>
                                 </button>
 
                                 <div className="w-1 h-1 mx-auto mt-1">
-                                    {menus.some((menu) =>
-                                    isSameDay(parseISO(menu.startDatetime), day)
+                                    {menusV2.some((menu) =>
+                                    isSameDay(parseISO(menu.dateApply), day)
                                     ) && (
                                     <div className="w-1 h-1 rounded-full bg-sky-500"></div>
                                     )}

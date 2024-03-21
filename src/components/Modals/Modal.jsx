@@ -11,7 +11,7 @@ export default function CreateModal({ title, isOpen, onClose = () => {}, childre
             <Transition appear show={isOpen} as={Fragment}>
                     <Dialog
                         as="div"
-                        className="w-1/3 h-full top-0 right-0 border-2 bg-slate-200 border-red-500 fixed z-[9999]"
+                        className="w-1/3 h-full top-0 right-0 border-2 bg-slate-200 border-red-500 fixed z-[10]"
                         onClose={onClose}
                     >
                         <Dialog.Overlay className="fixed inset-0 bg-black opacity-40 "  />
@@ -50,22 +50,46 @@ export default function CreateModal({ title, isOpen, onClose = () => {}, childre
 }
 
 
-export function ProductDialog({setIsOpen,isOpen}){
+export function ConfirmModal({isOpen,onClose = () => {},children}){
     return(
-        <>
-        <dialog className="absolute  modal w-max h-screen z-[9999]" open={isOpen}>
-          <div
-            className="mb-2 border-2 bg-slate-200 border-red-500 w-1/3 h-full fixed top-0 right-0"
+        <>  
+
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={onClose}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <div className="modal-box">
-              <h3 className="font-bold text-lg">Hello!</h3>
-              <p className="py-4">Press ESC key or click outside to close</p>
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-fit mt-20  justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white  text-left align-middle shadow-xl transition-all">
+                    {children}
+                  
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-              <button onClick={()=>setIsOpen(false)}>close</button>
           </div>
-        </dialog>
+        </Dialog>
+      </Transition>
         </>
     );
-    return ProductDialog;
 }
+
 

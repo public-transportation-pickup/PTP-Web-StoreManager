@@ -13,7 +13,7 @@ import Products from "./views/admin/Products";
 import PrivateRoutes from './views/auth/PrivateRoute';
 import CreateMenuPage from "./views/menu/CreateMenuPage";
 import OrderMainPage from "./views/order/OrderMainPage";
-import CreateProductPage from "./views/product/CreateProductPage";
+import CreateProductPage from "./components/Products/CreateProductPage";
 //import OrderTableList from "./views/order/OrderTableList";
 import OrderConfirmTable from "./views/order/OrderConfirmTable";
 import OrderPrepareTable from "./views/order/OrderPrepareTable";
