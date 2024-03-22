@@ -6,7 +6,7 @@ export const fetchMenus = createAsyncThunk(
   "menu/fetch_menus",
   async (_, thunkAPI) => {
     try {
-      const response = await getMenus();
+      const response = await GetMenuByStoreId();
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue({ message: error.message });

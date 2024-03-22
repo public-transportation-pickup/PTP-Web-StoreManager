@@ -18,9 +18,9 @@ import { useDispatch,useSelector } from "react-redux";
 import { selectMenu,fetchMenus } from "../../redux/features/menuSlice";
 import MenuItem from "../Menus/MenuItem";
 import { useState,useEffect } from "react";
-import { getMenus } from "../../apiV2/menu";
 
 export default function ScheduleMenuPage() {
+  // console.log(userInfor);
   const dispatch = useDispatch();
   useEffect(() => {
     // Dispatch the fetchMenus action when the component mounts
@@ -28,7 +28,7 @@ export default function ScheduleMenuPage() {
   }, [dispatch]);
 
   const menusV2 = useSelector(selectMenu);
-  console.log(menusV2);
+  // console.log(menusV2);
   var menu={
     id: 3,
     name: 'Dries Vincent',
