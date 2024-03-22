@@ -3,7 +3,7 @@ import Note from "../../components/shared/Note";
 import { useNavigate } from "react-router-dom";
 import { getOrdersByStoreId } from "../../api/store-api";
 import { ToastContainer } from 'react-toastify';
-
+import { CURRENT_USER } from "../../libs/constants";
 
 export default function OrderConfirmTable() {
     //status preparing
@@ -41,9 +41,9 @@ export default function OrderConfirmTable() {
     useEffect(()=>{
         const fetchData= async()=>{
             try {
-                let userStorage= JSON.parse(localStorage.getItem("store"));
-                console.log("storeId: ", userStorage.user.id);
-                const responseAPI= await getOrdersByStoreId(userStorage.user.id,"Waiting");
+                //let userStorage= JSON.parse(localStorage.getItem("store"));
+                console.log("storeId: ", CURRENT_USER.user.storeId);
+                const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
                 console.log("Responseapi",JSON.parse(responseAPI));
                 await setListConfirmOrder({ ...listConfirmOrder, responseAPI  });
 
@@ -91,11 +91,11 @@ export default function OrderConfirmTable() {
                     </thead>
                     <tbody >
                         {/* <Link to={`order/orderid`}> */}
-                        <tr onClick={()=>handleOnclickRow("orderId")} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300 hover:bg-slate-200">
+                        <tr  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                             <td className="px-6 py-4 border border-slate-300">
                                 1
                             </td>
-                            <td className="px-6 py-4 border border-slate-300">
+                            <td onClick={()=>handleOnclickRow("orderId")} className="px-6 py-4 border border-slate-300 hover:bg-slate-200">
                                 <div className="flex flex-row gap-2">
                                     <p>1. </p>
                                     <p>Bánh táo</p>
@@ -125,7 +125,7 @@ export default function OrderConfirmTable() {
                     {/* </Link> */}
                     </tbody>
                 </table>
-                ):(<ToastContainer/>)}
+                 ):(<ToastContainer/>)}
                 
             </div>
         </div>

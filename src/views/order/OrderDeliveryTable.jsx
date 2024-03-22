@@ -69,7 +69,7 @@ export default function OrderDeliveryTable() {
                 listDeliveryOrder.map((item,index)=>(
                     <table key={index} className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr onClick={()=>handleOnclickRow("orderId")}>
+                    <tr >
                         <th scope="col" className="px-4 py-3 border border-slate-300 items-center">
                             Số thứ tự
                         </th>
@@ -95,7 +95,7 @@ export default function OrderDeliveryTable() {
                         <td className="px-6 py-4 border border-slate-300">
                             1
                         </td>
-                        <td className="px-6 py-4 border border-slate-300">
+                        <td onClick={()=>handleOnclickRow("orderId")} className="px-6 py-4 border border-slate-300 hover:opacity-95">
                             <div className="flex flex-row gap-2">
                                 <p>1. </p>
                                 <p>Bánh táo</p>
@@ -116,7 +116,6 @@ export default function OrderDeliveryTable() {
                         <td className="px-6 py-4 border border-slate-300">
                             <div className="flex gap-3">
                                 <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Đã giao</button>
-                                {/* <button className=" bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button> */}
                                 <Note button="Hủy đơn" noteStringFunc={handleReason}/>
                             </div>
                         </td>

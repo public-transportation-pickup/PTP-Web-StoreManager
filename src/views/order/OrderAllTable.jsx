@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getOrdersByStoreId } from '../../api/store-api';
+import { CURRENT_USER } from '../../libs/constants';
 
 export default function OrderAllTable() {
     //const param= useParams();
@@ -12,26 +13,32 @@ export default function OrderAllTable() {
     }
     const [listOrder, setListOrder]=useState([]);
     console.log("List order: ",listOrder);
-
-    const [error,setError]=useState('');
-    console.log("Error", error);
     
-    const fetchData= async()=>{
-        try {
-            let userStorage= JSON.parse(localStorage.getItem("store"));
-            console.log("storeId: ", userStorage.id);
-            const responseAPI= await getOrdersByStoreId(userStorage.id,"");
-            typeof responseAPI === 'string' ? await setError(responseAPI) : await setListOrder(responseAPI);
-            if(!listOrder.length > 0 && error ) await toast(error);
-        } catch (error) {
-            console.log("fetch data order complete table exception", error)
-        }
-        
-    } 
+    const usePrevious = (value) => {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        });
+        return ref.current;
+    };
+
+    const previousValue= usePrevious(listOrder);
+
     useEffect(()=>{
-        
+        const fetchData= async()=>{
+            try {
+                //let userStorage= JSON.parse(localStorage.getItem("user"));
+                console.log("storeId: ", CURRENT_USER.user.storeId);
+                const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Cancel");
+                console.log("Responseapi",JSON.parse(responseAPI));
+                await setListOrder({ ...listOrder, responseAPI  });
+
+            } catch (error) {
+                console.error("fetch data order complete table exception", error)
+            }            
+        } 
         fetchData();
-    },[listOrder,error])
+    },[previousValue])
   return (
     <div className="flex flex-col gap-4">
         <div>

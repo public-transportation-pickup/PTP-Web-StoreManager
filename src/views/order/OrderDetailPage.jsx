@@ -2,10 +2,43 @@
 import { HiMiniWallet,HiMiniUserCircle } from "react-icons/hi2";
 import ProductOrderItem from '../../components/products/ProductOrderItem';
 import { useParams } from 'react-router';
+import { useEffect, useState } from "react";
+import { getOrder } from "../../api/order-api";
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Note from "../../components/shared/Note";
 
 export default function OrderDetailPage() {
     const param= useParams();
     console.log("Order detail page",param.orderId)
+
+    const [orderDetailInfo, setDetailOrderInfo]=useState();
+    console.log("Order detail info",orderDetailInfo)
+
+    const [orderModal,setOrderModal]=useState({
+      id:'',
+      cancelReason:'',
+      status:''
+  })
+  console.log("orderConfirmModal",orderModal);
+  const handleReason=async(value)=>{
+      console.log("Reason value on order confirm table:",value);
+      await setOrderModal({...orderModal, cancelReason:value})
+      
+  }
+
+    useEffect(()=>{
+      const fetchData = async ()=>{
+        try {
+          const responseAPI= await getOrder(param.orderId);
+          await setDetailOrderInfo(responseAPI);
+        } catch (error) {
+          console.log("fetchData detail order exception",error)
+        }
+      }
+      fetchData();
+    },[param.orderId])
+
   return (
     <div className="pt-20 h-screen">
       <div className='flex flex-row divide-x gap-6'>
@@ -52,6 +85,10 @@ export default function OrderDetailPage() {
         <div className='flex flex-row'>
           <h6 className='font-semibold text-xl'>Tổng đơn</h6>
           <h6 className='pl-96 text-red-600 font-mono font-bold text-2xl'>300000 VND</h6>
+        </div>
+        <div>
+          <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
+          <Note button="Hủy đơn" noteStringFunc={handleReason}/>
         </div>
       </div>
     </div>

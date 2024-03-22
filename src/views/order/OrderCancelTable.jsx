@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import { getOrdersByStoreId } from '../../api/store-api';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CURRENT_USER } from '../../libs/constants';
 
 export default function OrderCancelTable() {
     const navigate= useNavigate();
@@ -26,9 +27,9 @@ export default function OrderCancelTable() {
     useEffect(()=>{
         const fetchData= async()=>{
             try {
-                let userStorage= JSON.parse(localStorage.getItem("user"));
-                console.log("storeId: ", userStorage.user.id);
-                const responseAPI= await getOrdersByStoreId(userStorage.user.id,"Cancel");
+                //let userStorage= JSON.parse(localStorage.getItem("user"));
+                console.log("storeId: ", CURRENT_USER.user.storeId);
+                const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Cancel");
                 console.log("Responseapi",JSON.parse(responseAPI));
                 await setListCancelOrder({ ...listCancelOrder, responseAPI  });
 
