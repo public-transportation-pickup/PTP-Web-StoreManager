@@ -6,8 +6,8 @@ function Navbar() {
   return (
     <>
       {/* Navbar */}
-      <nav className=" top-0  w-full bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-3 bg-white border shadow-lg z-2">
-        <div className="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
+      <nav className=" top-0  w-full bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-3 bg-white border shadow-lg z-2 ">
+        <div className="w-full mx-auto items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4 ">
           {/* Brand */}
           <a
             className="text-black text-sm uppercase hidden lg:inline-block font-semibold"

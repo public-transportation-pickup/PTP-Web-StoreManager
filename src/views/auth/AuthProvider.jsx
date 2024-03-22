@@ -4,6 +4,9 @@ import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../libs/Commons/UseLocalStorage";
 import PropTypes from 'prop-types';
+import { replace } from "formik";
+
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -13,15 +16,17 @@ export const AuthProvider = ({ children }) => {
   // call this function when you want to authenticate the user
   const login = async (data) => {
     // console.log(data);
-    localStorage.setItem("accessToken", data.token);
+    // localStorage.setItem("accessToken", data.token);
     setUser(data);
-    navigate("/");
+    navigate("/",{replace:true });
+    navigate(0)
+    // window.location.reload();
   };
 
   // call this function to sign out logged in user
   const logout = () => {
     localStorage.clear(); 
-    // setUser(null);
+    setUser(null);
     navigate("/auth/login", { replace: true });
   };
 

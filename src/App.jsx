@@ -23,9 +23,13 @@ import OrderCompleteTable from "./views/order/OrderCompleteTable";
 import OrderCancelTable from "./views/order/OrderCancelTable";
 import OrderAllTable from "./views/order/OrderAllTable";
 import TextPage from "./views/TextPage";
-
+import CreateMenu from "./views/admin/CreateMenu";
+import { useAuth } from "./views/auth/AuthProvider";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  
   return (
     <div className='App'>
       <Router>
@@ -38,7 +42,10 @@ function App() {
                 <Route path="/admin/maps" element={<Maps />} />
                 <Route path="/admin/settings" element={<Settings />} />
                 <Route path="/admin/products" element={<Products />} />
-                <Route path="/admin/menus" element={<Menus />} />
+                <Route path="/admin/menus" element={<Menus />} >
+                  
+                </Route>
+                <Route path="/create" element={<CreateMenu/>}/>
                 {/* url order */}
                 <Route path="order" element={<OrderMainPage/>}>
                   <Route path="confirming" element={<OrderConfirmTable/>}/>
@@ -51,7 +58,7 @@ function App() {
               </Route>
             </Route>
             <Route path="/productitemtemp" element={<CreateProductPage/>}/>
-            <Route path="/menu" element={<CreateMenuPage/>}/>
+            
             <Route path="/textpage" element={<TextPage/>}/>
            
           </Routes>

@@ -3,8 +3,8 @@ import { BASE_URL, CURRENT_USER } from "../libs/constants";
 import { GetLocalValue } from "../libs/Commons/UseLocalStorage";
 
 export async function getProductByStoreId(param) {
+  console.log(CURRENT_USER);
   let STOREID = CURRENT_USER.user.storeId;
-  // console.log(param);
   let url =
     BASE_URL +
     "/stores/" +

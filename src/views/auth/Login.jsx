@@ -6,14 +6,30 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Actions,useAPIRequest } from '../../libs/Commons/api-request.js';
 import { authentication } from '../../api/auth-api.js';
 import { useFormik } from "formik";
-
+import { useDispatch,useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { userLogin } from '../../redux/features/authSlice.js';
 import {useAuth} from './AuthProvider.jsx';
 
 function Login() {
-   const { login } = useAuth();
+   const {user, login } = useAuth();
    const [loginState,requestLogin]=useAPIRequest(authentication);
+   const navigate = useNavigate()
 
+  // const {currentUser}= useSelector(state=>state.auth);
+
+  //  const userInfor=useSelector(selectUserInfor);
+  //  const navigate = useNavigate()
+  //  const dispatch = useDispatch()
+  //  const { loading, userInfo, error } = useSelector((state) => state.auth)
 // -----
+
+  useEffect(()=>{
+    // console.log(user);
+    if(user){
+      return navigate('/')
+    }
+  },[user])
 
   const formik = useFormik({
     initialValues: {email: "store123@gmail.com", password: "@Abcaz12345"} ,
@@ -46,6 +62,7 @@ function Login() {
            // const user = userCredential.user;
             // console.log("user credetial:",userCredential.user.accessToken);
           
+            // dispatch(userLogin(userCredential.user.accessToken));
             requestLogin(
               userCredential.user.accessToken
             );
@@ -60,6 +77,12 @@ function Login() {
           console.log("Sign In fail:",error);
         }
   }
+
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     navigate('/')
+  //   }
+  // }, [navigate, currentUser])
 
   useEffect(() => {
     if (loginState.status !== Actions.loading) {
