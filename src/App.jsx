@@ -26,6 +26,7 @@ import OrderDetailPage from "./views/order/OrderDetailPage";
 
 
 function App() {
+  
   return (
     <div className='App'>
       <Router>
@@ -38,7 +39,10 @@ function App() {
                 <Route path="/admin/maps" element={<Maps />} />
                 <Route path="/admin/settings" element={<Settings />} />
                 <Route path="/admin/products" element={<Products />} />
-                <Route path="/admin/menus" element={<Menus />} />
+                <Route path="/admin/menus" element={<Menus />} >
+                  
+                </Route>
+                {/* <Route path="/create" element={<CreateMenu/>}/> */}
                 {/* url order */}
                 <Route path="order" element={<OrderMainPage/>}>
                   <Route path="confirming" element={<OrderConfirmTable/>}/>

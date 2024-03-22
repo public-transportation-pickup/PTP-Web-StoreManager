@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL, CURRENT_USER } from "../libs/constants";
 import { GetLocalValue } from "../libs/Commons/UseLocalStorage";
-
+import { useAuth } from "../views/auth/AuthProvider";
 export async function getCategories() {
   //let user = await GetCurrentUser();
   // console.log("Get All Categories!");

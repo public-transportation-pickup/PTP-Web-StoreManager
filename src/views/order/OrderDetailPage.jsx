@@ -47,7 +47,7 @@ export default function OrderDetailPage() {
         <div>
           <h3 className="font-semibold text-lg">Thông tin đơn hàng</h3>
           <p className="pl-6 text-slate-600">Ngày tạo đơn: createDate</p>
-          <p className="pl-6 text-slate-600">Trạng thái đơn hàng: status</p>
+          <p className="pl-6 text-slate-600">Trạng thái đơn hàng: {orderDetailInfo.status}</p>
         </div>
 
         <div>
@@ -55,8 +55,8 @@ export default function OrderDetailPage() {
           <div className='flex flex-row gap-2 items-center'>
             <HiMiniWallet />
             <div>
-              <p className=" text-slate-600">Phương thức thanh toán: payment type</p>
-              <p className=" text-slate-600"> Trạng thái thanh toán: payment status</p>
+              <p className=" text-slate-600">Phương thức thanh toán: {orderDetailInfo.paymentType===null?"null": orderDetailInfo.paymentType}</p>
+              <p className=" text-slate-600"> Trạng thái thanh toán: {orderDetailInfo.paymentStatus ===null? "null": orderDetailInfo.paymentStatus}</p>
             </div>
           </div>
         </div>
@@ -66,11 +66,11 @@ export default function OrderDetailPage() {
           <div className='flex flex-row gap-2 items-center'>
             <HiMiniUserCircle className="items-center"/>
             <div>
-              <p className=" text-slate-600">Tên khách hàng: name</p>
-              <p className=" text-slate-600">Số điện thoại: phoneNumber</p>
+              <p className=" text-slate-600">Tên khách hàng: {orderDetailInfo.name}</p>
+              <p className=" text-slate-600">Số điện thoại: {orderDetailInfo.phoneNumber}</p>
             </div>
           </div>
-          <p className="font-extrabold   text-slate-600">Thời gian giao hàng: pickupTime</p>
+          <p className="font-extrabold   text-slate-600">Thời gian giao hàng: {orderDetailInfo.pickUpTime}</p>
         </div>
       </div>
       {/* order items */}

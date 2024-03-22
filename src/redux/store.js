@@ -1,18 +1,18 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import userReducer from "./user/userSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import menuReducer from "./features/menuSlice";
+import authReducer from "./features/authSlice";
 
-// const rootReducer=combineReducers({user:userReducer});
+// const rootReducer = combineReducers({ auth: authReducer });
 
-// const persistConfig={
-//     key:'root',
-//     storage,
-//     version:1
-// }
+// const persistConfig = {
+//   key: "root",
+//   storage,
+//   version: 1,
+// };
 
-// const persistedReducer= persistReducer(persistConfig,rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // export const store = configureStore({
 //     reducer: persistedReducer,
@@ -22,10 +22,10 @@ import menuReducer from "./features/menuSlice";
 //   }),
 // });
 
-// export const persistor=persistStore(store);
 export const store = configureStore({
   reducer: {
-    user: userReducer,
+    auth: authReducer,
     menu: menuReducer,
   },
 });
+// export const persistor = persistStore(store);

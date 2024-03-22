@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Note from "../../components/shared/Note";
 import { useNavigate } from "react-router-dom";
 import { getOrdersByStoreId } from "../../api/store-api";
@@ -24,35 +24,23 @@ export default function OrderConfirmTable() {
     }
 
     
-    const usePrevious = (value) => {
-        const ref = useRef();
-        useEffect(() => {
-            ref.current = value;
-        });
-        return ref.current;
-    };
+    
 
     const [listConfirmOrder, setListConfirmOrder]=useState([]);
-    console.log("List order: ",listConfirmOrder);
+    console.log("List order confirm : ",listConfirmOrder);
 
-    const previousValue= usePrevious(listConfirmOrder);
-
+    const fetchData= useCallback(
+        async ()=>{
+            const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
+            setListConfirmOrder(responseAPI);
+            console.log("ResponseAPI:",responseAPI);
+        },[listConfirmOrder]
+    ) 
 
     useEffect(()=>{
-        const fetchData= async()=>{
-            try {
-                //let userStorage= JSON.parse(localStorage.getItem("store"));
-                console.log("storeId: ", CURRENT_USER.user.storeId);
-                const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
-                console.log("Responseapi",JSON.parse(responseAPI));
-                await setListConfirmOrder({ ...listConfirmOrder, responseAPI  });
-
-            } catch (error) {
-                console.error("fetch data order complete table exception", error)
-            }            
-        } 
         fetchData();
-    },[previousValue])
+    },[])
+    
   return (
     <div className="flex flex-col gap-4">
         <div className="w-full">
@@ -73,7 +61,7 @@ export default function OrderConfirmTable() {
                                 Số thứ tự
                             </th>
                             <th scope="col" className="px-6 py-3 items-center justify-center border border-slate-300">
-                                Thông tin sp
+                                Thông tin tóm tắt
                             </th>
                             <th scope="col" className="px-6 py-3 border border-slate-300">
                                 Tổng thanh toán
@@ -91,37 +79,45 @@ export default function OrderConfirmTable() {
                     </thead>
                     <tbody >
                         {/* <Link to={`order/orderid`}> */}
-                        <tr  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
-                            <td className="px-6 py-4 border border-slate-300">
-                                1
-                            </td>
-                            <td onClick={()=>handleOnclickRow("orderId")} className="px-6 py-4 border border-slate-300 hover:bg-slate-200">
-                                <div className="flex flex-row gap-2">
-                                    <p>1. </p>
-                                    <p>Bánh táo</p>
-                                    <p>x2</p>
-                                    <p><strong className="pl-1">60000</strong></p>
-                                </div>
-                            </td>
-                            <td className="px-6 py-4 border border-slate-300">
-                                    Tổng giá
-                            </td>
-                            <td className="px-6 py-4 border border-slate-300">
-                                09:00
-                                <p>Nên xác nhận trước 08:00</p>
-                            </td>
-                            <td className="px-6 py-4 border border-slate-300">
-                                <p>Số đt người đặt</p>
-                                <p>Note</p>
-                            </td>
-                            <td className="px-6 py-4 border border-slate-300">
-                                <div className="flex gap-3">
-                                    <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
-                                    {/* <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button> */}
-                                    <Note button="Hủy đơn" noteStringFunc={handleReason}/>
-                                </div>
-                            </td>
-                        </tr>
+                        {listConfirmOrder.length >0 ? (listConfirmOrder.map((item,index)=>(
+                            //console.log("item",item);
+                            <tr key={item.id}  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
+                                <td className="px-6 py-4 border border-slate-300">
+                                    {index+1}
+                                </td>
+                                <td onClick={()=>handleOnclickRow(item.id)} className="px-6 py-4 border border-slate-300 hover:bg-slate-200">
+                                    
+                                    {/* <div className="flex flex-row gap-2">
+                                        <p>1. </p>
+                                        <p>Bánh táo</p>
+                                        <p>x2</p>
+                                        <p><strong className="pl-1">60000</strong></p>
+                                    </div> */}
+                                    Thông tin
+                                </td>
+                                <td className="px-6 py-4 border border-slate-300">
+                                        {item.total}
+                                </td>
+                                <td className="px-6 py-4 border border-slate-300">
+                                    {item.pickUpTime}
+                                    <p>Nên xác nhận trước 08:00</p>
+                                </td>
+                                <td className="px-6 py-4 border border-slate-300">
+                                    <p>Số đt người đặt: {item.phoneNumber}</p>
+                                    <p>Note</p>
+                                </td>
+                                <td className="px-6 py-4 border border-slate-300">
+                                    <div className="flex gap-3">
+                                        <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
+                                        {/* <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button> */}
+                                        <Note button="Hủy đơn" noteStringFunc={handleReason}/>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))
+                            
+                        ):(<></>)}
+                        
                     {/* </Link> */}
                     </tbody>
                 </table>

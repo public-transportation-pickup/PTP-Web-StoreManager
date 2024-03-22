@@ -44,7 +44,7 @@ function ProductTable() {
 
   //#region Load page
   useEffect(() => {
-    console.log(productName);
+    // console.log(productName);
     requestProducts({
       productName:productName,
       cateName:cateName,

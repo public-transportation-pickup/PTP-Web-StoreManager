@@ -15,7 +15,7 @@ export async function getStoreByUserId() {
 }
 
 export const getOrdersByStoreId=async (storeId,statusFilter) =>{
-  let url = statusFilter ===null ? BASE_URL+'/stores/'+storeId+'/orders' : BASE_URL+'/stores/'+storeId+'/orders?pageNumber=0&pageSize=10&Status='+statusFilter+'&roleName=StoreManager';
+  let url = statusFilter ===null ? BASE_URL+'/stores/'+storeId+'/orders' : (statusFilter==="Cancel"?BASE_URL+'/stores/'+storeId+'/orders?pageNumber=0&pageSize=10&Status='+statusFilter+'&roleName=StoreManager':BASE_URL+'/stores/'+storeId+'/orders?pageNumber=0&pageSize=10&Status='+statusFilter ) ;
   try {
     console.log("getOrdersByStoreId - store Id",storeId)
     const res= await fetch(url,{
