@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Note from "../../components/shared/Note";
 import {useNavigate} from 'react-router-dom'
 import { getOrdersByStoreId } from "../../api/store-api";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CURRENT_USER } from "../../libs/constants";
 
 
 export default function OrderPrepareTable() {
@@ -25,42 +26,29 @@ export default function OrderPrepareTable() {
         navigate(`/order/${orderId}`);
     }
 
-    const usePrevious = (value) => {
-        const ref = useRef();
-        useEffect(() => {
-            ref.current = value;
-        });
-        return ref.current;
-    };
 
     const [listPrepareOrder, setListPrepareOrder]=useState([]);
     console.log("List order: ",listPrepareOrder);
 
-    const previousValue= usePrevious(listPrepareOrder);
+    const fetchData= useCallback(
+        async ()=>{
+            const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
+            setListPrepareOrder(responseAPI);
+            console.log("ResponseAPI:",responseAPI);
+        },[listPrepareOrder]
+    ) 
 
     useEffect(()=>{
-        const fetchData= async()=>{
-            try {
-                let userStorage= JSON.parse(localStorage.getItem("user"));
-                console.log("storeId: ", userStorage.user.id);
-                const responseAPI= await getOrdersByStoreId(userStorage.user.id,"Cancel");
-                console.log("Responseapi",JSON.parse(responseAPI));
-                await setListPrepareOrder({ ...listPrepareOrder, responseAPI  });
-
-            } catch (error) {
-                console.error("fetch data order complete table exception", error)
-            }            
-        } 
         fetchData();
-    },[previousValue])
+    },[])
 
   return (
     <div className="flex flex-col gap-4">
     <div className="w-full">
-        <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
+        {/* <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
         <p className="text-xl underline">Hướng dẫn chung:</p>
         <p>Vui lòng xác nhận các đơn hàng trước <strong>10:00</strong></p>
-        </div>   
+        </div>    */}
     </div>
     <div>
         <h2 className="pb-4 text-center text-2xl">Danh sách đơn hàng cần chuẩn bị</h2>

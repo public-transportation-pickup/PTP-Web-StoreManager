@@ -2,8 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import Note from "../../components/shared/Note";
 import { useNavigate } from "react-router-dom";
 import { getOrdersByStoreId } from "../../api/store-api";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { CURRENT_USER } from "../../libs/constants";
+import { updateOrder } from "../../api/order-api";
 
 export default function OrderConfirmTable() {
     //status preparing
@@ -12,7 +14,29 @@ export default function OrderConfirmTable() {
         cancelReason:'',
         status:''
     })
-    console.log("orderConfirmModal",orderConfirmModal);
+    
+    const [listConfirmOrder, setListConfirmOrder]=useState([]);
+    console.log("List order confirm : ",listConfirmOrder);
+
+    const handleConfirm=async(idOrder)=>{
+        await console.log("Id order update", idOrder)
+       
+        try {
+           
+            setOrderConfirmModal({...orderConfirmModal,status:"Preparing"})
+            setOrderConfirmModal({...orderConfirmModal,id:idOrder,});
+            console.log("orderConfirmModal",orderConfirmModal);
+            const reqAPI= await updateOrder(orderConfirmModal);
+            console.log("Req API", reqAPI);
+            await typeof reqAPI ==='string' ? toast("Xác nhận đơn thất bại"): toast("Xác nhận đơn hàng thành công");
+            
+        } catch (error) {
+            console.log("handleConfirm button exception", error)
+        }
+        
+
+    }
+
     const handleReason=async(value)=>{
         console.log("Reason value on order confirm table:",value);
         await setOrderConfirmModal({...orderConfirmModal, cancelReason:value})
@@ -22,13 +46,7 @@ export default function OrderConfirmTable() {
     const handleOnclickRow=(orderId)=>{
         navigate(`/order/${orderId}`);
     }
-
     
-    
-
-    const [listConfirmOrder, setListConfirmOrder]=useState([]);
-    console.log("List order confirm : ",listConfirmOrder);
-
     const fetchData= useCallback(
         async ()=>{
             const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
@@ -80,7 +98,7 @@ export default function OrderConfirmTable() {
                     <tbody >
                         {/* <Link to={`order/orderid`}> */}
                         {listConfirmOrder.length >0 ? (listConfirmOrder.map((item,index)=>(
-                            //console.log("item",item);
+                           
                             <tr key={item.id}  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                                 <td className="px-6 py-4 border border-slate-300">
                                     {index+1}
@@ -94,6 +112,7 @@ export default function OrderConfirmTable() {
                                         <p><strong className="pl-1">60000</strong></p>
                                     </div> */}
                                     Thông tin
+                                    
                                 </td>
                                 <td className="px-6 py-4 border border-slate-300">
                                         {item.total}
@@ -108,8 +127,8 @@ export default function OrderConfirmTable() {
                                 </td>
                                 <td className="px-6 py-4 border border-slate-300">
                                     <div className="flex gap-3">
-                                        <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
-                                        {/* <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button> */}
+                                        <button type="button" onClick={()=>handleConfirm(item.id)} className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
+                                        {console.log("Order id",item.id)}
                                         <Note button="Hủy đơn" noteStringFunc={handleReason}/>
                                     </div>
                                 </td>
@@ -121,7 +140,7 @@ export default function OrderConfirmTable() {
                     {/* </Link> */}
                     </tbody>
                 </table>
-                 ):(<ToastContainer/>)}
+                 ):(<ToastContainer />)}
                 
             </div>
         </div>

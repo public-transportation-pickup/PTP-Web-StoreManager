@@ -4,7 +4,6 @@ import ProductOrderItem from '../../components/products/ProductOrderItem';
 import { useParams } from 'react-router';
 import { useEffect, useState } from "react";
 import { getOrder } from "../../api/order-api";
-import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Note from "../../components/shared/Note";
 

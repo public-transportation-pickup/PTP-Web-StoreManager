@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,31 +14,33 @@ export default function OrderAllTable() {
     const [listOrder, setListOrder]=useState([]);
     console.log("List order: ",listOrder);
     
-    const usePrevious = (value) => {
-        const ref = useRef();
-        useEffect(() => {
-            ref.current = value;
-        });
-        return ref.current;
-    };
-
-    const previousValue= usePrevious(listOrder);
+    const fetchData= useCallback(
+        async ()=>{
+            const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId);
+            setListOrder(responseAPI);
+            console.log("ResponseAPI:",responseAPI);
+        },[listOrder]
+    ) 
 
     useEffect(()=>{
-        const fetchData= async()=>{
-            try {
-                //let userStorage= JSON.parse(localStorage.getItem("user"));
-                console.log("storeId: ", CURRENT_USER.user.storeId);
-                const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Cancel");
-                console.log("Responseapi",JSON.parse(responseAPI));
-                await setListOrder({ ...listOrder, responseAPI  });
-
-            } catch (error) {
-                console.error("fetch data order complete table exception", error)
-            }            
-        } 
         fetchData();
-    },[previousValue])
+    },[])
+
+    // useEffect(()=>{
+    //     const fetchData= async()=>{
+    //         try {
+    //             //let userStorage= JSON.parse(localStorage.getItem("user"));
+    //             console.log("storeId: ", CURRENT_USER.user.storeId);
+    //             const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Cancel");
+    //             console.log("Responseapi",JSON.parse(responseAPI));
+    //             await setListOrder({ ...listOrder, responseAPI  });
+
+    //         } catch (error) {
+    //             console.error("fetch data order complete table exception", error)
+    //         }            
+    //     } 
+    //     fetchData();
+    // },[previousValue])
   return (
     <div className="flex flex-col gap-4">
         <div>

@@ -1,4 +1,4 @@
-import { useEffect, useState,useRef } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { getOrdersByStoreId } from '../../api/store-api';
 import { ToastContainer } from 'react-toastify';
@@ -11,34 +11,37 @@ export default function OrderCancelTable() {
         navigate(`/order/${orderId}`);
     }
 
-    const usePrevious = (value) => {
-        const ref = useRef();
-        useEffect(() => {
-            ref.current = value;
-        });
-        return ref.current;
-    };
-
     const [listCancelOrder, setListCancelOrder]=useState([]);
     console.log("List order: ",listCancelOrder);
-
-    const previousValue= usePrevious(listCancelOrder);
+    const fetchData= useCallback(
+        async ()=>{
+            const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
+            setListCancelOrder(responseAPI);
+            console.log("ResponseAPI:",responseAPI);
+        },[listCancelOrder]
+    ) 
 
     useEffect(()=>{
-        const fetchData= async()=>{
-            try {
-                //let userStorage= JSON.parse(localStorage.getItem("user"));
-                console.log("storeId: ", CURRENT_USER.user.storeId);
-                const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Cancel");
-                console.log("Responseapi",JSON.parse(responseAPI));
-                await setListCancelOrder({ ...listCancelOrder, responseAPI  });
-
-            } catch (error) {
-                console.error("fetch data order complete table exception", error)
-            }            
-        } 
         fetchData();
-    },[previousValue])
+    },[])
+
+    // const previousValue= usePrevious(listCancelOrder);
+
+    // useEffect(()=>{
+    //     const fetchData= async()=>{
+    //         try {
+    //             //let userStorage= JSON.parse(localStorage.getItem("user"));
+    //             console.log("storeId: ", CURRENT_USER.user.storeId);
+    //             const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Cancel");
+    //             console.log("Responseapi",JSON.parse(responseAPI));
+    //             await setListCancelOrder({ ...listCancelOrder, responseAPI  });
+
+    //         } catch (error) {
+    //             console.error("fetch data order complete table exception", error)
+    //         }            
+    //     } 
+    //     fetchData();
+    // },[previousValue])
   return (
     <div className="flex flex-col gap-4">
         <div>

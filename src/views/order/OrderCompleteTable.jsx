@@ -1,44 +1,49 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { getOrdersByStoreId } from '../../api/store-api';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CURRENT_USER } from '../../libs/constants';
 
 export default function OrderCompleteTable() {
     const navigate= useNavigate();
     const handleOnclickRow=(orderId)=>{
         navigate(`/order/${orderId}`);
     }
-    
-    const usePrevious = (value) => {
-        const ref = useRef();
-        useEffect(() => {
-            ref.current = value;
-        });
-        return ref.current;
-    };
 
     const [listCompletedOrder, setListCompletedOrder]=useState([]);
     console.log("List order completed: ",listCompletedOrder);
 
-    const previousValue= usePrevious(listCompletedOrder);
+    const fetchData= useCallback(
+        async ()=>{
+            const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
+            setListCompletedOrder(responseAPI);
+            console.log("ResponseAPI:",responseAPI);
+        },[listCompletedOrder]
+    ) 
 
     useEffect(()=>{
-
-        const fetchData= async()=>{
-            try {
-                let userStorage= JSON.parse(localStorage.getItem("user"));
-                console.log("storeId: ", userStorage.user.id);
-                const responseAPI= await getOrdersByStoreId(userStorage.user.id,"Cancel");
-                console.log("Responseapi",JSON.parse(responseAPI));
-                await setListCompletedOrder({ ...listCompletedOrder, responseAPI});
-
-            } catch (error) {
-                console.error("fetch data order complete table exception", error)
-            }            
-        } 
         fetchData();
-    },[previousValue])
+    },[])
+
+    // const previousValue= usePrevious(listCompletedOrder);
+
+    // useEffect(()=>{
+
+    //     const fetchData= async()=>{
+    //         try {
+    //             let userStorage= JSON.parse(localStorage.getItem("user"));
+    //             console.log("storeId: ", userStorage.user.id);
+    //             const responseAPI= await getOrdersByStoreId(userStorage.user.id,"Cancel");
+    //             console.log("Responseapi",JSON.parse(responseAPI));
+    //             await setListCompletedOrder({ ...listCompletedOrder, responseAPI});
+
+    //         } catch (error) {
+    //             console.error("fetch data order complete table exception", error)
+    //         }            
+    //     } 
+    //     fetchData();
+    // },[previousValue])
   return (
     <div className="flex flex-col gap-4">
     <div>
