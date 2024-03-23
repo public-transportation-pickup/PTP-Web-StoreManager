@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Note from "../../components/shared/Note";
+import {useNavigate} from 'react-router-dom'
+import { getOrdersByStoreId } from "../../api/store-api";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { CURRENT_USER } from "../../libs/constants";
 
 
 export default function OrderDeliveryTable() {
@@ -16,20 +21,61 @@ export default function OrderDeliveryTable() {
         await setOrderDeliveryModal({...orderDeliveryModal, cancelReason:value})
         
     }
+    const navigate= useNavigate();
+    const handleOnclickRow=(orderId)=>{
+        navigate(`/order/${orderId}`);
+    }
+
+    
+
+    const [listDeliveryOrder, setListDeliveryOrder]=useState([]);
+    console.log("List order: ",listDeliveryOrder);
+    const fetchData= useCallback(
+        async ()=>{
+            const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
+            setListDeliveryOrder(responseAPI);
+            console.log("ResponseAPI:",responseAPI);
+        },[listDeliveryOrder]
+    ) 
+
+    useEffect(()=>{
+        fetchData();
+    },[])
+
+    // const previousValue= usePrevious(listDeliveryOrder);
+
+    // useEffect(()=>{
+    //     const fetchData= async()=>{
+    //         try {
+    //             let userStorage= JSON.parse(localStorage.getItem("user"));
+    //             console.log("storeId: ", userStorage.user.id);
+    //             const responseAPI= await getOrdersByStoreId(userStorage.user.id,"Cancel");
+    //             console.log("Responseapi",JSON.parse(responseAPI));
+    //             await setListDeliveryOrder({ ...listDeliveryOrder, responseAPI  });
+
+    //         } catch (error) {
+    //             console.error("fetch data order complete table exception", error)
+    //         }            
+    //     } 
+    //     fetchData();
+    // },[previousValue])
+
   return (
     <div className="flex flex-col gap-4">
     <div className="w-full">
-        <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
+        {/* <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
         <p className="text-xl underline">Hướng dẫn chung:</p>
         <p>Vui lòng xác nhận các đơn hàng trước <strong>10:00</strong></p>
-        </div>   
+        </div>    */}
     </div>
     <div>
         <h2 className="pb-4 text-center text-2xl">Danh sách đơn hàng cần được giao</h2>
         <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
+            {listDeliveryOrder.length >0 ?(
+               
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
+                    <tr >
                         <th scope="col" className="px-4 py-3 border border-slate-300 items-center">
                             Số thứ tự
                         </th>
@@ -51,11 +97,12 @@ export default function OrderDeliveryTable() {
                     </tr>
                 </thead>
                 <tbody >
-                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300">
+                {listDeliveryOrder.length >0 && listDeliveryOrder.map((item,index)=>(
+                    <tr key={item.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300">
                         <td className="px-6 py-4 border border-slate-300">
-                            1
+                            {index+1}
                         </td>
-                        <td className="px-6 py-4 border border-slate-300">
+                        <td onClick={()=>handleOnclickRow("orderId")} className="px-6 py-4 border border-slate-300 hover:opacity-95">
                             <div className="flex flex-row gap-2">
                                 <p>1. </p>
                                 <p>Bánh táo</p>
@@ -76,14 +123,16 @@ export default function OrderDeliveryTable() {
                         <td className="px-6 py-4 border border-slate-300">
                             <div className="flex gap-3">
                                 <button className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Đã giao</button>
-                                {/* <button className=" bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Hủy đơn</button> */}
                                 <Note button="Hủy đơn" noteStringFunc={handleReason}/>
                             </div>
                         </td>
                     </tr>
-                
+                    ))}
                 </tbody>
             </table>
+                
+            ):(<ToastContainer/>)}
+            
         </div>
     </div>
 </div>

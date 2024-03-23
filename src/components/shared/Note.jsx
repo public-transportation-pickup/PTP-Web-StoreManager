@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import PropTypes from "prop-types"
+import { reasonsCancelOrderData } from '../../libs/constants/ReasonCancelData';
 
 export default function Note({button,noteStringFunc}) {
     let [isOpen, setIsOpen] = useState(false)
@@ -82,13 +83,18 @@ export default function Note({button,noteStringFunc}) {
                       </p> */}
                       <input className='rounded-lg w-full' name='note' value={note.length>0?note:""} onChange={(e)=>setNote(e.target.value)}/>
                       <div className=''>
-                        <p onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>Đơn hàng quá thời gian nhận</span></p>
-                        <p onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>Sản phẩm hết hàng</span></p>
+                        {reasonsCancelOrderData.map((item)=>(
+                        <p key={item.key} onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>{item.reason}</span></p>
+
+                        ))}
+                        
+                        
+                        {/* <p onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>Sản phẩm hết hàng</span></p>
                         <p onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>Lỗi giá cả</span></p>
                         <p onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>Một số sản phẩm không khả dụng</span></p>
                         <p onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>Không đáp ứng được yêu cầu đặc biệt</span></p>
                         <p onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>Thông tin người dùng không được xác minh</span></p>
-                        <p onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>Không liên hệ được với khách hàng</span></p>                    
+                        <p onClick={handleSuggestReason} className='p-1 inline-block'><span className='inline-block hover:bg-indigo-400 text-sm border border-indigo-200 p-1 rounded-xl'>Không liên hệ được với khách hàng</span></p>                     */}
                       </div>
                     </div>
   

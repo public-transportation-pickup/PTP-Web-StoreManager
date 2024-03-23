@@ -1,14 +1,57 @@
-
+import { useEffect, useState, useCallback } from 'react';
+import {useNavigate} from 'react-router-dom'
+import { getOrdersByStoreId } from '../../api/store-api';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { CURRENT_USER } from '../../libs/constants';
 
 export default function OrderCancelTable() {
+    const navigate= useNavigate();
+    const handleOnclickRow=(orderId)=>{
+        navigate(`/order/${orderId}`);
+    }
+
+    const [listCancelOrder, setListCancelOrder]=useState([]);
+    console.log("List order: ",listCancelOrder);
+    const fetchData= useCallback(
+        async ()=>{
+            const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
+            setListCancelOrder(responseAPI);
+            console.log("ResponseAPI:",responseAPI);
+        },[listCancelOrder]
+    ) 
+
+    useEffect(()=>{
+        fetchData();
+    },[])
+
+    // const previousValue= usePrevious(listCancelOrder);
+
+    // useEffect(()=>{
+    //     const fetchData= async()=>{
+    //         try {
+    //             //let userStorage= JSON.parse(localStorage.getItem("user"));
+    //             console.log("storeId: ", CURRENT_USER.user.storeId);
+    //             const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Cancel");
+    //             console.log("Responseapi",JSON.parse(responseAPI));
+    //             await setListCancelOrder({ ...listCancelOrder, responseAPI  });
+
+    //         } catch (error) {
+    //             console.error("fetch data order complete table exception", error)
+    //         }            
+    //     } 
+    //     fetchData();
+    // },[previousValue])
   return (
     <div className="flex flex-col gap-4">
         <div>
             <h2 className="pb-4 text-center text-2xl">Danh sách đơn hàng đã hủy</h2>
             <div className="relative overflow-x-auto">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
+                
+                {listCancelOrder.length >0 ? (
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
+                        <tr onClick={()=>handleOnclickRow("orderId")}>
                             <th scope="col" className="px-4 py-3 border border-slate-300 items-center">
                                 Số thứ tự
                             </th>
@@ -54,6 +97,10 @@ export default function OrderCancelTable() {
                     
                     </tbody>
                 </table>
+                ):(
+                    <ToastContainer/>
+                )}
+                
             </div>
         </div>
     </div>
