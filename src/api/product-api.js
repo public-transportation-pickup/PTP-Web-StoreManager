@@ -3,7 +3,7 @@ import { BASE_URL, CURRENT_USER } from "../libs/constants";
 import { GetLocalValue } from "../libs/Commons/UseLocalStorage";
 
 export async function getProductByStoreId(param) {
-  console.log(CURRENT_USER);
+  // console.log(CURRENT_USER);
   let STOREID = CURRENT_USER.user.storeId;
   let url =
     BASE_URL +
@@ -18,28 +18,17 @@ export async function getProductByStoreId(param) {
       BASE_URL +
       "/stores/" +
       STOREID +
-      "/products?pageNumber=0" +
+      "/products?pageNumber=" +
       param.pageNumber +
       "&pageSize=5" +
       "&CategoryName=" +
       param.cateName;
   }
 
-  if (param.productName !== null && param.productName !== undefined) {
-    url =
-      BASE_URL +
-      "/stores/" +
-      STOREID +
-      "/products?pageNumber=0" +
-      param.pageNumber +
-      "&pageSize=5" +
-      "&Name=" +
-      param.productName;
-    // console.log("ProductName:", param.productName);
-  }
   var response = await axios.get(url, {
     headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
   });
+  // console.log(response);
   return response.data;
 }
 

@@ -18,13 +18,13 @@ function Admin() {
   const {pathname}=useLocation();
   
   return (
-    <div className="h-screen flex flex-row">
+    <div className="flex flex-row">
       <div><Sidebar /></div>
       <div className=" h-full w-screen ml-56 bg-[#f7f7ff]">
         <AdminNavbar />
            {pathname==="/"?(<HeaderStats />):(<></>)}
           
-          <div className=" mx-auto -m-28">
+          <div className=" mx-auto -m-28S">
             <Outlet />
         </div>
       </div>

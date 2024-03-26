@@ -139,7 +139,7 @@ function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
@@ -159,7 +159,7 @@ function Sidebar() {
                   ></i>{" "}
                   Menus
                 </Link>
-              </li>
+              </li> */}
               <li className="items-center">
                 <Link
                   className={
@@ -204,7 +204,7 @@ function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
@@ -224,7 +224,7 @@ function Sidebar() {
                   ></i>{" "}
                   Maps
                 </Link>
-              </li>
+              </li> */}
             </ul>
 
             {/* Divider */}

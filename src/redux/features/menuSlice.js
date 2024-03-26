@@ -31,7 +31,7 @@ const menuSlice = createSlice({
         state.loading = false;
       } catch (error) {
         state.loading = false;
-        console.log("fail to update student list");
+        console.log("fail to update menu list");
       }
     },
   },

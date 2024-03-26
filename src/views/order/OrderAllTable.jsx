@@ -1,14 +1,55 @@
-
+import { useCallback, useEffect, useState } from 'react';
+import {useNavigate} from 'react-router-dom'
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { getOrdersByStoreId } from '../../api/store-api';
+import { CURRENT_USER } from '../../libs/constants';
 
 export default function OrderAllTable() {
+    //const param= useParams();
+    const navigate= useNavigate();
+    const handleOnclickRow=(orderId)=>{
+        navigate(`/order/${orderId}`);
+    }
+    const [listOrder, setListOrder]=useState([]);
+    console.log("List order: ",listOrder);
+    
+    const fetchData= useCallback(
+        async ()=>{
+            const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId);
+            setListOrder(responseAPI);
+            console.log("ResponseAPI:",responseAPI);
+        },[listOrder]
+    ) 
+
+    useEffect(()=>{
+        fetchData();
+    },[])
+
+    // useEffect(()=>{
+    //     const fetchData= async()=>{
+    //         try {
+    //             //let userStorage= JSON.parse(localStorage.getItem("user"));
+    //             console.log("storeId: ", CURRENT_USER.user.storeId);
+    //             const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Cancel");
+    //             console.log("Responseapi",JSON.parse(responseAPI));
+    //             await setListOrder({ ...listOrder, responseAPI  });
+
+    //         } catch (error) {
+    //             console.error("fetch data order complete table exception", error)
+    //         }            
+    //     } 
+    //     fetchData();
+    // },[previousValue])
   return (
     <div className="flex flex-col gap-4">
         <div>
             <h2 className="pb-4 text-center text-2xl">Danh sách tất cả đơn hàng</h2>
             <div className="relative overflow-x-auto">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
+                {listOrder.length >0 ?(
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-collapse border border-slate-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
+                        <tr onClick={()=>handleOnclickRow("orderId")}>
                             <th scope="col" className="px-4 py-3 border border-slate-300 items-center">
                                 Số thứ tự
                             </th>
@@ -28,7 +69,7 @@ export default function OrderAllTable() {
                         </tr>
                     </thead>
                     <tbody >
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300">
+                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300">
                             <td className="px-6 py-4 border border-slate-300">
                                 1
                             </td>
@@ -52,9 +93,14 @@ export default function OrderAllTable() {
                             </td>
                             
                         </tr>
+                        
                     
                     </tbody>
                 </table>
+                ):(
+                    <ToastContainer/>
+                )}
+                
             </div>
         </div>
     </div>

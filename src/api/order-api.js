@@ -1,33 +1,41 @@
-import { BASE_URL } from "../libs/constants";
+import axios from "axios";
+import { BASE_URL, CURRENT_USER } from "../libs/constants";
 
-export const getOrder= async (orderId)=>{
-    try {
-        const res= await fetch(`${BASE_URL}/order/${orderId}`);
-        console.log("Res",res)
-        const data = await res.json();
-        if(res.status===404){
-            console.log("Data.error",data.error);
-            return data.error;
-        }else return data;
-    } catch (error) {
-        console.log("getAllOrder exception:",error);
-    }
+export async function GetOrderByStoreId(param) {
+  let STOREID = CURRENT_USER.user.storeId;
+
+  var url =
+    BASE_URL +
+    "/stores/" +
+    STOREID +
+    "/orders?pageSize=5&pageNumber=0" +
+    // param.pageNumber +
+    "&Status=" +
+    param.status;
+  // console.log(url);
+  var response = await axios
+    .get(url, {
+      headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  // console.log(response.data);
+  return response.data;
 }
 
-export const updateOrder = async (orderModel)=>{
-    try {
-        const res =await fetch(`${BASE_URL}/order/${orderModel.Id}`,{
-            headers:{
-                "method":"PUT"
-            },
-            body: orderModel
-        });
-        const data= await res.json();
-        console.log
-        if(res.status===400) return "Lỗi truy cập hệ thống"
-        else if (res.status ===401) return "Vui lòng đăng nhập để sử dụng tính năng này"
-        else return data;
-    } catch (error) {
-        console.log("update Order exception: ",error);
-    }
+export async function GetOrderById(id) {
+  var url = BASE_URL + "/order/" + id;
+  var response = await axios.get(url);
+  return response.data;
+}
+
+export async function UpdateOrder(param) {
+  console.log(param);
+  // 'http://localhost:5066/api/order/2156df9d-ed97-4fe8-a453-81a6d2501b9b'
+  var url = BASE_URL + "/order/" + param.id;
+  var response = await axios.put(url, param, {
+    headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+  });
+  return response;
 }
