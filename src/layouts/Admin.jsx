@@ -20,9 +20,9 @@ function Admin() {
   return (
     <div className="flex flex-row">
       <div><Sidebar /></div>
-      <div className=" h-full w-screen ml-56 bg-[#f7f7ff]">
+      <div className=" h-full w-screen md:ml-56 bg-[#f7f7ff]">
         <AdminNavbar />
-           {pathname==="/"?(<HeaderStats />):(<></>)}
+           {/* {pathname==="/stores"?(<HeaderStats />):(<></>)} */}
           
           <div className=" mx-auto -m-28S">
             <Outlet />

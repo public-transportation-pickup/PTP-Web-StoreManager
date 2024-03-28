@@ -1,43 +1,21 @@
 
 // components
-import { Actions,useAPIRequest } from "../../libs/Commons/api-request";
-import { getStoreByUserId } from "../../api/store-api";
-import { useLocalStorage } from "../../libs/Commons/UseLocalStorage";
 
 // import CardLineChart from "../../components/Cards/CardLineChart";
 import { ToastContainer,toast } from "react-toastify";
 import { useEffect, useState,useContext } from "react";
 import CardBarChart from "../../components/Cards/CardBarChart";
+// import CardLineChart from "../../components/Cards/CardLineChart";
 import CardPageVisits from "../../components/Cards/CardPageVisits";
 import CardSocialTraffic from "../../components/Cards/CardSocialTraffic";
+import HeaderStats from "../../components/Headers/HeaderStats";
 
 function Dashboard() {
-  // const [store,setStore]=useState();
-  // const [storeState,requestStore]=useAPIRequest(getStoreByUserId);
-  // const [storeLocal, setStoreLocal] = useLocalStorage("store", null);
-  
-  // useEffect(()=>{
-  //   console.log('oke');
-  //   requestStore();
-  // },[]);
 
-  // useEffect(()=>{
-  //   if(storeState.status==Actions.success ){
-  //     setStore(storeState.payload);
-  //     setStoreLocal(storeState.payload);
-  //   }
-
-  // },[storeState]);
-
-  // useEffect(()=>{
-  //   if(storeState.status==Actions.success ){
-  //     setStoreLocal(storeState.payload);
-  //   }
-
-  // },[storeState.payload]);
 
   return (
     <>
+      <HeaderStats/>
       <div className="flex flex-wrap">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
           {/* <CardLineChart /> */}

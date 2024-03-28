@@ -41,7 +41,7 @@ export default function OrderPrepareTable() {
    
     const navigate= useNavigate();
     const handleOnclickRow=(orderId)=>{
-        navigate(`/order/${orderId}`);
+        navigate(`../${orderId}`);
     }
 
     const handleConfirm=async(idOrder)=>{

@@ -50,7 +50,7 @@ export default function OrderConfirmTable() {
     const navigate= useNavigate();
 
     const handleOnclickRow=(orderId)=>{
-        navigate(`/order/${orderId}`);
+        navigate(`../${orderId}`);
     }
 
     const handleConfirm=async(idOrder)=>{

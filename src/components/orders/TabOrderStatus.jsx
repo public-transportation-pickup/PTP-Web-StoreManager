@@ -11,7 +11,7 @@ function TabsNavigate({item}){
     const {pathname}= useLocation();
     return (
         
-    <Link to={item.path} className={classNames(pathname===item.path?propertiesActive : propertiesInActivce,propertiesCommom)}>
+    <Link to={item.path} className={classNames(pathname.includes(item.path)?propertiesActive : propertiesInActivce,propertiesCommom)}>
             {item.label}
     </Link>
     )

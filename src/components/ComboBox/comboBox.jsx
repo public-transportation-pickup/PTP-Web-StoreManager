@@ -9,7 +9,7 @@ export default function ComboBox({setMenuId}) {
   const navigate = useNavigate();
 
   const handleClick=()=>{
-    navigate("/admin/menus/create");
+    navigate("../menus/create");
   }
 
   const [menuState,requestMenu]=useAPIRequest(GetMenuByStoreId);

@@ -110,7 +110,7 @@ useEffect(()=>{
 useEffect(() => {
     if (toastLoading) {
       const timeout = setTimeout(() => {
-        navigate(`/admin/menus/index`);
+        navigate(`../`);
       }, 1000);
 
       return () => {

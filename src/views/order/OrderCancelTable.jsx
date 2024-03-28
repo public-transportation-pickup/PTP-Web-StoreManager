@@ -11,7 +11,7 @@ import PaginationButton from "../../components/Pagination/PaginationButton.jsx";
 export default function OrderCancelTable() {
     const navigate= useNavigate();
     const handleOnclickRow=(orderId)=>{
-        navigate(`/order/${orderId}`);
+        navigate(`../${orderId}`);
     }
     const [listCancelOrder,setlist] = useState([])
     const [currentPage, setCurrentPage] = useState(0);

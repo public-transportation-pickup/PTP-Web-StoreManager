@@ -34,10 +34,10 @@ export default function MenuMainPage() {
     const navigate= useNavigate();
 
     const handleUpdate=(id)=>{
-        navigate(`/admin/menus/update/${id}`);
+        navigate(`update/${id}`);
     }
     const handleCreate=(id)=>{
-        navigate(`/admin/menus/create`);
+        navigate(`create`);
     }
 
 
@@ -63,10 +63,10 @@ export default function MenuMainPage() {
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded h-fit" 
         }
       >
-         <div className=" justify-end rounded-t-md bg-gray-100 px-2 max-w-full flex flex-grow flex-1 py-2 ">
+         <div className=" justify-end rounded-t-md bg-gray-100 px-0 max-w-full flex flex-grow flex-1 py-2 ">
               <button 
                 onClick={()=>handleCreate()}
-                className="  text-base font-medium bg-gray-50 text-gray-400  py-[0.6rem] px-4 border border-gray-300 hover:border-blue-400 rounded mx-5">
+                className="  text-base font-medium bg-gray-50 text-gray-400  py-[0.6rem] px-4 border border-gray-300 hover:border-blue-400 rounded">
                 Thêm mới
               </button>   
             </div>

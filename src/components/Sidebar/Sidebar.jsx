@@ -103,7 +103,7 @@ function Sidebar() {
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/"
+                  to=""
                 >
                   <i
                     className={
@@ -124,7 +124,7 @@ function Sidebar() {
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/admin/menus/index"
+                  to="menus"
                 >
                   <i
                     className={
@@ -146,7 +146,7 @@ function Sidebar() {
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/admin/products"
+                  to="products"
                 >
                   <i
                     className={
@@ -167,7 +167,7 @@ function Sidebar() {
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/order/confirming"
+                  to="orders/confirming"
                 >
                   <i
                     className={

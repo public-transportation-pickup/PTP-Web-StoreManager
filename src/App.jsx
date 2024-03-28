@@ -35,34 +35,30 @@ function App() {
           <Routes>
             <Route path="/auth/login" element={<Auth />} />
             <Route element={<PrivateRoutes/>}>
-              <Route path="/" exact element={<Admin />}>
-                <Route path="/" index element={<Dashboard />} />
-                <Route path="/admin/maps" element={<Maps />} />
-                <Route path="/admin/settings" element={<Settings />} />
+              <Route path="/stores" exact element={<Admin />}>
+                <Route  index element={<Dashboard />} />
+                {/* <Route path="/admin/maps" element={<Maps />} />
+                <Route path="/admin/settings" element={<Settings />} /> */}
                 <Route path="products" element={<Products />} />
                 
-                <Route path="/admin/menus">
-                  <Route path="index" element={<Menus />} />
+                <Route path="menus">
+                  <Route path="" element={<Menus />} />
                   <Route path="create" element={<CreateMenuPage/>}/>
                   <Route path="update/:menuId" element={<UpdateMenuPage/>}/>
                 </Route>
 
-                <Route path="order" element={<OrderMainPage/>}>
+                <Route path="orders" element={<OrderMainPage/>}>
                   <Route path="confirming" element={<OrderConfirmTable/>}/>
                   <Route path="preparing" element={<OrderPrepareTable/>}/>
                   <Route path="delivering" element={<OrderDeliveryTable/>}/>
                   <Route path="completed" element={<OrderCompleteTable/>}/>
                   <Route path="reject" element={<OrderCancelTable/>}/>
                   <Route path="all" element={<OrderAllTable/>}/>
+                  <Route path=":orderId" element={<OrderDetailPage/>}/>
                 </Route>
-                <Route path="order/:orderId" element={<OrderDetailPage/>}/>
+                
               </Route>
             </Route>
-            {/* <Route path="/productitemtemp" element={<CreateProductPage/>}/> */}
-            
-            <Route path="/textpage" element={<TextPage/>}/>
-            <Route path="/testpage" element={<OrderDetailPage/>}/>
-           
           </Routes>
         </AuthProvider>
         

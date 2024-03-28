@@ -12,7 +12,7 @@ import PaginationButton from "../../components/Pagination/PaginationButton.jsx";
 export default function OrderCompleteTable() {
     const navigate= useNavigate();
     const handleOnclickRow=(orderId)=>{
-        navigate(`/order/${orderId}`);
+        navigate(`../${orderId}`);
     }
 
     const [listCompletedOrder,setlist] = useState([])

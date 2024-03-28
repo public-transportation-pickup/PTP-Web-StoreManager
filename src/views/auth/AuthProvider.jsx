@@ -19,8 +19,8 @@ export const AuthProvider = ({ children }) => {
     // localStorage.setItem("accessToken", data.token);
     setUser(data);
     // navigate("/",{replace:true });
-    navigate(0)
-    window.location.reload();
+    // navigate(0)
+    // window.location.reload();
   };
 
   // call this function to sign out logged in user

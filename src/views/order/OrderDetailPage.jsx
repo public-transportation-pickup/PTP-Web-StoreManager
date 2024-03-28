@@ -96,10 +96,9 @@ export default function OrderDetailPage() {
   return (
     <>
       <ToastContainer className="w-100 h-10"/>
-      <div className="pt-20 h-screen">
+      <div className=" h-screen">
+        <h2 className="pb-4 text-center text-2xl">Chi tiết đơn hàng</h2>
         <div className='flex flex-row divide-x gap-6'>
-        {/* Thong tin */}
-        
         <div className='flex flex-col divide-y px-5'>
           <div className="">
               <div className='flex flex-row gap-2 items-center'>

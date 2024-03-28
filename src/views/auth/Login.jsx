@@ -27,7 +27,8 @@ function Login() {
   useEffect(()=>{
     // console.log(user);
     if(user){
-      return navigate('/')
+      // console.log(user.user.storeId);
+      return navigate(`/stores/${user.user.storeId}`)
     }
   },[user])
 

@@ -62,7 +62,7 @@ export default function CreateMenuPage() {
 
     if ( createState.status === Actions.success  ) {
         toast.success("Thêm lịch bán thành công!",{autoClose:900});
-        navigate(`/admin/menus/index`);
+        navigate(`../`);
     }
     else if( createState.status === Actions.failure ){
         toast.warning("Tạo lịch bán thất bại!",{autoClose:900})
