@@ -8,6 +8,7 @@ import { DeleteProductPage } from "./DeleteProduct.jsx";
 import { ConfirmModal } from "../Modals/Modal.jsx"; 
 import { getCategories } from '../../api/category-api.js';
 import { UpdateProduct,CreateProduct,DeleteProduct } from "../../api/product-api.js";
+import { GetMenuByStoreId } from "../../api/menu-api.js";
 //#endregion
 
 
@@ -20,11 +21,12 @@ export default function CreateProductPage({product,handleClose}) {
     const [createState,requestCreate]= useAPIRequest(CreateProduct);
     const [deleteState,requestDelete]= useAPIRequest(DeleteProduct);
     const [categoriesState, requestCategories] = useAPIRequest(getCategories);
+    const [menuState,requestMenu]=useAPIRequest(GetMenuByStoreId);
     //#endregion
 
     //#region Set List
     const [categories,setCategories]=useState([]);
-
+    const [menus,setMenus]=useState([]);
     //#endregion
 
 
@@ -34,8 +36,15 @@ export default function CreateProductPage({product,handleClose}) {
 
     useEffect(() => {
         requestCategories();
+        requestMenu();
     }, []);
   
+    useEffect(()=>{
+    if(menuState.status===Actions.success){
+        setMenus(menuState.payload);
+    }
+    },[menuState]);
+
     useEffect(()=>{
         if(categoriesState.status==Actions.success){
           setCategories(categoriesState.payload??[]);
@@ -56,9 +65,12 @@ export default function CreateProductPage({product,handleClose}) {
           if (!values.price || values.price === 0) {
             errors.price = "Please enter price.";
           }
-        //   if (!values.categoryId || values.categoryId==='Select category') {
-        //     errors.categoryId = "Please select category.";
-        //   }
+          if (!values.categoryId || values.categoryId==='Select category') {
+            errors.categoryId = "Please select category.";
+          }
+          if (!values.menuId || values.menuId==='Chọn lịch bán') {
+            errors.menuId = "Thông tin bắt buộc";
+          }
           if (!values.description ) {
             errors.description = "Please enter description.";
           }
@@ -284,6 +296,36 @@ export default function CreateProductPage({product,handleClose}) {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nhập số lượng . . ." required=""/>
                                          {formik.errors.numProcessParallel && <div className="text-red-600 px-2s">{formik.errors.numProcessParallel}</div>}
                                 </div>
+                                <div className="sm:col-span-2">
+                                    <label htmlFor="quantityInDay" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Số lượng trong ngày (Ước tính)</label>
+                                    <input 
+                                        type="number"
+                                        name="quantityInDay" 
+                                        id="quantityInDay" 
+                                        value={formik.values.quantityInDay}
+                                        onChange={formik.handleChange}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nhập tên sản phẩm . . ." required=""/>
+                                        {formik.errors.quantityInDay && <div className="text-red-600 px-2s">{formik.errors.quantityInDay}</div>}
+                                </div>
+                                <div  className="sm:col-span-2">
+                                    <label htmlFor="menuId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lịch bán</label>
+                                    <select id="menuId" 
+                                        name="menuId"
+                                        value={formik.values.menuId}
+                                        onChange={formik.handleChange}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5
+                                         dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option>Chọn lịch bán</option>
+                                        {
+                                            menus.map((c)=>{
+                                                return(
+                                                    <option key={c.id} value={c.id}>{c.name}</option>
+                                                )
+                                            }
+                                        )}
+                                    </select>
+                                    {formik.errors.menuId && <div className="text-red-600 px-2s">{formik.errors.menuId}</div>}
+                                </div>  
                                 <div className="sm:col-span-2">
                                     <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mô tả</label>
                                     <textarea 

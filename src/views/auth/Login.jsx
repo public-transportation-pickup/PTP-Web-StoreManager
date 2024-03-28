@@ -27,12 +27,13 @@ function Login() {
   useEffect(()=>{
     // console.log(user);
     if(user){
-      return navigate('/')
+      // console.log(user.user.storeId);
+      return navigate(`/stores/${user.user.storeId}`)
     }
   },[user])
 
   const formik = useFormik({
-    initialValues: {email: "store123@gmail.com", password: "@Abcaz12345"} ,
+    initialValues: {email: "store55@gmail.com", password: "@Abcaz12345"} ,
     validate: (values) => {
       let errors = {};
       if (!values.email) {
@@ -59,8 +60,8 @@ function Login() {
           if(model.email.includes('store')){
             const userCredential= await signInWithEmailAndPassword(auth, model.email, model.password)
             // Signed up 
-           const user = userCredential.user;
-            console.log("user credetial:",user);
+           // const user = userCredential.user;
+            // console.log("user credetial:",userCredential.user.accessToken);
           
             // dispatch(userLogin(userCredential.user.accessToken));
             requestLogin(
