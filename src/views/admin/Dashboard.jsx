@@ -44,7 +44,7 @@ function Dashboard() {
           {/* App1 */}
         </div>
         <div className="w-full xl:w-4/12 px-4">
-          <CardBarChart />
+          {/* <CardBarChart /> */}
           {/* App2 */}
         </div>
       </div>

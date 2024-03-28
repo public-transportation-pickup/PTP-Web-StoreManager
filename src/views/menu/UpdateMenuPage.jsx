@@ -1,10 +1,13 @@
-import { useState ,useEffect } from "react";
+import { useState ,useEffect,useRef } from "react";
 import { useFormik } from "formik";
 import { ToastContainer,toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useAPIRequest,Actions } from "../../libs/Commons/api-request";
-import { CreateMenu } from "../../api/menu-api";
+import { UpdateMenu,GetMenuById,DeleteMenu } from "../../api/menu-api";
+import { useParams } from "react-router";
 import { useNavigate } from "react-router";
+import { ConfirmModal } from "../../components/Modals/Modal";
+import { DeleteProductPage } from "../../components/Products/DeleteProduct";
 
 export const initialMenu = {
     name: "",
@@ -18,17 +21,42 @@ export const initialMenu = {
     storeId:"",
   }
 
-export default function CreateMenuPage() {
+export default function UpdateMenuPage() {
    //#region Api Request
-    const[createState,requestCreate]=useAPIRequest(CreateMenu);
+    const[updateState,requestUpdate]=useAPIRequest(UpdateMenu);
+    const[menuState,requestMenu]=useAPIRequest(GetMenuById);
+    const[deleteState,requestDelete]=useAPIRequest(DeleteMenu);
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [toastLoading, setToastLoading]=useState(false);
+    
    //#endregion
+    const param= useParams();
+    const navigate= useNavigate();
 
+    const[menu,setMenu]=useState();
     const[dateApply,setDayApply]=useState([]);
-    const navigate=useNavigate();
+
+    useEffect(()=>{
+        requestMenu(param.menuId);
+    },[])
+
+    useEffect(()=>{
+    
+        if ( menuState.status === Actions.success  ) {
+            // console.log(menuState.payload);
+            setMenu(menuState.payload);
+            var days=menuState.payload.dateApply.trim().split(', ');
+            setDayApply(days);
+        }
+        else if( menuState.status === Actions.failure ){
+            toast.warning("Lỗi!",{autoClose:900})
+            console.log(menuState.error);
+        }
+    },[menuState])
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: { ...initialMenu },
+    initialValues: { ...menu!==undefined?menu:initialMenu },
     validate: (values) => {
       let errors = {};
       if (!values.name || values.name.trim().length === 0) {
@@ -51,24 +79,45 @@ export default function CreateMenuPage() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values) => {
-        requestCreate(values);
+        requestUpdate(values);
     },
   });
   useEffect(()=>{
        
-    if (createState.status!==Actions.loading ) {
+    if (updateState.status!==Actions.loading ) {
         formik.setSubmitting(false);
     }
 
-    if ( createState.status === Actions.success  ) {
-        toast.success("Thêm lịch bán thành công!",{autoClose:900});
-        navigate(`/admin/menus/index`);
+    if ( updateState.status === Actions.success  ) {
+        toast.success("Cập nhât thành công!",{autoClose:900});
     }
-    else if( createState.status === Actions.failure ){
-        toast.warning("Tạo lịch bán thất bại!",{autoClose:900})
+    else if( updateState.status === Actions.failure ){
+        toast.warning("Cập nhật thất bại!",{autoClose:900})
     }
     
-},[createState]);
+},[updateState]);
+
+useEffect(()=>{
+    if(deleteState.status === Actions.success){
+       toast("Xóa lịch bán thành công!",{autoClose:900});
+       setToastLoading(true);
+        // navigate(`/admin/menus/index`);
+    } else if( deleteState.status === Actions.failure ){
+        toast.warning("Xóa lịch bán thất bại!",{autoClose:900})
+    }
+},[deleteState]);
+
+useEffect(() => {
+    if (toastLoading) {
+      const timeout = setTimeout(() => {
+        navigate(`/admin/menus/index`);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timeout);
+      }
+    }
+  }, [toastLoading]);
 
 useEffect(()=>{
     const dateApplyString = dateApply.join(', ');
@@ -77,16 +126,12 @@ useEffect(()=>{
 
   },[dateApply])
 
-const handleBack=()=>{
-    navigate(`/admin/menus/index`);
-}
-
   return (
     <>
     <ToastContainer className="w-100 h-10"/>
     <div className="relative h-fit rounded-lg top-4 bg-[#f7f7ff] p-4">   
         <div className="w-full h-fit">
-        <h2 className="font-bold text-center text-2xl">Tạo lịch bán mới</h2>
+        <h2 className="font-bold text-center text-2xl">Cập nhật lịch bán</h2>
             <section className="bg-[#f7f7ff] dark:bg-gray-900">
                 <div className="py-6 px-4 mx-auto max-w-2xl lg:py-6">
                     <form onSubmit={formik.handleSubmit}>
@@ -113,7 +158,7 @@ const handleBack=()=>{
                                         <div className="relative flex items-start w-full">
                                         <div className="flex items-center h-5">
                                             <input id="list-group-item-checkbox-4" name="list-group-item-checkbox-1" type="checkbox" value="Monday" className="w-5 cursor-pointer h-5 appearance-none border border-gray-300  rounded-md checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100" 
-                                                // checked={"m"!=="m"?true:false}
+                                                checked={dateApply.includes("Monday")}
                                                 onChange ={(e)=>{  e.target.checked
                                                     ? setDayApply(prevArray => [...prevArray, e.target.value])
                                                     :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
@@ -125,9 +170,10 @@ const handleBack=()=>{
                                         <div className="relative flex items-start w-full">
                                         <div className="flex items-center h-5">
                                             <input id="list-group-item-checkbox-5" value="Tuesday" name="list-group-item-checkbox-1" type="checkbox" className="w-5 cursor-pointer h-5 appearance-none border border-gray-300  rounded-md checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                                             onChange ={(e)=>{  e.target.checked
-                                                ? setDayApply(prevArray => [...prevArray, e.target.value])
-                                                :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
+                                                 checked={dateApply.includes("Tuesday")}
+                                                onChange ={(e)=>{  e.target.checked
+                                                    ? setDayApply(prevArray => [...prevArray, e.target.value])
+                                                    :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
                                         </div>
                                         <label htmlFor="list-group-item-checkbox-5" className="ml-3.5 block text-sm font-normal text-gray-600 cursor-pointer "> T3 </label>
                                         </div>
@@ -136,9 +182,10 @@ const handleBack=()=>{
                                         <div className="relative flex items-start w-full">
                                         <div className="flex items-center h-5">
                                             <input id="list-group-item-checkbox-6" value="Wednesday" name="list-group-item-checkbox-1" type="checkbox" className="w-5 cursor-pointer h-5 appearance-none border border-gray-300  rounded-md checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                                             onChange ={(e)=>{  e.target.checked
-                                                ? setDayApply(prevArray => [...prevArray, e.target.value])
-                                                :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
+                                                 checked={dateApply.includes("Wednesday")}
+                                                onChange ={(e)=>{  e.target.checked
+                                                    ? setDayApply(prevArray => [...prevArray, e.target.value])
+                                                    :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
                                         </div>
                                         <label htmlFor="list-group-item-checkbox-6" className="ml-3.5 block text-sm font-normal text-gray-600 cursor-pointer "> T4 </label>
                                         </div>
@@ -147,9 +194,10 @@ const handleBack=()=>{
                                         <div className="relative flex items-start w-full">
                                         <div className="flex items-center h-5">
                                             <input id="list-group-item-checkbox-6" value="Thursday" name="list-group-item-checkbox-1" type="checkbox" className="w-5 cursor-pointer h-5 appearance-none border border-gray-300  rounded-md checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                                             onChange ={(e)=>{  e.target.checked
-                                                ? setDayApply(prevArray => [...prevArray, e.target.value])
-                                                :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
+                                                 checked={dateApply.includes("Thursday")}
+                                                onChange ={(e)=>{  e.target.checked
+                                                    ? setDayApply(prevArray => [...prevArray, e.target.value])
+                                                    :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
                                         </div>
                                         <label htmlFor="list-group-item-checkbox-6" className="ml-3.5 block text-sm font-normal text-gray-600 cursor-pointer "> T5 </label>
                                         </div>
@@ -158,9 +206,10 @@ const handleBack=()=>{
                                         <div className="relative flex items-start w-full">
                                         <div className="flex items-center h-5">
                                             <input id="list-group-item-checkbox-6" value="Friday" name="list-group-item-checkbox-1" type="checkbox" className="w-5 cursor-pointer h-5 appearance-none border border-gray-300  rounded-md checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                                             onChange ={(e)=>{  e.target.checked
-                                                ? setDayApply(prevArray => [...prevArray, e.target.value])
-                                                :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
+                                                 checked={dateApply.includes("Friday")}
+                                                onChange ={(e)=>{  e.target.checked
+                                                    ? setDayApply(prevArray => [...prevArray, e.target.value])
+                                                    :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
                                         </div>
                                         <label htmlFor="list-group-item-checkbox-6" className="ml-3.5 block text-sm font-normal text-gray-600 cursor-pointer "> T6 </label>
                                         </div>
@@ -169,9 +218,10 @@ const handleBack=()=>{
                                         <div className="relative flex items-start w-full">
                                         <div className="flex items-center h-5">
                                             <input id="list-group-item-checkbox-6" value="Saturday" name="list-group-item-checkbox-1" type="checkbox" className="w-5 cursor-pointer h-5 appearance-none border border-gray-300  rounded-md checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                                             onChange ={(e)=>{  e.target.checked
-                                                ? setDayApply(prevArray => [...prevArray, e.target.value])
-                                                :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
+                                                checked={dateApply.includes("Saturday")}
+                                                onChange ={(e)=>{  e.target.checked
+                                                    ? setDayApply(prevArray => [...prevArray, e.target.value])
+                                                    :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
                                         </div>
                                         <label htmlFor="list-group-item-checkbox-6" className="ml-3.5 block text-sm font-normal text-gray-600 cursor-pointer "> T7 </label>
                                         </div>
@@ -180,9 +230,10 @@ const handleBack=()=>{
                                         <div className="relative flex items-start w-full">
                                         <div className="flex items-center h-5">
                                             <input id="list-group-item-checkbox-6" value="Sunday" name="list-group-item-checkbox-1" type="checkbox" className="w-5 cursor-pointer h-5 appearance-none border border-gray-300  rounded-md checked:bg-no-repeat checked:bg-center checked:border-indigo-500 checked:bg-indigo-100"
-                                             onChange ={(e)=>{  e.target.checked
-                                                ? setDayApply(prevArray => [...prevArray, e.target.value])
-                                                :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
+                                                checked={dateApply.includes("Sunday")}
+                                                onChange ={(e)=>{  e.target.checked
+                                                    ? setDayApply(prevArray => [...prevArray, e.target.value])
+                                                    :setDayApply(prevArray => prevArray.filter(d => d !== e.target.value))} }/>
                                         </div>
                                         <label htmlFor="list-group-item-checkbox-6" className="ml-3.5 block text-sm font-normal text-gray-600 cursor-pointer "> CN </label>
                                         </div>
@@ -217,20 +268,20 @@ const handleBack=()=>{
                                 <div className="w-full">
                                     <label htmlFor="startDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày bắt đầu (Tùy chọn)</label>
                                     <input 
-                                        type="date" 
+                                        type="datetime-local" 
                                         name="startDate" 
                                         id="startDate" 
-                                        value={formik.values.startDate}
+                                        value={formik.values.startDate!==null?formik.values.startDate:""}
                                         onChange={formik.handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
                                 </div>
                                 <div className="w-full">
                                     <label htmlFor="endDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày kết thúc  (Tùy chọn)</label>
                                     <input 
-                                        type="date"  
+                                        type="datetime-local"  
                                         name="endDate" 
                                         id="endDate" 
-                                        value={formik.values.endDate}
+                                        value={formik.values.endDate!==null?formik.values.endDate:""}
                                         onChange={formik.handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
                                 </div>
@@ -253,17 +304,17 @@ const handleBack=()=>{
                             </div>
                         </div>
                         
-                        <button type="submit" className=" w-full text-center px-5 py-2 mt-4 sm:mt-6 text-base font-medium  text-green-500 border-2 border-gray-400
-                                            rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-green-400 hover:text-white">
-                            Tạo mới
+                        <button type="submit" 
+                            className=" w-full text-center px-5 py-2 mt-4 sm:mt-6 text-base font-medium  text-green-500 border-2 border-gray-400
+                                            rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-gray-200">
+                           Lưu thông tin
                         </button>
-
                         <button 
                             type="button"
-                            onClick={()=>handleBack()}
-                            className=" w-full text-center px-5 py-2 mt-1 sm:mt-1 text-base font-medium  text-black border-2 border-gray-400
-                                    rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-gray-300">      
-                            Hủy
+                            onClick={()=>setShowConfirm(true)}
+                            className=" w-full text-center px-5 py-2 mt-1 sm:mt-1 text-base font-medium  text-white border-2 border-gray-400 bg-red-500
+                                    rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-red-400">      
+                            Xóa sản phẩm
                         </button>
                     </form>
                 </div>
@@ -271,6 +322,20 @@ const handleBack=()=>{
         </div>
 
   </div>
+    <ConfirmModal
+        isOpen={showConfirm}
+        onClose={()=>{
+            setShowConfirm(false)
+        }}>
+            <DeleteProductPage
+                onClose={(result)=>{
+                    if(result){
+                        requestDelete(param.menuId);
+                    }
+                    setShowConfirm(false)
+                }}
+            />
+    </ConfirmModal>
     </>
   )
 }

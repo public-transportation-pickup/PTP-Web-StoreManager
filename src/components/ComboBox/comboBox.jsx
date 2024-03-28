@@ -1,30 +1,46 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState,useEffect } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { useAPIRequest,Actions } from '../../libs/Commons/api-request'
+import { GetMenuByStoreId } from '../../api/menu-api'
+import { useNavigate } from 'react-router'
 
-const people = [
-  { id: 1, name: 'Wade Cooper' },
-  { id: 2, name: 'Arlene Mccoy' },
-  { id: 3, name: 'Devon Webb' },
-  { id: 4, name: 'Tom Cook' },
-  { id: 5, name: 'Tanya Fox' },
-  { id: 6, name: 'Hellen Schmidt' },
-]
+export default function ComboBox({setMenuId}) {
+  const navigate = useNavigate();
 
-export default function ComboBox() {
-  const [selected, setSelected] = useState(people[0])
+  const handleClick=()=>{
+    navigate("/admin/menus/create");
+  }
+
+  const [menuState,requestMenu]=useAPIRequest(GetMenuByStoreId);
+  const [menus,setMenus]=useState([]);
+  const [selected, setSelected] = useState("")
+
+  useEffect(()=>{
+    requestMenu();
+  },[])
+
+  useEffect(()=>{
+    if(menuState.status===Actions.success){
+      setMenus(menuState.payload);
+      setSelected(menuState.payload[menuState.payload.length-1])
+    }
+  },[menuState]);
+  
+useEffect(()=>{
+  setMenuId(selected!==undefined?selected.id:undefined);
+},[selected])
+  
   const [query, setQuery] = useState('')
-
-  const filteredPeople =
+  const filteredMenu =
     query === ''
-      ? people
-      : people.filter((person) =>
-          person.name
+      ? menus
+      : menus.filter((menu) =>
+          menu.name
             .toLowerCase()
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, ''))
         )
-
   return (
     <div className=" w-80">
       <Combobox value={selected} onChange={setSelected}>
@@ -34,7 +50,7 @@ export default function ComboBox() {
           focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
               className="w-full border-none bg-gray-50 py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-              displayValue={(person) => person.name}
+              displayValue={(menu) => menu.name}
               onChange={(event) => setQuery(event.target.value)}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -51,21 +67,22 @@ export default function ComboBox() {
             leaveTo="opacity-0"
             afterLeave={() => setQuery('')}
           >
+         
             <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-              {filteredPeople.length === 0 && query !== '' ? (
+              {filteredMenu.length === 0 && query !== '' ? (
                 <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
                   Nothing found.
                 </div>
               ) : (
-                filteredPeople.map((person) => (
+                filteredMenu.map((menu) => (
                   <Combobox.Option
-                    key={person.id}
+                    key={menu.id}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 z-10 ${
+                      `relative cursor-default select-none py-3 pl-10 pr-4 z-10 ${
                         active ? 'bg-teal-600 text-white' : 'text-gray-900'
                       }`
                     }
-                    value={person}
+                    value={menu}
                   >
                     {({ selected, active }) => (
                       <>
@@ -74,7 +91,7 @@ export default function ComboBox() {
                             selected ? 'font-medium' : 'font-normal'
                           }`}
                         >
-                          {person.name}
+                          {menu.name}
                         </span>
                         {selected ? (
                           <span
@@ -84,12 +101,27 @@ export default function ComboBox() {
                           >
                             <CheckIcon className="h-5 w-5" aria-hidden="true" />
                           </span>
-                        ) : null}
+                        ) : null}                  
                       </>
                     )}
                   </Combobox.Option>
                 ))
               )}
+
+              <Combobox.Button 
+                onClick={handleClick}
+                className="relative cursor-default text-left select-none py-3 pl-10 pr-4 z-10 w-full hover:bg-teal-600 hover:text-white text-gray-900">
+                  <span className="inline-block truncate  font-bold ">
+                    <p>Tạo mới</p>
+                  </span>
+
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 ">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>
+                  </span>
+              </Combobox.Button>
+              
             </Combobox.Options>
           </Transition>
         </div>

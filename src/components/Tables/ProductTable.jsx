@@ -23,7 +23,9 @@ export const initialProductData = {
   manufacturingDate:'2024-03-23T00:00:00',
   id:undefined,
   description:'',
-  imageURL:null
+  imageURL:null,
+  menuId:undefined,
+  quantityInDay:1
 };
 
 
@@ -40,18 +42,24 @@ function ProductTable() {
  //#endregion
   const [product,setProduct]=useState(null);
   const [cateName,setCateName]=useState(null);
+  const [menuId,setMenuId]=useState(undefined);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
 
   //#region Load page
+  // useEffect(()=>{
+  //   console.log('menuId: ',menuId);
+  // },[menuId])
+
   const dispatch = useDispatch();
   useEffect(() => {
       dispatch(fetchProducts({
+        menuId:menuId,
         cateName:cateName,
         pageNumber:currentPage
       }));
-  }, [dispatch,currentPage]);
+  }, [dispatch,currentPage,cateName,menuId]);
 
 
   var productsData= useSelector(selectProduct);
@@ -66,18 +74,6 @@ function ProductTable() {
   useEffect(() => {
       requestCategories();
   }, []);
-
-//   useEffect(()=>{
-//     if(productsState.status==Actions.success){
-//       // console.log(productsState.payload);
-//       setProducts(productsState.payload.items??[]);
-//       setCurrentPage(productsState.payload.pageIndex);
-//       setTotalPage(productsState.payload.totalPagesCount);
-//     }
-//     if(productsState.status==Actions.failure){
-//       toast.warning("Loading products fail!",{autoClose:900});
-//     }
-//  },[productsState]);
 
 
  useEffect(()=>{
@@ -100,19 +96,6 @@ const handleAdd=()=>{
 };
 
 
-//#region combo box
-const people = [
-  { id: 1, name: 'Wade Cooper' },
-  { id: 2, name: 'Arlene Mccoy' },
-  { id: 3, name: 'Devon Webb' },
-  { id: 4, name: 'Tom Cook' },
-  { id: 5, name: 'Tanya Fox' },
-  { id: 6, name: 'Hellen Schmidt' },
-]
-//#endregion
-
-
-
 //#endregion
 
   return (
@@ -126,10 +109,10 @@ const people = [
             <div className="relative  rounded-t-md bg-gray-100 px-2 max-w-full flex flex-grow flex-1 py-2">
               <button 
                 onClick={()=>handleAdd()}
-                className="bg-transparent text-base font-medium bg-gray-100  text-gray-400  py-[0.4rem] px-4 border border-gray-300 hover:border-blue-400 rounded mx-5">
+                className=" text-base font-medium bg-gray-50 text-gray-400  py-[0.4rem] px-4 border border-gray-300 hover:border-blue-400 rounded mx-5">
                 Thêm mới
               </button>   
-              <ComboBox/>
+              <ComboBox setMenuId={setMenuId}/>
             </div>
             
         <div className="block w-full overflow-x-auto z-0">
@@ -269,6 +252,7 @@ const people = [
               handleClose={()=>{
                 setShowModal(false)
                 dispatch(fetchProducts({
+                  menuId:menuId,
                   cateName:cateName,
                   pageNumber:currentPage
                 }));

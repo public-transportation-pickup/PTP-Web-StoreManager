@@ -42,3 +42,39 @@ const formatDate = (date) => {
       </div>
     );
   };
+
+  export const GetDate = ({ date }) => {
+    const { formattedDate, formattedTime } = formatDate(new Date(date));
+  
+    return (
+      <div>
+        <span>{formattedDate}</span>
+      </div>
+    );
+  };
+
+  
+
+  const convertWeekdays = (weekdays) => {
+    const mapping = {
+      Monday: "T2",
+      Tuesday:"T3",
+      Wednesday:"T4",
+      Thursday: "T5",
+      Friday: "T6",
+      Saturday: "T7",
+      Sunday: "CN"
+    };
+  
+    return weekdays.map((day) => mapping[day]).join(", ");
+  };
+  
+  export const GetDayOfWeek = ({days}) => {
+    const weekdays=days.trim().split(', ');
+
+    const convertedWeekdays = convertWeekdays(weekdays);
+  
+    return <p>{convertedWeekdays}</p>;
+  };
+  
+  

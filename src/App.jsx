@@ -23,7 +23,8 @@ import OrderCancelTable from "./views/order/OrderCancelTable";
 import OrderAllTable from "./views/order/OrderAllTable";
 import TextPage from "./views/TextPage";
 import OrderDetailPage from "./views/order/OrderDetailPage";
-
+import MenuMainPage from "./views/menu/MenuMainPage";
+import UpdateMenuPage from "./views/menu/UpdateMenuPage";
 
 function App() {
   
@@ -38,12 +39,14 @@ function App() {
                 <Route path="/" index element={<Dashboard />} />
                 <Route path="/admin/maps" element={<Maps />} />
                 <Route path="/admin/settings" element={<Settings />} />
-                <Route path="/admin/products" element={<Products />} />
-                <Route path="/admin/menus" element={<Menus />} >
-                  
+                <Route path="products" element={<Products />} />
+                
+                <Route path="/admin/menus">
+                  <Route path="index" element={<Menus />} />
+                  <Route path="create" element={<CreateMenuPage/>}/>
+                  <Route path="update/:menuId" element={<UpdateMenuPage/>}/>
                 </Route>
-                {/* <Route path="/create" element={<CreateMenu/>}/> */}
-                {/* url order */}
+
                 <Route path="order" element={<OrderMainPage/>}>
                   <Route path="confirming" element={<OrderConfirmTable/>}/>
                   <Route path="preparing" element={<OrderPrepareTable/>}/>
@@ -56,7 +59,7 @@ function App() {
               </Route>
             </Route>
             {/* <Route path="/productitemtemp" element={<CreateProductPage/>}/> */}
-            <Route path="/menu" element={<CreateMenuPage/>}/>
+            
             <Route path="/textpage" element={<TextPage/>}/>
             <Route path="/testpage" element={<OrderDetailPage/>}/>
            

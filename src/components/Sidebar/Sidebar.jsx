@@ -113,33 +113,10 @@ function Sidebar() {
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Dashboard
+                  Trang chủ
                 </Link>
               </li>
-
               <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/settings") !== -1
-                      ? "text-sky-500 hover:text-sky-600"
-                      : "text-slate-700 hover:text-slate-500")
-                  }
-                  to="/order/confirming"
-                >
-                  <i
-                    className={
-                      "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
-                        ? "opacity-75"
-                        : "text-slate-300")
-                    }
-                  ></i>{" "}
-                  Order
-                </Link>
-              </li>
-
-              {/* <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
@@ -147,7 +124,7 @@ function Sidebar() {
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/admin/menus"
+                  to="/admin/menus/index"
                 >
                   <i
                     className={
@@ -157,28 +134,7 @@ function Sidebar() {
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Menus
-                </Link>
-              </li> */}
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/menus") !== -1
-                      ? "text-sky-500 hover:text-sky-600"
-                      : "text-slate-700 hover:text-slate-500")
-                  }
-                  to="/create"
-                >
-                  <i
-                    className={
-                      "fas fa-table mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/menus") !== -1
-                        ? "opacity-75"
-                        : "text-slate-300")
-                    }
-                  ></i>{" "}
-                  Create Menus
+                  Lịch bán
                 </Link>
               </li>
 
@@ -194,15 +150,38 @@ function Sidebar() {
                 >
                   <i
                     className={
-                      "fas fa-table mr-2 text-sm " +
+                      "fa-solid fa-utensils mr-2 text-sm " +
                       (window.location.href.indexOf("/admin/products") !== -1
                         ? "opacity-75"
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Products
+                  Thực đơn
                 </Link>
               </li>
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/admin/settings") !== -1
+                      ? "text-sky-500 hover:text-sky-600"
+                      : "text-slate-700 hover:text-slate-500")
+                  }
+                  to="/order/confirming"
+                >
+                  <i
+                    className={
+                      "fa-solid fa-bag-shopping mr-2 text-sm " +
+                      (window.location.href.indexOf("/admin/settings") !== -1
+                        ? "opacity-75"
+                        : "text-slate-300")
+                    }
+                  ></i>{" "}
+                  Đơn hàng
+                </Link>
+              </li>
+             
+              
 
               {/* <li className="items-center">
                 <Link

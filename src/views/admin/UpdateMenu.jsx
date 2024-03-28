@@ -1,4 +1,3 @@
-// components
 import CreateMenuPage from "../menu/CreateMenuPage";
 function CreateMenu() {
   return (
