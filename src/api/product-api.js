@@ -3,7 +3,7 @@ import { BASE_URL, CURRENT_USER } from "../libs/constants";
 
 export async function getProductByStoreId(param) {
   // '/products?menuId=35512226-b59c-44e2-af5c-4e823970935a&CategoryName=Cate%20-%202&pageNumber=0&pageSize=10'
-  // console.log(param);
+  console.log(param);
   let STOREID = CURRENT_USER.user.storeId;
   let url = null;
   if (param.menuId !== undefined) {
@@ -30,11 +30,11 @@ export async function getProductByStoreId(param) {
       "&menuId=" +
       param.menuId;
   }
-  // console.log(url);
+  console.log(url);
   var response = await axios.get(url, {
     headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
   });
-  // console.log(response.data);
+  console.log(response.data);
   return response.data;
 }
 

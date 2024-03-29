@@ -66,6 +66,7 @@ export default function CreateMenuPage() {
     }
     else if( createState.status === Actions.failure ){
         toast.warning("Tạo lịch bán thất bại!",{autoClose:900})
+        console.log(createState.error);
     }
     
 },[createState]);
