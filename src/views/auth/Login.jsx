@@ -28,7 +28,7 @@ function Login() {
     // console.log(user);
     if(user){
       // console.log(user.user.storeId);
-      return navigate(`/stores/${user.user.storeId}`)
+      return navigate(`/`)
     }
   },[user])
 

@@ -28,7 +28,7 @@ export default function MenuMainPage() {
 
     useEffect(()=>{
         setMenus(value);
-        console.log(menus);
+        // console.log(menus);
     },[value])
 
     const navigate= useNavigate();

@@ -22,7 +22,18 @@ export async function GetMenuById(id) {
 
 export async function CreateMenu(param) {
   param.storeId = CURRENT_USER.user.storeId;
-  console.log(param);
+  var menu = {
+    name: param.name,
+    description: param.description,
+    startTime: param.startTime,
+    endTime: param.endTime,
+    dateApply: param.dateApply,
+    status: "Active",
+    storeId: param.storeId,
+  };
+  if (param.startDate === "" && param.endDate == "") {
+    param = menu;
+  }
   const response = await axios.post(BASE_URL + "/menus", param, {
     headers: {
       "Content-Type": "application/json",

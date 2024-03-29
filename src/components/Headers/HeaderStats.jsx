@@ -9,7 +9,7 @@ function HeaderStats() {
     <div>
       {/* Header */}
       <div >
-          <div className="md:pt-10 pb-0 pt-0">
+          <div className="md:pt-10 pb-0 pt-0 mt-4">
             <div className="px-4 md:px-10 mx-auto w-full">
           <div>
             {/* Card stats */}

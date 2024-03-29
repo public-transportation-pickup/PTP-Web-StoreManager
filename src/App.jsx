@@ -35,7 +35,7 @@ function App() {
           <Routes>
             <Route path="/auth/login" element={<Auth />} />
             <Route element={<PrivateRoutes/>}>
-              <Route path="/stores" exact element={<Admin />}>
+              <Route path="/" exact element={<Admin />}>
                 <Route  index element={<Dashboard />} />
                 {/* <Route path="/admin/maps" element={<Maps />} />
                 <Route path="/admin/settings" element={<Settings />} /> */}
