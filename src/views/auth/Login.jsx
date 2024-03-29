@@ -57,7 +57,7 @@ function Login() {
           // console.log(model);
 
           const auth = getAuth(app);
-          if(model.email.includes('store')){
+          // if(model.email.includes('store')){
             const userCredential= await signInWithEmailAndPassword(auth, model.email, model.password)
             // Signed up 
            // const user = userCredential.user;
@@ -68,10 +68,10 @@ function Login() {
               userCredential.user.accessToken
             );
            
-          }else{
-            console.log("No 'store' in email");
-            toast.warning("Email or password is invalid",{autoClose:900});
-          }
+          // }else{
+          //   console.log("No 'store' in email");
+          //   toast.warning("Email or password is invalid",{autoClose:900});
+          // }
         
         } catch (error) {
           toast.warning("Login fail!",{autoClose:900});
