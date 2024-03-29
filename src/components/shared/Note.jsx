@@ -3,10 +3,10 @@ import { Fragment, useState } from 'react'
 import PropTypes from "prop-types"
 import { reasonsCancelOrderData } from '../../libs/constants/ReasonCancelData';
 
-export default function Note({button,noteStringFunc}) {
+export default function Note({button,id,noteStringFunc}) {
     let [isOpen, setIsOpen] = useState(false)
     const [note,setNote]=useState([]);
-    console.log("Note: ",note)
+    // console.log("Note: ",note)
 
     function closeModal() {
       setIsOpen(false)
@@ -18,15 +18,15 @@ export default function Note({button,noteStringFunc}) {
     
     const handleYesDialog=async()=>{
         let completeNote=note.join(',');
-        await noteStringFunc(completeNote);
-        console.log("note.join(',') ",completeNote);
+        await noteStringFunc({reason:completeNote,id:id});
+        // console.log("note.join(',') ",completeNote);
         setIsOpen(false);
     }
 
     const handleSuggestReason=async(event)=>{
-        console.log("value",event)
+        // console.log("value",event)
         const textContent = event.target.textContent;
-        console.log("textContext: ", textContent)
+        // console.log("textContext: ", textContent)
         await setNote((preNote)=>[...preNote,textContent]);
         
         

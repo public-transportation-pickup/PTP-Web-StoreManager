@@ -78,37 +78,37 @@ export const TABS_ORDER=[
     {
         key:'confirming',
         label:'Chờ xác nhận',
-        path:'/order/confirming',
+        path:'confirming',
         icon:<HiCreditCard/>
     },
     {
         key:'preparing',
         label:'Đang chuẩn bị',
-        path:'/order/preparing',
+        path:'preparing',
         icon:<HiCreditCard/>
     },
     {
         key:'delivering',
         label:'Chờ giao hàng',
-        path:'/order/delivering',
+        path:'delivering',
         icon:<HiCreditCard/>
     },
     {
         key:'completed',
         label:'Hoàn thành',
-        path:'/order/completed',
+        path:'completed',
         icon:<HiCreditCard/>
     },
     {
         key:'reject',
         label:'Đã hủy',
-        path:'/order/reject',
+        path:'reject',
         icon:<HiCreditCard/>
     },
-    {
-        key:'all',
-        label:'Tất cả đơn',
-        path:'/order/all',
-        icon:<HiCreditCard/>
-    }
+    // {
+    //     key:'all',
+    //     label:'Tất cả đơn',
+    //     path:'/order/all',
+    //     icon:<HiCreditCard/>
+    // }
 ]

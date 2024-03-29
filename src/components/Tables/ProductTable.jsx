@@ -1,5 +1,7 @@
-import  { useState ,useRef,useEffect} from "react";
-
+import  { useState ,useEffect} from "react";
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch,useSelector } from "react-redux";
+import { selectProduct,fetchProducts } from "../../redux/features/productSlice.js";
 // components
 import PaginationButton from "../Pagination/PaginationButton.jsx";
 import { toHoursAndMinutes } from "../../libs/constants/index.js";
@@ -9,6 +11,7 @@ import { getProductByStoreId } from "../../api/product-api.js";
 import { ToastContainer,toast } from "react-toastify";
 import CreateModal from "../Modals/Modal.jsx";
 import CreateProductPage from "../Products/CreateProductPage.jsx";
+import ComboBox from "../ComboBox/comboBox.jsx";
 
 export const initialProductData = {
   categoryId:undefined,
@@ -20,7 +23,9 @@ export const initialProductData = {
   manufacturingDate:'2024-03-23T00:00:00',
   id:undefined,
   description:'',
-  imageURL:null
+  imageURL:null,
+  menuId:undefined,
+  quantityInDay:1
 };
 
 
@@ -28,7 +33,7 @@ export const initialProductData = {
 function ProductTable() {
   //#region  Call Api
   const [categoriesState, requestCategories] = useAPIRequest(getCategories);
-  const [productsState, requestProducts] = useAPIRequest(getProductByStoreId);
+  // const [productsState, requestProducts] = useAPIRequest(getProductByStoreId);
  //#endregion
  
  //#region Set List
@@ -37,36 +42,38 @@ function ProductTable() {
  //#endregion
   const [product,setProduct]=useState(null);
   const [cateName,setCateName]=useState(null);
-  const [productName,setProductName]=useState(null);
+  const [menuId,setMenuId]=useState(undefined);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
 
   //#region Load page
+  // useEffect(()=>{
+  //   console.log('menuId: ',menuId);
+  // },[menuId])
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    // console.log(productName);
-    requestProducts({
-      productName:productName,
-      cateName:cateName,
-      pageNumber:currentPage
-    });
-  }, [cateName,currentPage,productName]);
+      dispatch(fetchProducts({
+        menuId:menuId,
+        cateName:cateName,
+        pageNumber:currentPage
+      }));
+  }, [dispatch,currentPage,cateName,menuId]);
+
+
+  var productsData= useSelector(selectProduct);
+  useEffect(()=>{
+    // console.log(productsData);
+      setProducts(productsData.items!==undefined?productsData.items:[]);
+      setCurrentPage(productsData.pageIndex!==undefined? productsData.pageIndex: 0);
+      setTotalPage(productsData.totalPagesCount!==undefined?productsData.totalPagesCount: 1);
+  },[productsData]);
+
 
   useEffect(() => {
       requestCategories();
   }, []);
-
-  useEffect(()=>{
-    if(productsState.status==Actions.success){
-      // console.log(productsState.payload);
-      setProducts(productsState.payload.items??[]);
-      setCurrentPage(productsState.payload.pageIndex);
-      setTotalPage(productsState.payload.totalPagesCount);
-    }
-    if(productsState.status==Actions.failure){
-      toast.warning("Loading products fail!",{autoClose:900});
-    }
- },[productsState]);
 
 
  useEffect(()=>{
@@ -89,20 +96,6 @@ const handleAdd=()=>{
 };
 
 
-const inputRef = useRef();
-
-const handleSearch = () => {
-  const searchValue = inputRef.current.value;
-  // console.log("Input value:", searchValue);
-  if(searchValue===''){
-    // console.log("Input value empty:");
-    setProductName(null)
-  }else{
-    console.log("Input value:", searchValue);
-    setProductName(searchValue)
-  }
-};
-
 //#endregion
 
   return (
@@ -113,42 +106,16 @@ const handleSearch = () => {
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded h-fit" 
         }
       >
-
-        <div className="rounded-t px-4 py-2 border-0 ">
-          <div className="flex flex-row items-center w-fit float-right">
-           
-            <div className="relative w-full px-0 max-w-full flex-grow flex-1 ">
-              <div className="w-96">   
-                  <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                  <div className="relative">
-                      <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                          <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                          </svg>
-                      </div>
-                      <input type="search" 
-                        ref={inputRef}
-                        id="default-search" 
-                        className="block w-full p-[0.55rem] ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tìm theo tên sản phẩm ..." required />
-                      <button 
-                      onClick={handleSearch}
-                        type="button" 
-                        className="text-white absolute end-[0.1rem] bottom-[0.12rem] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                  </div>
-              </div>  
-            </div>
-
-            <div className="relative w-fit px-2 max-w-fit flex-grow flex-1">
+            <div className="relative  rounded-t-md bg-gray-100 px-2 max-w-full flex flex-grow flex-1 py-2">
               <button 
-              onClick={()=>handleAdd()}
-              className="bg-transparent text-base font-medium  text-gray-400  py-[0.4rem] px-4 border border-gray-300 hover:border-blue-400 rounded">
+                onClick={()=>handleAdd()}
+                className=" text-base font-medium bg-gray-50 text-gray-400  py-[0.4rem] px-4 border border-gray-300 hover:border-blue-400 rounded mx-5">
                 Thêm mới
               </button>   
+              <ComboBox setMenuId={setMenuId}/>
             </div>
-
-          </div>
-        </div>
-        <div className="block w-full overflow-x-auto">
+            
+        <div className="block w-full overflow-x-auto z-0">
           {/* Projects table */}
           <table className="items-center w-full bg-transparent border-collapse h-fit">
             <thead>
@@ -178,7 +145,7 @@ const handleSearch = () => {
                           <label
                             key={c.id}
                             className="relative flex flex-row w-full font-medium
-                            border-b border-gray-200 rounded hover:bg-gray-200 
+                            border-b border-gray-200 rounded hover:bg-gray-200
                             has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200"
                             onClick={()=>setCateName(c.name)}
                          >
@@ -284,10 +251,11 @@ const handleSearch = () => {
               product={product}
               handleClose={()=>{
                 setShowModal(false)
-                requestProducts({
-                  name:cateName,
+                dispatch(fetchProducts({
+                  menuId:menuId,
+                  cateName:cateName,
                   pageNumber:currentPage
-                })
+                }));
               }}
             />
         </CreateModal>

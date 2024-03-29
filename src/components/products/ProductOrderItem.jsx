@@ -1,18 +1,37 @@
 import ReactImg from '../../assets/img/react.jpg';
+import NumberFormat from '../../libs/Commons/NumberFormat';
 
-export default function ProductOrderItem() {
+export default function ProductOrderItem({item}) {
+  // console.log(item);
   return (
+    
     <div className='flex flex-row gap-28 items-center py-6 overflow-auto'>
         <div className='flex flex-row gap-2 items-center'>
-            <img src={ReactImg} className='w-24 h-24'/>
+            <img src={item.imageURL} className='w-24 h-24'/>
             <div className='flex flex-col gap-1'>
-                <p className='font-semibold'>Tên sản phẩm</p>
-                <p className='text-slate-400'><span>Thể loại</span></p>
-                <p className='font-semibold'><span>Giá</span></p>
+                <p className='font-semibold'> {item.productName} </p>
+                <p className='text-slate-400'><span>Giá:<NumberFormat number= {item.actualPrice}/> VNĐ</span></p>
+                <p className='font-semibold'><span>Ghi chú: {item.note} </span></p>
             </div>
         </div>
-        <p className='text-slate-500'><span>x Số lượng</span></p>
-        <p className='text-red-400'><span> số lượng x price ?</span></p>
+        <p className='text-slate-500'><span>x {item.quantity}</span></p>
+        <p className='text-red-400'><span>Tổng: <NumberFormat number= {item.actualPrice * item.quantity}/> VNĐ</span></p>
     </div>
   )
+}
+
+
+
+export function OrderItemDetail({item}){
+  console.log(item);
+    return(
+      <>
+        <div className="flex flex-row gap-2">
+            <p className="text-sm font-bold	"  >-</p>
+            <p>{item.productName}</p>
+            <p>x{item.quantity}</p>
+            <p><strong className="pl-1"> <NumberFormat number={item.productPrice} /> VNĐ</strong></p>
+        </div>
+      </>
+    )
 }

@@ -18,8 +18,8 @@ export const AuthProvider = ({ children }) => {
     // console.log(data);
     // localStorage.setItem("accessToken", data.token);
     setUser(data);
-    navigate("/",{replace:true });
-    navigate(0)
+    // navigate("/",{replace:true });
+    // navigate(0)
     // window.location.reload();
   };
 
