@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Note from "../../components/shared/Note";
 import {useNavigate} from 'react-router-dom'
 import { getOrdersByStoreId } from "../../api/store-api";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CURRENT_USER } from "../../libs/constants";
 
@@ -33,7 +33,7 @@ export default function OrderPrepareTable() {
     const fetchData= useCallback(
         async ()=>{
             const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
-            setListPrepareOrder(responseAPI);
+            Array.isArray(responseAPI)? setListPrepareOrder(responseAPI):toast("Danh sách đơn trống");
             console.log("ResponseAPI:",responseAPI);
         },[listPrepareOrder]
     ) 

@@ -28,8 +28,7 @@ export default function OrderConfirmTable() {
             console.log("orderConfirmModal",orderConfirmModal);
             const reqAPI= await updateOrder(orderConfirmModal);
             console.log("Req API", reqAPI);
-            await typeof reqAPI ==='string' ? toast("Xác nhận đơn thất bại"): toast("Xác nhận đơn hàng thành công");
-            
+            await toast(reqAPI);
         } catch (error) {
             console.log("handleConfirm button exception", error)
         }
@@ -50,7 +49,7 @@ export default function OrderConfirmTable() {
     const fetchData= useCallback(
         async ()=>{
             const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
-            setListConfirmOrder(responseAPI);
+            Array.isArray(responseAPI) ? setListConfirmOrder(responseAPI):toast("Danh sách đơn hàng trống");
             console.log("ResponseAPI:",responseAPI);
         },[listConfirmOrder]
     ) 

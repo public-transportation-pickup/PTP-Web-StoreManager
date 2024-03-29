@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { getOrdersByStoreId } from '../../api/store-api';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CURRENT_USER } from '../../libs/constants';
 
@@ -16,7 +16,7 @@ export default function OrderCancelTable() {
     const fetchData= useCallback(
         async ()=>{
             const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId,"Waiting");
-            setListCancelOrder(responseAPI);
+            Array.isArray(responseAPI)? setListCancelOrder(JSON.parse(responseAPI)):toast("Danh sách đơn hàng trống");
             console.log("ResponseAPI:",responseAPI);
         },[listCancelOrder]
     ) 

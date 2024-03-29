@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_URL, CURRENT_USER } from "../libs/constants";
-import { toast } from 'react-toastify';
+
 
 
 export async function getStoreByUserId() {
@@ -18,22 +18,17 @@ export const getOrdersByStoreId=async (storeId,statusFilter) =>{
   let url = statusFilter ===null ? BASE_URL+'/stores/'+storeId+'/orders' : (statusFilter==="Cancel"?BASE_URL+'/stores/'+storeId+'/orders?pageNumber=0&pageSize=10&Status='+statusFilter+'&roleName=StoreManager':BASE_URL+'/stores/'+storeId+'/orders?pageNumber=0&pageSize=10&Status='+statusFilter ) ;
   try {
     console.log("getOrdersByStoreId - store Id",storeId)
-    const res= await fetch(url,{
+    const res= await axios.get(url,{
       headers:{ Authorization: `Bearer ${CURRENT_USER.token}`}
-    }
-    );
-    
-    if(res.status===401) toast("Vui lòng đăng nhập để sử dụng chức năng này")
-    else if (res.status===400) toast("Danh sách đơn trống")
-    else if (res.status===404) toast("Đường dẫn không hợp lệ")
-    else if (res.status===500) toast("Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau")
-    else{
-      const data= await res.json();
+    }).then(response=>console.log(response))
+      const data= await res.data;
       console.log("Get order by storeid data",data);
       return data;
-  } 
+ // } 
     
   } catch (error) {
     console.error("Get order by storeid exception: ",error);
+    //console.error("Get order by storeid exception status: ",error.response.status);
+    //return [];
   }
 }

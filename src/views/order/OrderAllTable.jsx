@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getOrdersByStoreId } from '../../api/store-api';
 import { CURRENT_USER } from '../../libs/constants';
@@ -17,7 +17,7 @@ export default function OrderAllTable() {
     const fetchData= useCallback(
         async ()=>{
             const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId);
-            setListOrder(responseAPI);
+            Array.isArray(responseAPI)? setListOrder(responseAPI) :toast("Danh sách đơn hàng trống");
             console.log("ResponseAPI:",responseAPI);
         },[listOrder]
     ) 
