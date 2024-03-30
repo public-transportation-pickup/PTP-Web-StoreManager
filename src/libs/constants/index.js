@@ -1,8 +1,4 @@
 export const BASE_URL = "http://ptp-srv.ddns.net:5000/api";
-import { createContext } from "react";
-import { useSelector } from "react-redux";
-// import { selectUserInfor, selectToken } from "../../redux/features/authSlice";
-
 // export const BASE_URL = "http://localhost:5066/api";
 
 const GetUser = () => {
