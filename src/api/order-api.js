@@ -8,8 +8,8 @@ export async function GetOrderByStoreId(param) {
     BASE_URL +
     "/stores/" +
     STOREID +
-    "/orders?pageSize=5&pageNumber=0" +
-    // param.pageNumber +
+    "/orders?pageSize=5&pageNumber=" +
+    param.pageNumber +
     "&Status=" +
     param.status;
   // console.log(url);

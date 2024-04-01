@@ -162,15 +162,17 @@ export default function OrderDetailPage() {
         <div className='flex flex-col gap-3 pl-4'>
           <div className="flex flex-col gap-3">
             <h2 className="font-semibold text-lg">Chi tiết đơn hàng</h2>
+            <div className=" overflow-y-auto h-[28rem]">
+              {orderDetailInfo!==null?
+              (orderDetailInfo.orderDetails.map((item,index)=>(
+                <div key={index}>
+                  <ProductOrderItem item={item} /> 
+                </div>
+              )))
+              :
+              (<><h2>Null</h2></>)}
+            </div>
            
-            {orderDetailInfo!==null?
-            (orderDetailInfo.orderDetails.map((item,index)=>(
-              <div key={index}>
-                <ProductOrderItem item={item} /> 
-              </div>
-            )))
-            :
-            (<><h2>Null</h2></>)}
 
             {/* <div>
               <textarea className='w-96'/>

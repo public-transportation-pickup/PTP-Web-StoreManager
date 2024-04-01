@@ -1,8 +1,6 @@
 import axios from "axios";
 import { BASE_URL, CURRENT_USER } from "../libs/constants";
 
-
-
 export async function getStoreByUserId() {
   // console.log(BASE_URL + "/users/" + CURRENT_USER.user.id + "/stores");
   var response = await axios.get(
@@ -14,21 +12,12 @@ export async function getStoreByUserId() {
   return response.data;
 }
 
-export const getOrdersByStoreId=async (storeId,statusFilter) =>{
-  let url = statusFilter ===null ? BASE_URL+'/stores/'+storeId+'/orders' : (statusFilter==="Cancel"?BASE_URL+'/stores/'+storeId+'/orders?pageNumber=0&pageSize=10&Status='+statusFilter+'&roleName=StoreManager':BASE_URL+'/stores/'+storeId+'/orders?pageNumber=0&pageSize=10&Status='+statusFilter ) ;
-  try {
-    console.log("getOrdersByStoreId - store Id",storeId)
-    const res= await axios.get(url,{
-      headers:{ Authorization: `Bearer ${CURRENT_USER.token}`}
-    }).then(response=>console.log(response))
-      const data= await res.data;
-      console.log("Get order by storeid data",data);
-      return data;
- // } 
-    
-  } catch (error) {
-    console.error("Get order by storeid exception: ",error);
-    //console.error("Get order by storeid exception status: ",error.response.status);
-    //return [];
-  }
+export async function GetStoreReport() {
+  let STOREID = CURRENT_USER.user.storeId;
+  // http://localhost:5066/api/stores/43CB0D2A-172A-49A1-BCC1-195F559B335A?isReport=true
+  var url = BASE_URL + "/stores/" + STOREID + "?isReport=true";
+  var response = await axios.get(url, {
+    headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+  });
+  return response.data;
 }
