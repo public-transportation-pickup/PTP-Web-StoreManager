@@ -30,7 +30,7 @@ export default function OrderCancelTable() {
     // console.log(value);
     useEffect(()=>{
         setlist(value.items!==undefined?value.items:[]);
-        setCurrentPage(value.pageIndex);
+        setCurrentPage(value.pageIndex!==undefined? value.pageIndex: 0);
         setTotalPage(value.totalPagesCount);
     },[value]);
 

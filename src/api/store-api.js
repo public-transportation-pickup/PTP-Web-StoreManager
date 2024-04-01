@@ -1,6 +1,5 @@
 import axios from "axios";
 import { BASE_URL, CURRENT_USER } from "../libs/constants";
-import { toast } from "react-toastify";
 
 export async function getStoreByUserId() {
   // console.log(BASE_URL + "/users/" + CURRENT_USER.user.id + "/stores");
