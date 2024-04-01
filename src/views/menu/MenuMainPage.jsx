@@ -28,7 +28,7 @@ export default function MenuMainPage() {
 
     useEffect(()=>{
         setMenus(value);
-        // console.log(menus);
+        console.log(value);
     },[value])
 
     const navigate= useNavigate();
@@ -99,7 +99,7 @@ export default function MenuMainPage() {
                             Thời gian
                         </th> */}
                         <th scope="col" className="px-6 py-3">
-                            Khoảng thời gian cụ thể
+                            Ngày cụ thể
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Ghi chú
@@ -134,9 +134,14 @@ export default function MenuMainPage() {
                         </td> */}
                         <td className="px-6 py-4">
                            <div className="flex flex-row">
-                                <GetDate date={item.startDate}/> 
-                                <span className="px-4"> - </span> 
-                                <GetDate date={item.endDate}/>
+                                {item.startDate!==null && item.endDate !==null?(
+                                    <>
+                                        <GetDate date={item.startDate}/> 
+                                        <span className="px-4"> - </span> 
+                                        <GetDate date={item.endDate}/>
+                                    </>
+                                ):(<></>)}
+                                
                             </div>
                         </td>
                         <td className="px-6 py-4 max-w-64">

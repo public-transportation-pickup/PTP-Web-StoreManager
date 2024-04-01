@@ -8,7 +8,7 @@ export default function OrderMainPage() {
         <div className="flex justify-center bg-[#f7f7ff]">
             <TabOrderStatus/>
         </div>
-        <div className="pt-8 bg-[#f7f7ff]">
+        <div className="pt-4 bg-[#f7f7ff]">
             <Outlet/>
         </div>
     </div>
