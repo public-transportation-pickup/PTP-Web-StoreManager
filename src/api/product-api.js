@@ -38,6 +38,25 @@ export async function getProductByStoreId(param) {
   return response.data;
 }
 
+export async function getAllProductByStoreId(param) {
+  // console.log(param);
+  let STOREID = CURRENT_USER.user.storeId;
+  let url =
+    BASE_URL +
+    "/stores/" +
+    STOREID +
+    "/products?pageNumber=0" +
+    param.pageNumber +
+    "&pageSize=100";
+
+  // console.log(url);
+  var response = await axios.get(url, {
+    headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+  });
+  // console.log(response.data);
+  return response.data;
+}
+
 export async function UpdateProduct(product) {
   // console.log("Product:", product);
   var formData = new FormData();

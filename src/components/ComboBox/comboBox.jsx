@@ -46,8 +46,8 @@ useEffect(()=>{
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative">
         {/* bg-transparent text-base font-medium  text-gray-400  py-[0.4rem] px-4 border border-gray-300 hover:border-blue-400 rounded mx-5 */}
-          <div className="relative z-10 py-[0.4rem] w-full cursor-default overflow-hidden rounded bg-gray-50 text-left shadow-md focus:outline-none focus-visible:ring-2 
-          focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+          <div className="relative z-10 py-[0.33rem] w-full cursor-default  overflow-hidden rounded bg-gray-50 text-left shadow-md focus:outline-none focus-visible:ring-2 
+          focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm border border-gray-300">
             <Combobox.Input
               className="w-full border-none bg-gray-50 py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
               displayValue={(menu) => menu.name}

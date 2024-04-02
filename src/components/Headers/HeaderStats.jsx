@@ -5,6 +5,9 @@ import { useLocation } from "react-router-dom";
 
 function HeaderStats({param}) {
 
+  var totalSalePercents=param!=undefined?`${RoundedNumber(Math.abs((param.totalSalesNew-param.totalSalesLast)/param.totalSalesLast))}`:"0";
+  var totalOrderPercent=param!=undefined?`${RoundedNumber(Math.abs((param.totalOrdersNew-param.totalOrdersLast)/param.totalOrdersLast))}`:"0";
+  var averagePercent=param!=undefined?`${RoundedNumber(Math.abs((param.averageSaleValueNew-param.averageSaleValueLast)/param.averageSaleValueLast))}`:"0";
   function RoundedNumber(num) {
     const roundedNum = num.toFixed(2);
   
@@ -25,7 +28,7 @@ function HeaderStats({param}) {
                   statSubtitle="Total Sales"
                   statTitle={param!=undefined?`${param.totalSalesNew}`:"0"}
                   statArrow={param!=undefined?((param.totalSalesNew-param.totalSalesLast) <0 ?"down":"up") :("up")}
-                  statPercent={param!=undefined?`${RoundedNumber(Math.abs((param.totalSalesNew-param.totalSalesLast)/param.totalSalesLast))}`:"0"}
+                  statPercent={totalSalePercents!=='Infinity'? totalSalePercents:'0'}
                   statPercentColor={param!=undefined?((param.totalSalesNew-param.totalSalesLast) <0 ?"text-red-500":"text-emerald-500") :("text-red-500")}
                   statDescripiron="Since last week"
                   statIconName="far fa-chart-bar"
@@ -37,7 +40,7 @@ function HeaderStats({param}) {
                   statSubtitle="Total Orders"
                   statTitle={param!=undefined?`${param.totalOrdersNew}`:"0"}
                   statArrow={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"down":"up") :("up")}
-                  statPercent={param!=undefined?`${RoundedNumber(Math.abs((param.totalOrdersNew-param.totalOrdersLast)/param.totalOrdersLast))}`:"0"}
+                  statPercent={totalOrderPercent!=='Infinity'? totalSalePercents:'0'}
                   statPercentColor={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"text-red-500":"text-emerald-500") :("text-red-500")}
                   statDescripiron="Since last week"
                   statIconName="fas fa-chart-pie"
@@ -49,7 +52,7 @@ function HeaderStats({param}) {
                   statSubtitle="Average order value"
                   statTitle={param!=undefined?`${param.averageSaleValueNew}`:"0"}
                   statArrow={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"down":"up") :("up")}
-                  statPercent={param!=undefined?`${RoundedNumber(Math.abs((param.averageSaleValueNew-param.averageSaleValueLast)/param.averageSaleValueLast))}`:"0"}
+                  statPercent={averagePercent!=='Infinity'? totalSalePercents:'0'}
                   statPercentColor={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"text-orange-500":"text-emerald-500") :("text-red-500")}
                   statDescripiron="Since last week"
                   statIconName="fas fa-percent"

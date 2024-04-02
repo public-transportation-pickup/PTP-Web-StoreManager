@@ -3,7 +3,7 @@ import React from "react";
 // components
 
 function CardSocialTraffic({param}) {
-  console.log(param);
+  // console.log(param);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">

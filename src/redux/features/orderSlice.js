@@ -1,13 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { GetOrderByStoreId } from "../../api/order-api";
+import {
+  GetOrderByStoreId,
+  GetOrderByStoreIdWithPhone,
+} from "../../api/order-api";
 
 export const fetchOrders = createAsyncThunk(
   "menu/fetch_menus",
   async (param, thunkAPI) => {
     try {
       // console.log(param);
-      const response = await GetOrderByStoreId(param);
-      return response;
+      if (param.phoneNumber !== "") {
+        // console.log("Not empty");
+        return await GetOrderByStoreIdWithPhone(param);
+      } else {
+        // console.log("Empty");
+        return await GetOrderByStoreId(param);
+      }
+      // return response;
     } catch (error) {
       return thunkAPI.rejectWithValue({ message: error.message });
     }

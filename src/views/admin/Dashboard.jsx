@@ -23,7 +23,7 @@ function Dashboard() {
   },[])
 
   useEffect(()=>{
-    // console.log(reportState);
+    console.log(reportState);
     if(reportState.status==Actions.success){
       setReport(reportState.payload);
     }

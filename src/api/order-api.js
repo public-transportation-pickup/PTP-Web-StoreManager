@@ -24,6 +24,31 @@ export async function GetOrderByStoreId(param) {
   return response.data;
 }
 
+export async function GetOrderByStoreIdWithPhone(param) {
+  let STOREID = CURRENT_USER.user.storeId;
+
+  var url =
+    BASE_URL +
+    "/stores/" +
+    STOREID +
+    "/orders?pageSize=5&pageNumber=" +
+    param.pageNumber +
+    "&Status=" +
+    param.status +
+    "&phoneNumber=" +
+    param.phoneNumber;
+  // console.log(url);
+  var response = await axios
+    .get(url, {
+      headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  // console.log(response.data);
+  return response.data;
+}
+
 export async function GetOrderById(id) {
   var url = BASE_URL + "/order/" + id;
   var response = await axios.get(url);
@@ -31,7 +56,7 @@ export async function GetOrderById(id) {
 }
 
 export async function UpdateOrder(param) {
-  console.log(param);
+  // console.log(param);
   // 'http://localhost:5066/api/order/2156df9d-ed97-4fe8-a453-81a6d2501b9b'
   var url = BASE_URL + "/order/" + param.id;
   var response = await axios.put(url, param, {
