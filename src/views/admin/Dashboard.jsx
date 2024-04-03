@@ -1,6 +1,5 @@
 // components
-import { GetStoreReport } from "../../api/store-api";
-
+import { GetStoreReport } from "../../api/store-api.jsx";
 // import CardLineChart from "../../components/Cards/CardLineChart";
 import { ToastContainer,toast } from "react-toastify";
 import { useEffect, useState,useContext } from "react";
@@ -11,11 +10,14 @@ import CardSocialTraffic from "../../components/Cards/CardSocialTraffic";
 import HeaderStats from "../../components/Headers/HeaderStats";
 import {Actions, useAPIRequest } from '../../libs/Commons/api-request.js';
 
+// import { useAuth } from "../auth/AuthProvider.jsx";
+
 function Dashboard() {
   //#region Api request
   const [reportState,requestReport]=useAPIRequest(GetStoreReport);
   //#endregion
-
+  // const { user } = useAuth();
+  // console.log(user);
   const [report,setReport]= useState();
 
   useEffect(()=>{
@@ -23,7 +25,7 @@ function Dashboard() {
   },[])
 
   useEffect(()=>{
-    console.log(reportState);
+    // console.log(reportState);
     if(reportState.status==Actions.success){
       setReport(reportState.payload);
     }

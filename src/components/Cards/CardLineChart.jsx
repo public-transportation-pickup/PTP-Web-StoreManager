@@ -1,7 +1,5 @@
 import React from 'react';
 import { Chart } from "chart.js/auto";
-import {Actions, useAPIRequest } from '../../libs/Commons/api-request.js';
-import { GetStoreReport } from "../../api/store-api";
 import { useEffect, useState } from "react";
 
 function CardLineChart({param}) {

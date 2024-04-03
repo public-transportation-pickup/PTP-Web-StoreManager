@@ -8,7 +8,6 @@ import { updateMenus } from "../../redux/features/menuSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../views/auth/AuthProvider";
-import { getMenus } from "../../apiV2/menu";
 
 function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");

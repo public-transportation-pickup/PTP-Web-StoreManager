@@ -1,10 +1,6 @@
 import axios from "axios";
-import { BASE_URL, CURRENT_USER } from "../libs/constants";
-import { GetLocalValue } from "../libs/Commons/UseLocalStorage";
-import { useAuth } from "../views/auth/AuthProvider";
+import { BASE_URL } from "../libs/constants";
 export async function getCategories() {
-  //let user = await GetCurrentUser();
-  // console.log("Get All Categories!");
   var response = await axios.get(
     BASE_URL + "/categories?pageNumber=0&pageSize=10"
   );
