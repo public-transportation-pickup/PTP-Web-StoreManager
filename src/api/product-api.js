@@ -1,7 +1,8 @@
 import axios from "axios";
-import { BASE_URL, CURRENT_USER } from "../libs/constants";
+import { BASE_URL } from "../libs/constants";
 
 export async function getProductByStoreId(param) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   // '/products?menuId=35512226-b59c-44e2-af5c-4e823970935a&CategoryName=Cate%20-%202&pageNumber=0&pageSize=10'
   // console.log(param);
   let STOREID = CURRENT_USER.user.storeId;
@@ -40,6 +41,7 @@ export async function getProductByStoreId(param) {
 
 export async function getAllProductByStoreId(param) {
   // console.log(param);
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   let STOREID = CURRENT_USER.user.storeId;
   let url =
     BASE_URL +
@@ -58,6 +60,7 @@ export async function getAllProductByStoreId(param) {
 }
 
 export async function UpdateProduct(product) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   // console.log("Product:", product);
   var formData = new FormData();
   formData.append("Id", product.id);
@@ -92,6 +95,7 @@ export async function UpdateProduct(product) {
 }
 
 export async function CreateProduct(product) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   // console.log("Product:", product);
   let STOREID = CURRENT_USER.user.storeId;
   var formData = new FormData();
@@ -119,6 +123,7 @@ export async function CreateProduct(product) {
 }
 
 export async function DeleteProduct(id) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   const response = await axios.delete(BASE_URL + "/products/" + id, {
     headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
   });

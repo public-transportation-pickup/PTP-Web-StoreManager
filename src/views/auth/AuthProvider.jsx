@@ -11,6 +11,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useLocalStorage("user", null);
+  const [user2, setUser2] = useLocalStorage("user", null);
   const navigate = useNavigate();
 
   // call this function when you want to authenticate the user
@@ -18,8 +19,9 @@ export const AuthProvider = ({ children }) => {
     // console.log(data);
     // localStorage.setItem("accessToken", data.token);
     setUser(data);
+    setUser2(data);
     // navigate("/",{replace:true });
-    navigate(0)
+    // navigate(0)
     // window.location.reload();
   };
 
@@ -33,6 +35,7 @@ export const AuthProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       user,
+      user2,
       login,
       logout,
     }),

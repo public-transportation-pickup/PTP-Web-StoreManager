@@ -1,7 +1,8 @@
 import axios from "axios";
-import { BASE_URL, CURRENT_USER } from "../libs/constants";
+import { BASE_URL } from "../libs/constants";
 
 export async function GetOrderByStoreId(param) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   let STOREID = CURRENT_USER.user.storeId;
 
   var url =
@@ -25,6 +26,7 @@ export async function GetOrderByStoreId(param) {
 }
 
 export async function GetOrderByStoreIdWithPhone(param) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   let STOREID = CURRENT_USER.user.storeId;
 
   var url =
@@ -50,12 +52,14 @@ export async function GetOrderByStoreIdWithPhone(param) {
 }
 
 export async function GetOrderById(id) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   var url = BASE_URL + "/order/" + id;
   var response = await axios.get(url);
   return response.data;
 }
 
 export async function UpdateOrder(param) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   // console.log(param);
   // 'http://localhost:5066/api/order/2156df9d-ed97-4fe8-a453-81a6d2501b9b'
   var url = BASE_URL + "/order/" + param.id;
