@@ -298,7 +298,7 @@ const handleSearch= async ()=>{
           </table>
         </div>
       </div>
-       <div className="w-full">
+       <div className="w-full my-4">
             <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
             <p className="text-xl underline">Hướng dẫn chung:</p>
             {/* <p>Vui lòng xác nhận các đơn hàng trước <strong>10:00</strong></p> */}

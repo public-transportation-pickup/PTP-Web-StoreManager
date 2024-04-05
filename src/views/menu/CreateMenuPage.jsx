@@ -22,7 +22,7 @@ export default function CreateMenuPage() {
    //#region Api Request
     const[createState,requestCreate]=useAPIRequest(CreateMenu);
    //#endregion
-
+   const [toastLoading, setToastLoading]=useState(false);
     const[dateApply,setDayApply]=useState([]);
     const navigate=useNavigate();
 
@@ -62,7 +62,8 @@ export default function CreateMenuPage() {
 
     if ( createState.status === Actions.success  ) {
         toast.success("Thêm lịch bán thành công!",{autoClose:900});
-        navigate(`../`);
+        setToastLoading(true);
+        // navigate(`../`);
     }
     else if( createState.status === Actions.failure ){
         toast.warning("Tạo lịch bán thất bại!",{autoClose:900})
@@ -71,12 +72,26 @@ export default function CreateMenuPage() {
     
 },[createState]);
 
+useEffect(() => {
+    if (toastLoading) {
+      const timeout = setTimeout(() => {
+        navigate(`../`);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timeout);
+      }
+    }
+  }, [toastLoading]);
+
 useEffect(()=>{
     const dateApplyString = dateApply.join(', ');
     // console.log(dateApplyString);
     formik.setFieldValue("dateApply", dateApplyString);
 
   },[dateApply])
+
+  
 
 const handleBack=()=>{
     navigate(`/admin/menus/index`);
