@@ -1,5 +1,6 @@
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {ToastContainer, toast} from 'react-toastify';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/styles/tailwind.css";
 import Admin from "./layouts/Admin";
@@ -35,8 +36,8 @@ function App() {
             <Route element={<PrivateRoutes/>}>
               <Route path="/" exact element={<Admin />}>
                 <Route  index element={<Dashboard />} />
-                {/* <Route path="/admin/maps" element={<Maps />} />
-                <Route path="/admin/settings" element={<Settings />} /> */}
+                {/* <Route path="/admin/maps" element={<Maps />} /> */}
+                <Route path="settings" element={<Settings />} />
                 <Route path="products" element={<Products />} />
                 
                 <Route path="menus">

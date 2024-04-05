@@ -190,7 +190,7 @@ function Sidebar() {
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/admin/maps"
+                  to="settings"
                 >
                   <i
                     className={
@@ -200,7 +200,7 @@ function Sidebar() {
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Maps
+                  Cài đặt
                 </Link>
               </li> */}
             </ul>

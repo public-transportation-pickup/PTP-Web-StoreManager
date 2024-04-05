@@ -90,6 +90,7 @@ export default function UpdateMenuPage() {
 
     if ( updateState.status === Actions.success  ) {
         toast.success("Cập nhât thành công!",{autoClose:900});
+        setToastLoading(true);
     }
     else if( updateState.status === Actions.failure ){
         toast.warning("Cập nhật thất bại!",{autoClose:900})

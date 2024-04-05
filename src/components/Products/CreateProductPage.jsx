@@ -65,9 +65,16 @@ export default function CreateProductPage({product,handleClose}) {
           if (!values.price || values.price === 0) {
             errors.price = "Please enter price.";
           }
-        //   if (!values.categoryId || values.categoryId==='Select category') {
-        //     errors.categoryId = "Please select category.";
-        //   }
+          if (!values.categoryId || values.categoryId==='Select category') {
+            errors.categoryId = "Please select category.";
+          }
+          if(product.id!==undefined){
+            if (!values.status || values.status==='Active') {
+                if(values.quantityInDay<=values.quantityUsed){
+                    errors.status="Vui lòng cập nhật số lượng trong ngày trước khi cập nhật trạng thái!"
+                }
+              }
+          }
           if (!values.menuId || values.menuId==='Chọn lịch bán') {
             errors.menuId = "Thông tin bắt buộc";
           }
@@ -115,7 +122,7 @@ export default function CreateProductPage({product,handleClose}) {
         if (createState.status!==Actions.loading ) {
             formik.setSubmitting(false);
         }
-
+        // console.log(createState);
         if ( createState.status === Actions.success  ) {
             toast.success("Thêm sản phẩm thành công!",{autoClose:900});
             handleClose();
@@ -244,7 +251,7 @@ export default function CreateProductPage({product,handleClose}) {
                                         value={formik.values.categoryId}
                                         onChange={formik.handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        {/* <option>Select category</option> */}
+                                        <option>Select category</option>
                                         {
                                             categories.map((c)=>{
                                                 return(

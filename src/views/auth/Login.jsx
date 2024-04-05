@@ -25,7 +25,7 @@ function Login() {
   },[user])
 
   const formik = useFormik({
-    initialValues: {email: "store55@gmail.com", password: "@Abcaz12345"} ,
+    initialValues: {email: "store76@gmail.com", password: "@Abcaz12345"} ,
     validate: (values) => {
       let errors = {};
       if (!values.email) {
