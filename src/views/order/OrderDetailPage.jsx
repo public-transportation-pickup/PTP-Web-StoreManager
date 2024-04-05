@@ -83,9 +83,13 @@ export default function OrderDetailPage() {
       }else{
         console.log(orderDetailInfo.status);
         return(
-          <div>
-            <button onClick={()=>handleConfirm()} className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
-            <Note button="Hủy đơn" noteStringFunc={handleDelete} id={orderDetailInfo.id} />
+          <div className="inline-flex">
+            <button onClick={()=>handleConfirm()} type="button"
+              className=" py-[0.4rem] w-[14%] text-center text-sm font-medium  text-green-500 border-2 border-gray-400
+              rounded-md focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800 mr-3">Xác nhận</button>
+              
+              <Note button="Hủy đơn" noteStringFunc={handleDelete} id={orderDetailInfo.id} />
+            
           </div>
         )
       }
