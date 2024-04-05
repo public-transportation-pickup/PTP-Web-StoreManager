@@ -7,6 +7,7 @@ import { TABS_ORDER } from "../../libs/constants/navigation";
 const propertiesCommom='inline-block p-4 border-b-2 rounded-t-lg'
 const propertiesActive=' text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500'
 const propertiesInActivce='  border-transparent  hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'
+
 function TabsNavigate({item}){
     const {pathname}= useLocation();
     return (

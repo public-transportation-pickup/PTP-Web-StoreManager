@@ -25,7 +25,8 @@ export const initialProductData = {
   description:'',
   imageURL:null,
   menuId:undefined,
-  quantityInDay:1
+  quantityInDay:1,
+  status:''
 };
 
 
@@ -262,14 +263,17 @@ const handleSearch= async ()=>{
                                 </span>
                               </div>
                               <div className="border-0 w-full flex flex-col">
-                                  {/* <span 
+                                  <span 
                                     className="text-base pt-11 text-gray-600 flex flex-row">
-                                      <p className="pr-2">Ngày sản xuất:</p> 14 - 2 - 2020
+                                      Đã bán (Trong ngày):<p className="pl-2"> {p.quantityUsed} / {p.quantityInDay}</p>
                                   </span>
                                   <span
                                     className="text-base pt-1 text-gray-600 flex flex-row">
-                                      <p className="pr-3">Ngày hết hạn:</p> 14 - 2 - 2020
-                                  </span> */}
+                                      Trạng thái:
+                                      <p className={(p.status==="Active"?'text-green-700 pl-3':'text-red-600 pl-3')}>
+                                        {p.status==='Active'?'Sẵn sàng phục vụ':"Tạm ngưng phục vụ"}
+                                      </p> 
+                                  </span>
                               </div>
                             </div>
                             <div className="border-0 w-fit align-right px-2"> 
@@ -294,6 +298,15 @@ const handleSearch= async ()=>{
           </table>
         </div>
       </div>
+       <div className="w-full">
+            <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
+            <p className="text-xl underline">Hướng dẫn chung:</p>
+            {/* <p>Vui lòng xác nhận các đơn hàng trước <strong>10:00</strong></p> */}
+            <p>- Trạng thái và số lượng đã bán sẽ được <span className="text-red-600 font-bold uppercase">làm mới</span> mỗi ngày</p>
+             {/* <span className="text-red-600 font-bold uppercase">xử lý song song</span> */}
+            <p>-  <span className="text-red-600 font-bold uppercase">Thời gian chuẩn bị</span> và <span className="text-red-600 font-bold uppercase">xử lý song song</span> dùng để tính tổng thời gian chuẩn bị món khi đặt hàng</p>
+            </div>   
+        </div>
       {/* <!--  Modal --> */}
         <CreateModal 
           title={'Product'}
