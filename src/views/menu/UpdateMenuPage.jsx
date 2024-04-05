@@ -133,7 +133,7 @@ useEffect(()=>{
         <div className="w-full h-fit">
         <h2 className="font-bold text-center text-2xl">Cập nhật lịch bán</h2>
             <section className="bg-[#f7f7ff] dark:bg-gray-900">
-                <div className="py-6 px-4 mx-auto max-w-2xl lg:py-6">
+                <div className="py-7 px-4 mx-auto max-w-2xl lg:py-6">
                     <form onSubmit={formik.handleSubmit}>
                         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <>
@@ -241,7 +241,7 @@ useEffect(()=>{
                                 </ul>
                                 {formik.errors.dateApply && <div className="text-red-600 px-2s">{formik.errors.dateApply}</div>}
                             </div>
-                                <div className="w-full">
+                                <div className="w-[98%]">
                                     <label htmlFor="startTime" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Giờ bắt đầu</label>
                                     <input 
                                         type="time" 
@@ -253,7 +253,7 @@ useEffect(()=>{
                                         required=""/>
                                     {formik.errors.startTime && <div className="text-red-600 px-2s">{formik.errors.startTime}</div>}
                                 </div>
-                                <div className="w-full">
+                                <div className="w-[98%]">
                                     <label htmlFor="endTime" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Giờ kết thúc</label>
                                     <input 
                                         type="time" 
@@ -265,7 +265,7 @@ useEffect(()=>{
                                         required=""/>
                                         {formik.errors.endTime && <div className="text-red-600 px-2s">{formik.errors.endTime}</div>}
                                 </div>
-                                <div className="w-full">
+                                <div className="w-[98%]">
                                     <label htmlFor="startDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày bắt đầu (Tùy chọn)</label>
                                     <input 
                                         type="datetime-local" 
@@ -273,18 +273,23 @@ useEffect(()=>{
                                         id="startDate" 
                                         value={formik.values.startDate!==null?formik.values.startDate:""}
                                         onChange={formik.handleChange}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                                        focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700
+                                         dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
                                 </div>
-                                <div className="w-full">
-                                    <label htmlFor="endDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày kết thúc  (Tùy chọn)</label>
+                                <div className="w-[98%]">
+                                    <label htmlFor="endDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày kết thúc(Tùy chọn)</label>
                                     <input 
-                                        type="datetime-local"  
+                                        type="datetime-local" 
                                         name="endDate" 
                                         id="endDate" 
                                         value={formik.values.endDate!==null?formik.values.endDate:""}
                                         onChange={formik.handleChange}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" />
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
+                                        block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                         dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
                                 </div>
+                                
                             </>
                             
                           

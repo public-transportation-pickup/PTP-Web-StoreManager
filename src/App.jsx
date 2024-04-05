@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/styles/tailwind.css";
 import Admin from "./layouts/Admin";
 import Auth from "./layouts/Auth";
+import Notification from "./components/Notification/Notification";
 import {AuthProvider} from './views/auth/AuthProvider';
 import Dashboard from "./views/admin/Dashboard";
 import Maps from "./views/admin/Maps";
@@ -13,7 +14,6 @@ import Products from "./views/admin/Products";
 import PrivateRoutes from './views/auth/PrivateRoute';
 import CreateMenuPage from "./views/menu/CreateMenuPage";
 import OrderMainPage from "./views/order/OrderMainPage";
-import CreateProductPage from "./components/Products/CreateProductPage";
 //import OrderTableList from "./views/order/OrderTableList";
 import OrderConfirmTable from "./views/order/OrderConfirmTable";
 import OrderPrepareTable from "./views/order/OrderPrepareTable";
@@ -21,9 +21,7 @@ import OrderDeliveryTable from "./views/order/OrderDeliveryTable";
 import OrderCompleteTable from "./views/order/OrderCompleteTable";
 import OrderCancelTable from "./views/order/OrderCancelTable";
 import OrderAllTable from "./views/order/OrderAllTable";
-import TextPage from "./views/TextPage";
 import OrderDetailPage from "./views/order/OrderDetailPage";
-import MenuMainPage from "./views/menu/MenuMainPage";
 import UpdateMenuPage from "./views/menu/UpdateMenuPage";
 
 function App() {
@@ -63,7 +61,7 @@ function App() {
         </AuthProvider>
         
       </Router>
-      
+      <Notification />
     </div>
   )
 }

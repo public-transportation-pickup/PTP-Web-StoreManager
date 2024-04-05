@@ -65,9 +65,9 @@ export default function CreateProductPage({product,handleClose}) {
           if (!values.price || values.price === 0) {
             errors.price = "Please enter price.";
           }
-          if (!values.categoryId || values.categoryId==='Select category') {
-            errors.categoryId = "Please select category.";
-          }
+        //   if (!values.categoryId || values.categoryId==='Select category') {
+        //     errors.categoryId = "Please select category.";
+        //   }
           if (!values.menuId || values.menuId==='Chọn lịch bán') {
             errors.menuId = "Thông tin bắt buộc";
           }
@@ -244,7 +244,7 @@ export default function CreateProductPage({product,handleClose}) {
                                         value={formik.values.categoryId}
                                         onChange={formik.handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option>Select category</option>
+                                        {/* <option>Select category</option> */}
                                         {
                                             categories.map((c)=>{
                                                 return(
@@ -326,7 +326,20 @@ export default function CreateProductPage({product,handleClose}) {
                                         )}
                                     </select>
                                     {formik.errors.menuId && <div className="text-red-600 px-2s">{formik.errors.menuId}</div>}
-                                </div>  
+                                </div> 
+                                {product.id!==undefined?                                <div  className="sm:col-span-2">
+                                    <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Trạng thái</label>
+                                    <select id="status" 
+                                        name="status"
+                                        value={formik.values.status}
+                                        onChange={formik.handleChange}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option  value='Active'>Sẵn sàng phục vụ</option>
+                                        <option  value='InActive'>Tạm ngưng phục vụ</option>
+                                    </select>
+                                    {formik.errors.status && <div className="text-red-600 px-2s">{formik.errors.status}</div>}
+                                </div>   
+                                :<></>} 
                                 <div className="sm:col-span-2">
                                     <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mô tả</label>
                                     <textarea 

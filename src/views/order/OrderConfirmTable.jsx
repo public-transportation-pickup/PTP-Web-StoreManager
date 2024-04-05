@@ -169,9 +169,9 @@ export default function OrderConfirmTable() {
                                             {item.orderDetails!==undefined&&item.orderDetails[1]!==undefined ?
                                                 <div  className="flex flex-row gap-2">
                                                     <p className="text-sm font-bold	"  >-</p>
-                                                    <p>{item.orderDetails[0].productName}</p>
-                                                    <p>x{item.orderDetails[0].quantity}</p>
-                                                    <p><strong className="pl-1"> <NumberFormat number={item.orderDetails[0].productPrice} /> VNĐ</strong></p>  
+                                                    <p>{item.orderDetails[1].productName}</p>
+                                                    <p>x{item.orderDetails[1].quantity}</p>
+                                                    <p><strong className="pl-1"> <NumberFormat number={item.orderDetails[1].productPrice} /> VNĐ</strong></p>  
                                                 </div>:<></>
                                             }
                                             {item.orderDetails!==undefined&&item.orderDetails[2]!==undefined ?

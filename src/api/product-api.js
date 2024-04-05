@@ -61,7 +61,7 @@ export async function getAllProductByStoreId(param) {
 
 export async function UpdateProduct(product) {
   var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
-  // console.log("Product:", product);
+  console.log("Product:", product);
   var formData = new FormData();
   formData.append("Id", product.id);
   formData.append("CategoryId", product.categoryId);
@@ -73,7 +73,7 @@ export async function UpdateProduct(product) {
   formData.append("ManufacturingDate", product.manufacturingDate);
   formData.append("ExpirationDate", product.expirationDate);
   formData.append("StoreId", product.storeId);
-  formData.append("Status", "Active");
+  formData.append("Status", product.status);
   formData.append("MenuId", product.menuId);
   formData.append("QuantityInDay", product.quantityInDay);
   formData.append("ProductMenuId", product.productMenuId);
