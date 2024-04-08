@@ -4,16 +4,30 @@ import { Link } from "react-router-dom";
 
 import NotificationDropdown from "../Dropdowns/NotificationDropdown";
 import UserDropdown from "../Dropdowns/UserDropdown";
-import { updateMenus } from "../../redux/features/menuSlice";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../views/auth/AuthProvider";
+import { useEffect, useState } from "react";
+import { GetBasicOrder } from "../../api/order-api";
+import { useAPIRequest,Actions } from "../../libs/Commons/api-request";
 
 function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const { logout } = useAuth();
-  const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const [orderBasic,setOrderBasic]=useState(null);
+  const [orderState,requestOrder]= useAPIRequest(GetBasicOrder);
+  useEffect(()=>{
+      requestOrder();
+  },[]);
+
+  useEffect(()=>{
+      if(orderState.status==Actions.success){
+          setOrderBasic(orderState.payload);
+          // console.log(orderState.payload);
+      }
+      if(orderState.status==Actions.failure){
+          console.log(orderState.error);
+      }
+  },[orderState]);
+
   const handleLogout = () => {
     logout();
   };
@@ -176,7 +190,10 @@ function Sidebar() {
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Đơn hàng
+                  Đơn hàng ({orderBasic!==null? 
+                    orderBasic.total 
+                    :
+                    0})
                 </Link>
               </li>
               <li className="items-center">

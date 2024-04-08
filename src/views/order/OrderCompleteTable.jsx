@@ -7,47 +7,83 @@ import { selectOrder,fetchOrders } from "../../redux/features/orderSlice.js";
 import NumberFormat from "../../libs/Commons/NumberFormat.jsx";
 import DateTimeFormat from "../../libs/Commons/DateTimeFormat.jsx";
 import PaginationButton from "../../components/Pagination/PaginationButton.jsx";
-
+import { GetOrderByStoreIdV2 } from '../../api/order-api.js';
+import { useAPIRequest,Actions } from '../../libs/Commons/api-request.js';
 
 export default function OrderCompleteTable() {
     const navigate= useNavigate();
     const handleOnclickRow=(orderId)=>{
         navigate(`../${orderId}`);
     }
-
+    const [ordersState,requestOrder]= useAPIRequest(GetOrderByStoreIdV2);
     const [listCompletedOrder,setlist] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPage, setTotalPage] = useState(1);
     const [phoneNumber, setPhoneNumer] = useState('');
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        // Dispatch the fetchOrders action when the component mounts
-        dispatch(fetchOrders({
-            phoneNumber:phoneNumber,
-            pageNumber:currentPage!==undefined?currentPage:0,
-            status:'Completed'
-        }));
-    }, [dispatch,currentPage,phoneNumber]);
-
-    var value= useSelector(selectOrder);
-    // console.log(value);
     useEffect(()=>{
-        setlist(value.items!==undefined?value.items:[]);
-        setCurrentPage(value.pageIndex);
-        setTotalPage(value.totalPagesCount);
-    },[value]);
+        requestOrder({
+            status:'Completed'
+        });
+    },[]);
+
+    useEffect(()=>{
+        if(ordersState.status==Actions.success){
+            setlist(ordersState.payload.items);
+        }
+        if(ordersState.status==Actions.failure){
+            console.log(ordersState);
+        }
+    },[ordersState])
+
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     // Dispatch the fetchOrders action when the component mounts
+    //     dispatch(fetchOrders({
+    //         phoneNumber:phoneNumber,
+    //         pageNumber:currentPage!==undefined?currentPage:0,
+    //         status:'Completed'
+    //     }));
+    // }, [dispatch,currentPage,phoneNumber]);
+
+    // var value= useSelector(selectOrder);
+    // // console.log(value);
+    // useEffect(()=>{
+    //     setlist(value.items!==undefined?value.items:[]);
+    //     setCurrentPage(value.pageIndex);
+    //     setTotalPage(value.totalPagesCount);
+    // },[value]);
 
     const phoneNumberRegex = new RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
     const inputRef = useRef();
-    const handleSearch= ()=>{
+    const handleSearch= async ()=>{
         const searchTerm = inputRef.current.value.trim();
         const isValid = phoneNumberRegex.test(searchTerm);
-        if(isValid){
-            setPhoneNumer(searchTerm);
-        }
-        else{
-            toast.warning("Phone is incorrect format",{autoClose:900});
+        if(searchTerm!=''){
+            if(isValid){
+                // setPhoneNumer(searchTerm);
+                var filter= listCompletedOrder.filter((order) =>
+                  order.phoneNumber
+                    .toLowerCase()
+                    .replace(/\s+/g, '')
+                    .includes(searchTerm.toLowerCase().replace(/\s+/g, ''))
+                );
+                console.log(filter);
+                if(filter.length>0){
+                    setlist(filter);
+                  }else{
+                    toast.warning(`Sản phẩm không tồn tại`,{autoClose:900});
+                    var data= await GetOrderByStoreIdV2({ status:'Completed'})
+                    setlist(data.items);
+                  }
+            }
+            else{
+                toast.warning("Phone is incorrect format",{autoClose:900});
+            }
+        }else{
+            // console.log('non');
+            var data= await GetOrderByStoreIdV2({ status:'Completed'})
+            setlist(data.items);
         }
     }
 
@@ -98,7 +134,7 @@ export default function OrderCompleteTable() {
                             </tr>
                         </thead>
                     <tbody >
-                    {listCompletedOrder.length >0 && listCompletedOrder.map((item,index)=>(
+                    {listCompletedOrder.length >0 && listCompletedOrder.slice(currentPage*5, currentPage*5+5).map((item,index)=>(
                         <tr key={item.id}  className="bg-white h-20 border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                             <td className="px-6 py-2 h-20 border border-slate-300">
                                 {index+1 +currentPage*5}
@@ -137,8 +173,8 @@ export default function OrderCompleteTable() {
                                 }
                                     
                             </td>
-                            <td className="px-6 py-2  h-20 w-72 border border-slate-300">
-                                <p>{item.status==="Completed"?"Đã giao hàng":""}</p>
+                            <td className="px-6 py-2  h-20 w-64 border border-slate-300">
+                                <p>{item.status==="Completed"?"Đã giao hàng":""} vào lúc </p> <DateTimeFormat date={item.modificationDate} />
                             </td>
                             {/* <td className="px-2 py-4 border border-slate-300">
                                 <div className="flex gap-2">
@@ -154,9 +190,9 @@ export default function OrderCompleteTable() {
                  { listCompletedOrder.length >0?
                     <div className="bg-white items-center border-b align-middle dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                         <PaginationButton
-                            setCurrentPage={setCurrentPage}
-                            currentPage={currentPage}
-                            totalPages={totalPage}/>
+                             setCurrentPage={setCurrentPage}
+                             currentPage={currentPage}
+                             totalPages={Math.ceil(listCompletedOrder.length/5)}/>
                     </div>
                     :<></> 
                 } 

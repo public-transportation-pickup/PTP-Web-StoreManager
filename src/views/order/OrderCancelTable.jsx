@@ -7,47 +7,89 @@ import { selectOrder,fetchOrders } from "../../redux/features/orderSlice.js";
 import NumberFormat from "../../libs/Commons/NumberFormat.jsx";
 import DateTimeFormat from "../../libs/Commons/DateTimeFormat.jsx";
 import PaginationButton from "../../components/Pagination/PaginationButton.jsx";
+import { GetOrderByStoreIdV2 } from '../../api/order-api.js';
+import { useAPIRequest,Actions } from '../../libs/Commons/api-request.js';
+
 
 export default function OrderCancelTable() {
-    const navigate= useNavigate();
-    const handleOnclickRow=(orderId)=>{
-        navigate(`../${orderId}`);
-    }
+    const [ordersState,requestOrder]= useAPIRequest(GetOrderByStoreIdV2);
+
     const [listCancelOrder,setlist] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPage, setTotalPage] = useState(1);
     const [phoneNumber, setPhoneNumer] = useState('');
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        // Dispatch the fetchOrders action when the component mounts
-        dispatch(fetchOrders({
-            phoneNumber:phoneNumber,
-            pageNumber:currentPage!==undefined?currentPage:0,
+    useEffect(()=>{
+        requestOrder({
             status:'Canceled'
-        }));
-    }, [dispatch,currentPage,phoneNumber]);
+        });
+    },[]);
 
-    var value= useSelector(selectOrder);
-    // console.log(value);
+    useEffect(()=>{
+        if(ordersState.status==Actions.success){
+            setlist(ordersState.payload.items);
+        }
+        if(ordersState.status==Actions.failure){
+            console.log(ordersState);
+        }
+    },[ordersState])
+
+    const navigate= useNavigate();
+    const handleOnclickRow=(orderId)=>{
+        navigate(`../${orderId}`);
+    }
+   
+
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     // Dispatch the fetchOrders action when the component mounts
+    //     dispatch(fetchOrders({
+    //         phoneNumber:phoneNumber,
+    //         pageNumber:currentPage!==undefined?currentPage:0,
+    //         status:'Canceled'
+    //     }));
+    // }, [dispatch,currentPage,phoneNumber]);
+
+    // var value= useSelector(selectOrder);
+    // // console.log(value);
 
     
-    useEffect(()=>{
-        setlist(value.items!==undefined?value.items:[]);
-        setCurrentPage(value.pageIndex!==undefined? value.pageIndex: 0);
-        setTotalPage(value.totalPagesCount);
-    },[value]);
+    // useEffect(()=>{
+    //     setlist(value.items!==undefined?value.items:[]);
+    //     setCurrentPage(value.pageIndex!==undefined? value.pageIndex: 0);
+    //     setTotalPage(value.totalPagesCount);
+    // },[value]);
 
     const phoneNumberRegex = new RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
     const inputRef = useRef();
-    const handleSearch= ()=>{
+    const handleSearch=async ()=>{
         const searchTerm = inputRef.current.value.trim();
         const isValid = phoneNumberRegex.test(searchTerm);
-        if(isValid){
-            setPhoneNumer(searchTerm);
-        }
-        else{
-            toast.warning("Phone is incorrect format",{autoClose:900});
+        if(searchTerm!=''){
+            if(isValid){
+                // setPhoneNumer(searchTerm);
+                var filter= listCancelOrder.filter((order) =>
+                  order.phoneNumber
+                    .toLowerCase()
+                    .replace(/\s+/g, '')
+                    .includes(searchTerm.toLowerCase().replace(/\s+/g, ''))
+                );
+                // console.log(filter);
+                if(filter.length>0){
+                    setlist(filter);
+                  }else{
+                    var data= await GetOrderByStoreIdV2({ status:'Canceled'})
+                    setlist(data.items);
+                    toast.warning(`Sản phẩm không tồn tại`,{autoClose:900});
+                  }
+            }
+            else{
+                toast.warning("Phone is incorrect format",{autoClose:900});
+            }
+        }else{
+            // console.log('non');
+            var data= await GetOrderByStoreIdV2({ status:'Canceled'})
+            setlist(data.items);
         }
     }
 
@@ -99,7 +141,7 @@ export default function OrderCancelTable() {
                             </tr>
                     </thead>
                     <tbody >
-                    {listCancelOrder.length >0 && listCancelOrder.map((item,index)=>(
+                    {listCancelOrder.length >0 && listCancelOrder.slice(currentPage*5, currentPage*5+5).map((item,index)=>(
                         <tr key={item.id}  className="bg-white border-b  dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                             <td className="px-6 py-2 border h-20 border-slate-300">
                                 {index+1 +currentPage*5}
@@ -156,7 +198,7 @@ export default function OrderCancelTable() {
                         <PaginationButton
                             setCurrentPage={setCurrentPage}
                             currentPage={currentPage}
-                            totalPages={totalPage}/>
+                            totalPages={Math.ceil(listCancelOrder.length/5)}/>
                     </div>
                     :<></> 
                 }

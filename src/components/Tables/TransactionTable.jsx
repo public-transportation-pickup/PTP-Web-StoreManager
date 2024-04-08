@@ -22,7 +22,7 @@ function TransactionTable() {
   },[])
 
   useEffect(()=>{
-      console.log(transState);
+      // console.log(transState);
 
     if(transState.status===Actions.success){
       setTransactions(transState.payload.transactions);
@@ -118,7 +118,7 @@ function TransactionTable() {
                         <PaginationButton
                             setCurrentPage={setCurrentPage}
                             currentPage={currentPage}
-                            totalPages={transactions.length/10}/>
+                            totalPages={Math.ceil(transactions.length/10)}/>
                     </div>
                     :<></> 
                 }

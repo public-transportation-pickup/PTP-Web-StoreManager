@@ -7,48 +7,73 @@ import { useDispatch,useSelector } from "react-redux";
 import { selectOrder,fetchOrders } from "../../redux/features/orderSlice.js";
 //Component
 import { useNavigate } from "react-router-dom";
-import {UpdateOrder} from "../../api/order-api.js"
+import {UpdateOrder,GetOrderByStoreIdV2} from "../../api/order-api.js"
 import NumberFormat from "../../libs/Commons/NumberFormat.jsx";
 import DateTimeFormat from "../../libs/Commons/DateTimeFormat.jsx";
 import PaginationButton from "../../components/Pagination/PaginationButton.jsx";
-
+import {requestForToken, onMessageListener } from "../../firebase.js"; 
 export default function OrderConfirmTable() {
     
     //#region Call api
+    const [ordersState,requestOrder]= useAPIRequest(GetOrderByStoreIdV2);
     const [updateState,requestUpdate]=useAPIRequest(UpdateOrder);
     //#endregion
 
     //#region List
-
+    const [notification, setNotification] = useState({title: '', body: ''});
     // const [listConfirmOrder, setListConfirmOrder]=useState([]);
 
     //#endregion
     const [listConfirmOrder,setlist] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPage, setTotalPage] = useState(1);
-    const dispatch = useDispatch();
     const [phoneNumber, setPhoneNumer] = useState('');
-
-    useEffect(() => {
-        // Dispatch the fetchOrders action when the component mounts
-        dispatch(fetchOrders({
-            phoneNumber:phoneNumber,
-            pageNumber:currentPage!==undefined?currentPage:0,
-            status:'Waiting'
-        }));
-        
-    }, [dispatch,updateState,currentPage,phoneNumber]);
-    //#region component
-    
-    var value= useSelector(selectOrder);
-    // console.log(value);
     useEffect(()=>{
-        // console.log(value.items);
-        // console.log(value.items!==undefined? value.items[0].orderDetails : []);
-        setlist(value.items!==undefined?value.items:[]);
-        setCurrentPage(value.pageIndex);
-        setTotalPage(value.totalPagesCount);
-    },[value]);
+        requestOrder({
+            status:'Waiting'
+        });
+    },[updateState,notification]);
+
+    useEffect(()=>{
+        if(ordersState.status==Actions.success){
+            setlist(ordersState.payload.items);
+        }
+        if(ordersState.status==Actions.failure){
+            console.log(ordersState);
+        }
+    },[ordersState])
+
+    requestForToken().then((value)=>console.log(value));
+
+    onMessageListener()
+    .then((payload) => {
+        console.log(payload);
+      setNotification({title: payload?.notification?.title, body: payload?.notification?.body});     
+    })
+    .catch((err) => console.log('failed: ', err));
+
+
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     // Dispatch the fetchOrders action when the component mounts
+    //     dispatch(fetchOrders({
+    //         phoneNumber:phoneNumber,
+    //         pageNumber:currentPage!==undefined?currentPage:0,
+    //         status:'Waiting'
+    //     }));
+        
+    // }, [dispatch,updateState,currentPage,phoneNumber]);
+    // //#region component
+    
+    // var value= useSelector(selectOrder);
+    // // console.log(value);
+    // useEffect(()=>{
+    //     // console.log(value.items);
+    //     // console.log(value.items!==undefined? value.items[0].orderDetails : []);
+    //     setlist(value.items!==undefined?value.items:[]);
+    //     setCurrentPage(value.pageIndex);
+    //     setTotalPage(value.totalPagesCount);
+    // },[value]);
 
     const navigate= useNavigate();
 
@@ -86,14 +111,34 @@ export default function OrderConfirmTable() {
 
     const phoneNumberRegex = new RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
     const inputRef = useRef();
-    const handleSearch= ()=>{
+    const handleSearch= async ()=>{
         const searchTerm = inputRef.current.value.trim();
         const isValid = phoneNumberRegex.test(searchTerm);
-        if(isValid){
-            setPhoneNumer(searchTerm);
-        }
-        else{
-            toast.warning("Phone is incorrect format",{autoClose:900});
+        if(searchTerm!=''){
+            if(isValid){
+                // setPhoneNumer(searchTerm);
+                var filter= listDeliveryOrder.filter((order) =>
+                  order.phoneNumber
+                    .toLowerCase()
+                    .replace(/\s+/g, '')
+                    .includes(searchTerm.toLowerCase().replace(/\s+/g, ''))
+                );
+                // console.log(filter);
+                if(filter.length>0){
+                    setlist(filter);
+                  }else{
+                    var data= await GetOrderByStoreIdV2({ status:'Waiting'})
+                    setlist(data.items);
+                    toast.warning(`Sản phẩm không tồn tại`,{autoClose:900});
+                  }
+            }
+            else{
+                toast.warning("Phone is incorrect format",{autoClose:900});
+            }
+        }else{
+            // console.log('non');
+            var data= await GetOrderByStoreIdV2({ status:'Waiting'})
+            setlist(data.items);
         }
     }
   return (
@@ -143,7 +188,7 @@ export default function OrderConfirmTable() {
                             </tr>
                         </thead>
                         <tbody >
-                            {listConfirmOrder.length >0 ? (listConfirmOrder.map((item,index)=>(
+                            {listConfirmOrder.length >0 ? (listConfirmOrder.slice(currentPage*5, currentPage*5+5).map((item,index)=>(
                                 <tr key={item.id}  className="bg-white border-b h-20 dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                                     <td className="px-6 py-2 h-20 border border-slate-300">
                                         {index+1 +currentPage*5}
@@ -201,7 +246,7 @@ export default function OrderConfirmTable() {
                         <PaginationButton
                             setCurrentPage={setCurrentPage}
                             currentPage={currentPage}
-                            totalPages={totalPage}/>
+                            totalPages={Math.ceil(listConfirmOrder.length/5)}/>
                     </div>
                     :<></> 
                 }
