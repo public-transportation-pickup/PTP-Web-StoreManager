@@ -101,7 +101,7 @@ export default function OrderCompleteTable() {
                     {listCompletedOrder.length >0 && listCompletedOrder.map((item,index)=>(
                         <tr key={item.id}  className="bg-white h-20 border-b dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                             <td className="px-6 py-2 h-20 border border-slate-300">
-                                {index+1}
+                                {index+1 +currentPage*5}
                             </td>
                             <td className="px-6 py-2  h-20 w-64 border border-slate-300">
                                 <p>{item.name}</p>

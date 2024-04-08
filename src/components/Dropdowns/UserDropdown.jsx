@@ -1,7 +1,7 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
-
-import react from "../../assets/img/react.jpg"
+import store from "../../assets/img/store.jpeg"
+import ic_launcher from "../../assets/img/ic_launcher.png"
 
 const UserDropdown = () => {
   // dropdown props
@@ -33,7 +33,7 @@ const UserDropdown = () => {
             <img
               alt="..."
               className="w-full rounded-full align-middle border-none shadow-lg"
-              src={react}
+              src={store}
             />
           </span>
         </div>

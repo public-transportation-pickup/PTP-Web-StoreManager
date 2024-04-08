@@ -24,6 +24,23 @@ export async function GetOrderByStoreId(param) {
   // console.log(response.data);
   return response.data;
 }
+export async function GetOrderByStoreIdV2(param) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
+  let STOREID = CURRENT_USER.user.storeId;
+
+  var url =
+    BASE_URL + "/stores/" + STOREID + "/orders?" + "Status=" + param.status;
+  // console.log(url);
+  var response = await axios
+    .get(url, {
+      headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  // console.log(response.data);
+  return response.data;
+}
 
 export async function GetOrderByStoreIdWithPhone(param) {
   var CURRENT_USER = JSON.parse(localStorage.getItem("user"));

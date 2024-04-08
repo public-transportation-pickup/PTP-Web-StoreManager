@@ -74,6 +74,7 @@ export default function OrderConfirmTable() {
     }
 
     useEffect(() => {
+        // console.log(updateState);
         if(updateState.status==Actions.success){
             toast("Cập nhật đơn hàng thành công!",{autoClose:900});
         }
@@ -145,7 +146,7 @@ export default function OrderConfirmTable() {
                             {listConfirmOrder.length >0 ? (listConfirmOrder.map((item,index)=>(
                                 <tr key={item.id}  className="bg-white border-b h-20 dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                                     <td className="px-6 py-2 h-20 border border-slate-300">
-                                        {index+1}
+                                        {index+1 +currentPage*5}
                                     </td>
                                     <td className="px-6 py-2  h-20 w-64 border border-slate-300">
                                         <p>{item.name}</p>

@@ -138,7 +138,7 @@ export default function OrderDeliveryTable() {
                 {listDeliveryOrder.length >0 && listDeliveryOrder.map((item,index)=>(
                     <tr key={item.id}  className="bg-white border-b h-20 dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                     <td className="px-6 h-20 py-2 border border-slate-300">
-                        {index+1}
+                        {index+1 +currentPage*5}
                     </td>
                     <td className="px-6 py-2  h-20 w-64 border border-slate-300">
                         <p>{item.name}</p>

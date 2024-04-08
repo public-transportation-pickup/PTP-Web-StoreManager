@@ -30,6 +30,8 @@ export default function OrderCancelTable() {
 
     var value= useSelector(selectOrder);
     // console.log(value);
+
+    
     useEffect(()=>{
         setlist(value.items!==undefined?value.items:[]);
         setCurrentPage(value.pageIndex!==undefined? value.pageIndex: 0);
@@ -100,7 +102,7 @@ export default function OrderCancelTable() {
                     {listCancelOrder.length >0 && listCancelOrder.map((item,index)=>(
                         <tr key={item.id}  className="bg-white border-b  dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                             <td className="px-6 py-2 border h-20 border-slate-300">
-                                {index+1}
+                                {index+1 +currentPage*5}
                             </td>
                             <td className="px-6 py-2 h-20 w-64 border border-slate-300">
                                 <p>{item.name}</p>

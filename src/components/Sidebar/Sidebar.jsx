@@ -112,7 +112,7 @@ function Sidebar() {
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Trang chủ
+                  Thống kê
                 </Link>
               </li>
               <li className="items-center">
@@ -179,6 +179,27 @@ function Sidebar() {
                   Đơn hàng
                 </Link>
               </li>
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/admin/settings") !== -1
+                      ? "text-sky-500 hover:text-sky-600"
+                      : "text-slate-700 hover:text-slate-500")
+                  }
+                  to="transactions"
+                >
+                  <i
+                    className={
+                      "fa-solid fa-money-bill mr-2 text-sm " +
+                      (window.location.href.indexOf("/admin/settings") !== -1
+                        ? "opacity-75"
+                        : "text-slate-300")
+                    }
+                  ></i>{" "}
+                  Giao dịch
+                </Link>
+              </li>
              
               
 
@@ -220,7 +241,7 @@ function Sidebar() {
                   onClick={handleLogout}
                 >
                   <i className="fas fa-right-from-bracket text-slate-400 mr-2 text-sm"></i>{" "}
-                  Logout
+                  Đăng xuất
                 </button>
               </li>
             </ul>
