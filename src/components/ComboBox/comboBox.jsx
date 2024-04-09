@@ -22,9 +22,11 @@ export default function ComboBox({setMenuId}) {
 
   useEffect(()=>{
     if(menuState.status===Actions.success){
+      // console.log(menuState.payload);
       setMenus(menuState.payload);
       setSelected(menuState.payload[menuState.payload.length-1])
     }
+
   },[menuState]);
   
 useEffect(()=>{

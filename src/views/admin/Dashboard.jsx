@@ -8,6 +8,7 @@ import CardLineChart from "../../components/Cards/CardLineChart";
 import CardPageVisits from "../../components/Cards/CardPageVisits";
 import CardSocialTraffic from "../../components/Cards/CardSocialTraffic";
 import HeaderStats from "../../components/Headers/HeaderStats";
+import CardPageTransactions from "../../components/Cards/CardPageTransactions.jsx";
 import {Actions, useAPIRequest } from '../../libs/Commons/api-request.js';
 
 // import { useAuth } from "../auth/AuthProvider.jsx";
@@ -57,6 +58,12 @@ function Dashboard() {
         <div className="w-full xl:w-4/12 px-4 pt-8">
           <CardSocialTraffic  param={report!==undefined?report.customerMosts:[]}/>
           {/* App4   */}
+        </div>
+      </div>
+      <div className="flex flex-wrap mt-4">
+        <div className="w-full  mb-12 xl:mb-0 px-4 pt-8">
+          <CardPageTransactions/>
+          {/* App3 */}
         </div>
       </div>
     </>

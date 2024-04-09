@@ -44,7 +44,7 @@ function CardPageVisits({param}) {
               {param.length>0 ?(param.map((item,index)=>(
                 <tr key={item.id}>
                   <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {index}
+                  {index +1 }
                   {/* <img
                       src={item.imageURL}
                       alt="..."

@@ -8,6 +8,8 @@ function HeaderStats({param}) {
   var totalSalePercents=param!=undefined?`${RoundedNumber(Math.abs((param.totalSalesNew-param.totalSalesLast)/param.totalSalesLast))}`:"0";
   var totalOrderPercent=param!=undefined?`${RoundedNumber(Math.abs((param.totalOrdersNew-param.totalOrdersLast)/param.totalOrdersLast))}`:"0";
   var averagePercent=param!=undefined?`${RoundedNumber(Math.abs((param.averageSaleValueNew-param.averageSaleValueLast)/param.averageSaleValueLast))}`:"0";
+  var averageSaleValueNew=param!=undefined?`${RoundedNumber(param.averageSaleValueNew)}`:"0"
+  // console.log(averagePercent);
   function RoundedNumber(num) {
     const roundedNum = num.toFixed(2);
   
@@ -50,7 +52,7 @@ function HeaderStats({param}) {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="Average order value"
-                  statTitle={param!=undefined?`${param.averageSaleValueNew}`:"0"}
+                  statTitle={averageSaleValueNew}
                   statArrow={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"down":"up") :("up")}
                   statPercent={averagePercent!=='Infinity'? totalSalePercents:'0'}
                   statPercentColor={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"text-orange-500":"text-emerald-500") :("text-red-500")}

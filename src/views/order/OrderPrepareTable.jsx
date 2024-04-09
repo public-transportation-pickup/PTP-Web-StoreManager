@@ -7,7 +7,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { selectOrder,fetchOrders } from "../../redux/features/orderSlice.js";
 import NumberFormat from "../../libs/Commons/NumberFormat.jsx";
 import DateTimeFormat from "../../libs/Commons/DateTimeFormat.jsx";
-import {UpdateOrder} from "../../api/order-api.js"
+import {UpdateOrder,GetOrderByStoreIdV2} from "../../api/order-api.js"
 import { useAPIRequest,Actions } from "../../libs/Commons/api-request.js";
 import PaginationButton from "../../components/Pagination/PaginationButton.jsx";
 
@@ -15,6 +15,7 @@ export default function OrderPrepareTable() {
     //waiting -> preparing sẽ qua đây 
     //status send Prepared
     //#region Call api
+        const [ordersState,requestOrder]= useAPIRequest(GetOrderByStoreIdV2);
         const [updateState,requestUpdate]=useAPIRequest(UpdateOrder);
     //#endregion
 
@@ -23,23 +24,38 @@ export default function OrderPrepareTable() {
     const [totalPage, setTotalPage] = useState(1);
     const [phoneNumber, setPhoneNumer] = useState('');
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        // Dispatch the fetchOrders action when the component mounts
-        dispatch(fetchOrders({
-            phoneNumber:phoneNumber,
-            pageNumber:currentPage!==undefined?currentPage:0,
-            status:'Preparing'
-        }));
-    }, [dispatch,updateState,currentPage,phoneNumber]);
-
-    var value= useSelector(selectOrder);
-    // console.log(value);
     useEffect(()=>{
-        setlist(value.items!==undefined?value.items:[]);
-        setCurrentPage(value.pageIndex);
-        setTotalPage(value.totalPagesCount);
-    },[value]);
+        requestOrder({
+            status:'Preparing'
+        });
+    },[updateState]);
+
+    useEffect(()=>{
+        if(ordersState.status==Actions.success){
+            setlist(ordersState.payload.items);
+        }
+        if(ordersState.status==Actions.failure){
+            console.log(ordersState);
+        }
+    },[ordersState])
+
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     // Dispatch the fetchOrders action when the component mounts
+    //     dispatch(fetchOrders({
+    //         phoneNumber:phoneNumber,
+    //         pageNumber:currentPage!==undefined?currentPage:0,
+    //         status:'Preparing'
+    //     }));
+    // }, [dispatch,updateState,currentPage,phoneNumber]);
+
+    // var value= useSelector(selectOrder);
+    // // console.log(value);
+    // useEffect(()=>{
+    //     setlist(value.items!==undefined?value.items:[]);
+    //     setCurrentPage(value.pageIndex);
+    //     setTotalPage(value.totalPagesCount);
+    // },[value]);
    
     const navigate= useNavigate();
     const handleOnclickRow=(orderId)=>{
@@ -75,14 +91,34 @@ export default function OrderPrepareTable() {
 
     const phoneNumberRegex = new RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
     const inputRef = useRef();
-    const handleSearch= ()=>{
+    const handleSearch= async ()=>{
         const searchTerm = inputRef.current.value.trim();
         const isValid = phoneNumberRegex.test(searchTerm);
-        if(isValid){
-            setPhoneNumer(searchTerm);
-        }
-        else{
-            toast.warning("Phone is incorrect format",{autoClose:900});
+        if(searchTerm!=''){
+            if(isValid){
+                // setPhoneNumer(searchTerm);
+                var filter= listDeliveryOrder.filter((order) =>
+                  order.phoneNumber
+                    .toLowerCase()
+                    .replace(/\s+/g, '')
+                    .includes(searchTerm.toLowerCase().replace(/\s+/g, ''))
+                );
+                // console.log(filter);
+                if(filter.length>0){
+                    setlist(filter);
+                  }else{
+                    var data= await GetOrderByStoreIdV2({ status:'Preparing'})
+                    setlist(data.items);
+                    toast.warning(`Sản phẩm không tồn tại`,{autoClose:900});
+                  }
+            }
+            else{
+                toast.warning("Phone is incorrect format",{autoClose:900});
+            }
+        }else{
+            // console.log('non');
+            var data= await GetOrderByStoreIdV2({ status:'Preparing'})
+            setlist(data.items);
         }
     }
   return (
@@ -131,11 +167,11 @@ export default function OrderPrepareTable() {
                         </tr>
                     </thead>
                 <tbody >
-                        {listPrepareOrder.length >0 ? (listPrepareOrder.map((item,index)=>(
+                        {listPrepareOrder.length >0 ? (listPrepareOrder.slice(currentPage*5, currentPage*5+5).map((item,index)=>(
                            
                            <tr key={item.id}  className="bg-white border-b h-20 dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
                                 <td className="px-6 py-2 h-20 border border-slate-300">
-                                    {index+1}
+                                    {index+1 +currentPage*5}
                                 </td>
                                 <td className="px-6 py-2  h-20 w-64 border border-slate-300">
                                     <p>{item.name}</p>
@@ -193,7 +229,7 @@ export default function OrderPrepareTable() {
                         <PaginationButton
                             setCurrentPage={setCurrentPage}
                             currentPage={currentPage}
-                            totalPages={totalPage}/>
+                            totalPages={Math.ceil(listPrepareOrder.length/5)}/>
                     </div>
                     :<></> 
                 }

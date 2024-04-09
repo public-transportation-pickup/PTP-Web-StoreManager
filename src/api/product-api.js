@@ -26,9 +26,7 @@ export async function getProductByStoreId(param) {
       "/products?pageNumber=" +
       param.pageNumber +
       "&pageSize=5" +
-      "&CategoryName=" +
-      param.cateName +
-      "&menuId=" +
+      `&CategoryName=${param.cateName.toString()}&menuId=` +
       param.menuId;
   }
   // console.log(url);

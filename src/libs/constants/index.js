@@ -1,6 +1,7 @@
 export const BASE_URL = "http://ptp-srv.ddns.net:5000/api";
+export const SIGNALR_URL = "http://ptp-srv.ddns.net:5000/hub";
 // export const BASE_URL = "http://localhost:5066/api";
-import { useAuth } from "../../views/auth/AuthProvider";
+// export const SIGNALR_URL = "http://localhost:5066/hub";
 
 const GetUser = () => {
   var user = localStorage.getItem("user");

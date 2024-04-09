@@ -24,6 +24,23 @@ export async function GetOrderByStoreId(param) {
   // console.log(response.data);
   return response.data;
 }
+export async function GetOrderByStoreIdV2(param) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
+  let STOREID = CURRENT_USER.user.storeId;
+
+  var url =
+    BASE_URL + "/stores/" + STOREID + "/orders?" + "Status=" + param.status;
+  // console.log(url);
+  var response = await axios
+    .get(url, {
+      headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  // console.log(response.data);
+  return response.data;
+}
 
 export async function GetOrderByStoreIdWithPhone(param) {
   var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
@@ -39,6 +56,23 @@ export async function GetOrderByStoreIdWithPhone(param) {
     param.status +
     "&phoneNumber=" +
     param.phoneNumber;
+  // console.log(url);
+  var response = await axios
+    .get(url, {
+      headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  // console.log(response.data);
+  return response.data;
+}
+export async function GetBasicOrder() {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
+  let STOREID = CURRENT_USER.user.storeId;
+  // http://localhost:5066/api/order?storeId=096746f0-8c6e-409d-9026-8140314f24a1
+
+  var url = BASE_URL + "/order?storeId=" + STOREID;
   // console.log(url);
   var response = await axios
     .get(url, {

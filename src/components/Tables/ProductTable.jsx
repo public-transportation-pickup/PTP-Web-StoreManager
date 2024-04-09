@@ -121,7 +121,7 @@ const handleSearch= async ()=>{
           }));
         }
     }else{
-      console.log('non'); 
+      // console.log('non'); 
       dispatch(fetchProducts({
         menuId:menuId,
         cateName:null,

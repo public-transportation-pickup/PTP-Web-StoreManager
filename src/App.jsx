@@ -24,7 +24,7 @@ import OrderCancelTable from "./views/order/OrderCancelTable";
 import OrderAllTable from "./views/order/OrderAllTable";
 import OrderDetailPage from "./views/order/OrderDetailPage";
 import UpdateMenuPage from "./views/menu/UpdateMenuPage";
-
+import Transactions from "./views/admin/Transactions";
 function App() {
   
   return (
@@ -32,13 +32,14 @@ function App() {
       <Router>
         <AuthProvider>
           <Routes>
-            <Route path="/auth/login" element={<Auth />} />
+            <Route path="/sign-in" element={<Auth />} />
             <Route element={<PrivateRoutes/>}>
               <Route path="/" exact element={<Admin />}>
                 <Route  index element={<Dashboard />} />
                 {/* <Route path="/admin/maps" element={<Maps />} /> */}
                 <Route path="settings" element={<Settings />} />
                 <Route path="products" element={<Products />} />
+                <Route path="transactions" element={<Transactions />} />
                 
                 <Route path="menus">
                   <Route path="" element={<Menus />} />
