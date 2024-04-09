@@ -5,6 +5,7 @@ export const fetchProducts = createAsyncThunk(
   "menu/fetch_menus",
   async (param, thunkAPI) => {
     try {
+      // console.log(param);
       const response = await getProductByStoreId(param);
       return response;
     } catch (error) {

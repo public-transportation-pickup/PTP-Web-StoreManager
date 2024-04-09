@@ -12,7 +12,7 @@ export default function PrivateRoute() {
 
   if (!user) {
     // user is not authenticated
-    return <Navigate to="/auth/login" />;
+    return <Navigate to="/sign-in" />;
   }
   return <Outlet />;
   // return !currentUser ?<Outlet/>:<Navigate to={'/auth/login'}/>

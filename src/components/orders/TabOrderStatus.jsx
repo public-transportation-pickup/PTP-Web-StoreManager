@@ -5,6 +5,8 @@ import { TABS_ORDER } from "../../libs/constants/navigation";
 import { useEffect, useState } from "react";
 import { GetBasicOrder } from "../../api/order-api";
 import { useAPIRequest,Actions } from "../../libs/Commons/api-request";
+import Connector from "../../libs/constants/signalr-connection.ts";
+ 
 
 const propertiesCommom='inline-block p-4 border-b-2 rounded-t-lg'
 const propertiesActive=' text-blue-600 border-blue-600 dark:text-blue-500 dark:border-blue-500'
@@ -29,9 +31,25 @@ export default function TabOrderStatus() {
     const {pathname}= useLocation();
     const [orderBasic,setOrderBasic]=useState(null);
     const [orderState,requestOrder]= useAPIRequest(GetBasicOrder);
+
+    //#region SignalR
+    var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
+    let STOREID = CURRENT_USER.user.storeId;
+    const [message, setMessage] = useState("initial value");
+    const { newMessage, events } = Connector();
+    useEffect(() => {
+        events((_, message) => {
+            if( message===STOREID){
+                console.log("Tab-order",message);
+                setMessage(message)
+            }
+        });
+    });
+    //#endregion
+
     useEffect(()=>{
         requestOrder();
-    },[]);
+    },[message]);
 
     useEffect(()=>{
         if(orderState.status==Actions.success){

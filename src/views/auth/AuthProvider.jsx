@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.clear(); 
     setUser(null);
-    navigate("/auth/login", { replace: true });
+    navigate("/sign-in", { replace: true });
   };
 
   const value = useMemo(

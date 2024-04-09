@@ -32,7 +32,7 @@ function App() {
       <Router>
         <AuthProvider>
           <Routes>
-            <Route path="/auth/login" element={<Auth />} />
+            <Route path="/sign-in" element={<Auth />} />
             <Route element={<PrivateRoutes/>}>
               <Route path="/" exact element={<Admin />}>
                 <Route  index element={<Dashboard />} />

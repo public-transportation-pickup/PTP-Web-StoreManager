@@ -28,7 +28,7 @@ export default function OrderDetailPage() {
 
       if(orderState.status==Actions.success){
         setDetailOrderInfo(orderState.payload);
-        console.log("Order detail info",orderState.payload);
+        // console.log("Order detail info",orderState.payload);
       }
       else if(orderState.status==Actions.failure){
         toast.warning("Lỗi!",{autoClose:900});

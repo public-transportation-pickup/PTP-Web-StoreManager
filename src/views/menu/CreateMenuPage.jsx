@@ -94,7 +94,7 @@ useEffect(()=>{
   
 
 const handleBack=()=>{
-    navigate(`/admin/menus/index`);
+    navigate(`../`);
 }
 
   return (
