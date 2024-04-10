@@ -301,10 +301,12 @@ const handleSearch= async ()=>{
        <div className="w-full my-4">
             <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
             <p className="text-xl underline">Hướng dẫn chung:</p>
-            {/* <p>Vui lòng xác nhận các đơn hàng trước <strong>10:00</strong></p> */}
-            <p>- Trạng thái và số lượng đã bán sẽ được <span className="text-red-600 font-bold uppercase">làm mới</span> mỗi ngày</p>
-             {/* <span className="text-red-600 font-bold uppercase">xử lý song song</span> */}
-            <p>-  <span className="text-red-600 font-bold uppercase">Thời gian chuẩn bị</span> và <span className="text-red-600 font-bold uppercase">xử lý song song</span> dùng để tính tổng thời gian chuẩn bị món khi đặt hàng</p>
+            <p>-  Chọn <span className="text-red-600 font-bold uppercase">món ăn</span> để xem chi tiết</p>
+            <p>- <span className="text-red-600 font-bold uppercase">Trạng thái</span> và số  <span className="text-red-600 font-bold uppercase">số lượng đã bán</span> sẽ được <span className="text-red-600 font-bold uppercase">làm mới</span> mỗi ngày</p>
+             {/* <span className="text-red-600 font-bold uppercase">món ăn</span> */}
+            <p>-  <span className="text-red-600 font-bold uppercase">Thời gian chuẩn bị</span> và <span className="text-red-600 font-bold uppercase">xử lý song song</span> dùng 
+                  để tính tổng thời gian chuẩn bị món khi đặt hàng ( VD: Món A có thể làm 5 phần trong 2 phút)</p>
+            
             </div>   
         </div>
       {/* <!--  Modal --> */}
