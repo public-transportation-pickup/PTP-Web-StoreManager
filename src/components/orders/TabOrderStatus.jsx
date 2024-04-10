@@ -35,21 +35,24 @@ export default function TabOrderStatus() {
     //#region SignalR
     var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
     let STOREID = CURRENT_USER.user.storeId;
-    const [message, setMessage] = useState("initial value");
+    // const [message, setMessage] = useState("initial value");
+    const [title, setTitle] = useState("initial value");
     const { newMessage, events } = Connector();
     useEffect(() => {
-        events((_, message) => {
+        events((username, message) => {
             if( message===STOREID){
-                console.log("Tab-order",message);
-                setMessage(message)
+                // console.log("Tab-order-1: ",username);
+                // setMessage(message)
+                setTitle(username);
             }
         });
     });
     //#endregion
 
     useEffect(()=>{
+        // console.log("Tab-order-2:",username);
         requestOrder();
-    },[message]);
+    },[title]);
 
     useEffect(()=>{
         if(orderState.status==Actions.success){
