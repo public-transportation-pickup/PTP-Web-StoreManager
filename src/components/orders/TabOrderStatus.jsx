@@ -43,16 +43,17 @@ export default function TabOrderStatus() {
             if( message===STOREID){
                 // console.log("Tab-order-1: ",username);
                 // setMessage(message)
-                setTitle(username);
+                // setTitle(username);
+                requestOrder();
             }
         });
-    });
+    },[]);
     //#endregion
 
     useEffect(()=>{
         // console.log("Tab-order-2:",username);
         requestOrder();
-    },[title]);
+    },[]);
 
     useEffect(()=>{
         if(orderState.status==Actions.success){

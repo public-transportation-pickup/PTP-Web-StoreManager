@@ -1,8 +1,7 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 import store from "../../assets/img/store.jpeg"
-import ic_launcher from "../../assets/img/ic_launcher.png"
-
+import PTPLOGOCOLORVER from "../../assets/img/PTPLOGOCOLORVER.png"
 const UserDropdown = () => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
@@ -33,7 +32,7 @@ const UserDropdown = () => {
             <img
               alt="..."
               className="w-full rounded-full align-middle border-none shadow-lg"
-              src={store}
+              src={PTPLOGOCOLORVER}
             />
           </span>
         </div>

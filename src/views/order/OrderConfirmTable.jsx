@@ -25,10 +25,13 @@ export default function OrderConfirmTable() {
             // console.log(username);
             // console.log(message);
             if(username==="CreateOrder" && message===STOREID){
-                setMessage(message)
+                // setMessage(message)
+                requestOrder({
+                    status:'Waiting'
+                });
             }
         });
-    });
+    },[]);
     //#endregion
 
 
@@ -44,7 +47,7 @@ export default function OrderConfirmTable() {
         requestOrder({
             status:'Waiting'
         });
-    },[updateState,message]);
+    },[updateState]);
 
     // useEffect(()=>{
     //     const  intervalId=  setInterval(() => {

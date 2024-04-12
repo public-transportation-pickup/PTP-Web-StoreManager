@@ -30,7 +30,7 @@ export const requestForToken = () => {
   })
     .then((currentToken) => {
       if (currentToken) {
-        console.log("current token for client: ", currentToken);
+        // console.log("current token for client: ", currentToken);
         return currentToken;
         // Perform any other neccessary action with the token
       } else {
@@ -48,7 +48,7 @@ export const requestForToken = () => {
 export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
-      console.log("payload", payload);
+      // console.log("payload", payload);
       resolve(payload);
     });
   });
