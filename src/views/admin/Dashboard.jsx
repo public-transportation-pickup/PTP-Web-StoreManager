@@ -5,7 +5,7 @@
 import { ToastContainer,toast } from "react-toastify";
 import { useEffect, useState,useContext } from "react";
 import CardBarChart from "../../components/Cards/CardBarChart";
-// import CardLineChart from "../../components/Cards/CardLineChart";
+import CardLineChart from "../../components/Cards/CardLineChart";
 import CardPageVisits from "../../components/Cards/CardPageVisits";
 import CardSocialTraffic from "../../components/Cards/CardSocialTraffic";
 import HeaderStats from "../../components/Headers/HeaderStats";
@@ -17,12 +17,12 @@ function Dashboard() {
     <>
       <HeaderStats/>
       <div className="flex flex-wrap">
-        <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-          {/* <CardLineChart /> */}
+        <div className="w-full xl:w-8/12 mt-16 mb-12 xl:mb-0 px-4">
+          <CardLineChart />
           {/* App1 */}
         </div>
-        <div className="w-full xl:w-4/12 px-4">
-          {/* <CardBarChart /> */}
+        <div className="w-full h-fit xl:w-4/12 mt-16 px-4">
+          <CardBarChart />
           {/* App2 */}
         </div>
       </div>

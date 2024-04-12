@@ -105,6 +105,7 @@ export default function CreateProductPage({product,handleClose}) {
         }
         else if(updateState.status === Actions.failure){
             toast.warning("Lưu thông tin thất bại!",{autoClose:900})
+            console.log(updateState.error);
         }
         
     },[updateState]);

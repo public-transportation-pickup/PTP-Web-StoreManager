@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     // localStorage.setItem("accessToken", data.token);
     setUser(data);
     // navigate("/",{replace:true });
-    // navigate(0)
+    navigate(0)
     // window.location.reload();
   };
 
