@@ -214,7 +214,7 @@ export default function OrderDeliveryTable() {
                         <div className="flex gap-2">
                             <button type="button" onClick={()=>handleConfirm(item.id)} className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Đã giao</button>
                             {/* {console.log("Order id",item.id)} */}
-                            <Note button="Hủy đơn" noteStringFunc={handleDelete} id={item.id}/>
+                            {/* <Note button="Hủy đơn" noteStringFunc={handleDelete} id={item.id}/> */}
                         </div>
                     </td>
                 </tr>
