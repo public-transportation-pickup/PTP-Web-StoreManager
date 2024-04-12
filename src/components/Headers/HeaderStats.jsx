@@ -3,8 +3,18 @@
 import CardStats from "../Cards/CardStats";
 import { useLocation } from "react-router-dom";
 
-function HeaderStats() {
-  const {pathname}=useLocation();
+function HeaderStats({param}) {
+
+  var totalSalePercents=param!=undefined?`${RoundedNumber(Math.abs((param.totalSalesNew-param.totalSalesLast)/param.totalSalesLast))}`:"0";
+  var totalOrderPercent=param!=undefined?`${RoundedNumber(Math.abs((param.totalOrdersNew-param.totalOrdersLast)/param.totalOrdersLast))}`:"0";
+  var averagePercent=param!=undefined?`${RoundedNumber(Math.abs((param.averageSaleValueNew-param.averageSaleValueLast)/param.averageSaleValueLast))}`:"0";
+  var averageSaleValueNew=param!=undefined?`${RoundedNumber(param.averageSaleValueNew)}`:"0"
+  // console.log(averagePercent);
+  function RoundedNumber(num) {
+    const roundedNum = num.toFixed(2);
+  
+    return `${roundedNum}`;
+  }
   return (
     <div>
       {/* Header */}
@@ -18,11 +28,11 @@ function HeaderStats() {
                   <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="Total Sales"
-                  statTitle="350,897"
-                  statArrow="up"
-                  statPercent="3.48"
-                  statPercentColor="text-emerald-500"
-                  statDescripiron="Since last month"
+                  statTitle={param!=undefined?`${param.totalSalesNew}`:"0"}
+                  statArrow={param!=undefined?((param.totalSalesNew-param.totalSalesLast) <0 ?"down":"up") :("up")}
+                  statPercent={totalSalePercents!=='Infinity'? totalSalePercents:'0'}
+                  statPercentColor={param!=undefined?((param.totalSalesNew-param.totalSalesLast) <0 ?"text-red-500":"text-emerald-500") :("text-red-500")}
+                  statDescripiron="Since last week"
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"
                 />
@@ -30,10 +40,10 @@ function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="Total Orders"
-                  statTitle="2,356"
-                  statArrow="down"
-                  statPercent="3.48"
-                  statPercentColor="text-red-500"
+                  statTitle={param!=undefined?`${param.totalOrdersNew}`:"0"}
+                  statArrow={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"down":"up") :("up")}
+                  statPercent={totalOrderPercent!=='Infinity'? totalSalePercents:'0'}
+                  statPercentColor={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"text-red-500":"text-emerald-500") :("text-red-500")}
                   statDescripiron="Since last week"
                   statIconName="fas fa-chart-pie"
                   statIconColor="bg-orange-500"
@@ -42,11 +52,11 @@ function HeaderStats() {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="Average order value"
-                  statTitle="924"
-                  statArrow="down"
-                  statPercent="1.10"
-                  statPercentColor="text-orange-500"
-                  statDescripiron="Since yesterday"
+                  statTitle={averageSaleValueNew}
+                  statArrow={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"down":"up") :("up")}
+                  statPercent={averagePercent!=='Infinity'? totalSalePercents:'0'}
+                  statPercentColor={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"text-orange-500":"text-emerald-500") :("text-red-500")}
+                  statDescripiron="Since last week"
                   statIconName="fas fa-percent"
                   statIconColor="bg-sky-500"
                 />
@@ -58,7 +68,7 @@ function HeaderStats() {
                   statArrow="up"
                   statPercent="12"
                   statPercentColor="text-emerald-500"
-                  statDescripiron="Since last month"
+                  statDescripiron="Since last week"
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
                 />

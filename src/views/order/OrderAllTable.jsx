@@ -2,29 +2,29 @@ import { useCallback, useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getOrdersByStoreId } from '../../api/store-api';
-import { CURRENT_USER } from '../../libs/constants';
+// import { getOrdersByStoreId } from '../../api/store-api';
+// import { CURRENT_USER } from '../../libs/constants';
 
 export default function OrderAllTable() {
     //const param= useParams();
-    const navigate= useNavigate();
-    const handleOnclickRow=(orderId)=>{
-        navigate(`/order/${orderId}`);
-    }
-    const [listOrder, setListOrder]=useState([]);
-    console.log("List order: ",listOrder);
+    // const navigate= useNavigate();
+    // const handleOnclickRow=(orderId)=>{
+    //     navigate(`/order/${orderId}`);
+    // }
+    // const [listOrder, setListOrder]=useState([]);
+    // console.log("List order: ",listOrder);
     
-    const fetchData= useCallback(
-        async ()=>{
-            const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId);
-            Array.isArray(responseAPI)? setListOrder(responseAPI) :toast("Danh sách đơn hàng trống");
-            console.log("ResponseAPI:",responseAPI);
-        },[listOrder]
-    ) 
+    // const fetchData= useCallback(
+    //     async ()=>{
+    //         const responseAPI= await getOrdersByStoreId(CURRENT_USER.user.storeId);
+    //         setListOrder(responseAPI);
+    //         console.log("ResponseAPI:",responseAPI);
+    //     },[listOrder]
+    // ) 
 
-    useEffect(()=>{
-        fetchData();
-    },[])
+    // useEffect(()=>{
+    //     fetchData();
+    // },[])
 
     // useEffect(()=>{
     //     const fetchData= async()=>{

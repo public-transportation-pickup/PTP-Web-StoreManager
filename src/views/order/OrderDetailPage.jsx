@@ -11,6 +11,7 @@ import Note from "../../components/shared/Note";
 import { useAPIRequest,Actions } from "../../libs/Commons/api-request";
 import { DateFormat } from "../../libs/Commons/DateTimeFormat";
 import NumberFormat from "../../libs/Commons/NumberFormat";
+import { GetStatusFormat,GetPaymentFormat } from "../../libs/Commons/ConvertString";
 
 export default function OrderDetailPage() {
     const param= useParams();
@@ -27,7 +28,7 @@ export default function OrderDetailPage() {
 
       if(orderState.status==Actions.success){
         setDetailOrderInfo(orderState.payload);
-        console.log("Order detail info",orderState.payload);
+        // console.log("Order detail info",orderState.payload);
       }
       else if(orderState.status==Actions.failure){
         toast.warning("Lỗi!",{autoClose:900});
@@ -76,16 +77,20 @@ export default function OrderDetailPage() {
   const getButton=()=>{
     if(orderDetailInfo!==null){
       if(orderDetailInfo.status==="Canceled" || orderDetailInfo.status==="Completed"){
-        console.log(orderDetailInfo.status);
+        // console.log(orderDetailInfo.status);
         return(
           <></>
         )
       }else{
-        console.log(orderDetailInfo.status);
+        // console.log(orderDetailInfo.status);
         return(
-          <div>
-            <button onClick={()=>handleConfirm()} className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Xác nhận</button>
-            <Note button="Hủy đơn" noteStringFunc={handleDelete} id={orderDetailInfo.id} />
+          <div className="inline-flex">
+            <button onClick={()=>handleConfirm()} type="button"
+              className=" py-[0.4rem] w-[14%] text-center text-sm font-medium  text-green-500 border-2 border-gray-400
+              rounded-md focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800 mr-3">Xác nhận</button>
+              
+              <Note button="Hủy đơn" noteStringFunc={handleDelete} id={orderDetailInfo.id} />
+            
           </div>
         )
       }
@@ -99,7 +104,7 @@ export default function OrderDetailPage() {
       <div className=" h-screen">
         <h2 className="pb-4 text-center text-2xl">Chi tiết đơn hàng</h2>
         <div className='flex flex-row divide-x gap-6'>
-        <div className='flex flex-col divide-y px-5'>
+        <div className='flex flex-col divide-y px-5 max-w-md'>
           <div className="">
               <div className='flex flex-row gap-2 items-center'>
               <HiMiniUserCircle className="items-center"/>
@@ -122,7 +127,16 @@ export default function OrderDetailPage() {
             <div className="flex flex-row">           
                <p className="pl-6 text-slate-600">Ngày tạo: </p> <DateFormat date={ orderDetailInfo!==null? orderDetailInfo.creationDate:"2024-03-24T10:52:50.8804394"} />
             </div>
-            <p className="pl-6 text-slate-600">Trạng thái: {orderDetailInfo!==null? orderDetailInfo.status:""} </p>
+            <GetStatusFormat status={orderDetailInfo!==null? orderDetailInfo.status:"Other"}/>
+            { orderDetailInfo!==null?(
+              orderDetailInfo.status=="Canceled"?<>
+              <p className="pl-6 text-slate-600 ">Đã hoàn:  <NumberFormat number= {orderDetailInfo.returnAmount!==null? orderDetailInfo.returnAmount:0}/> VNĐ</p>
+              <p className="pl-6 text-slate-600 ">Lý do: {orderDetailInfo.canceledReason!==null? orderDetailInfo.canceledReason:""} </p>
+              </>
+            :<></>
+            ):<></>}
+            
+            {/* <p className="pl-6 text-slate-600">Trạng thái: {orderDetailInfo!==null? orderDetailInfo.status:""} </p> */}
           </div>
 
           <div>
@@ -132,28 +146,33 @@ export default function OrderDetailPage() {
             </div>
           
             <div className='flex flex-row gap-2 items-center'>
-              
-              <div>
-                <p className="pl-6 text-slate-600">Phương thức thanh toán: {orderDetailInfo!==null? orderDetailInfo.paymentType:""}</p>
-                <p className="pl-6 text-slate-600"> Trạng thái thanh toán: {orderDetailInfo!==null? orderDetailInfo.paymentStatus:""}</p>
-              </div>
+              <GetPaymentFormat 
+                type={orderDetailInfo!==null? orderDetailInfo.paymentType:"Other"}
+                status={orderDetailInfo!==null? orderDetailInfo.paymentStatus:"Other"}
+              />
+              {/* <div>
+                <p className="pl-6 text-slate-600">Phương thức: {orderDetailInfo!==null? orderDetailInfo.paymentType:""}</p>
+                <p className="pl-6 text-slate-600"> Trạng thái: {orderDetailInfo!==null? orderDetailInfo.paymentStatus:""}</p>
+              </div> */}
             </div>
           </div>
-          {/* <div>
-            <div className='flex flex-row gap-2 items-center'>
-            <p className="font-extrabold   text-slate-600">Thời gian giao hàng:</p>
-            </div>
-          
-            <div className='flex flex-row gap-2 items-center'>
-              
-              <div>
-                <p className="pl-6 text-slate-600">Giờ: {orderDetailInfo!==null? orderDetailInfo.paymentType:""}</p>
-                <p className="pl-6 text-slate-600"> Trạng thái thanh toán: {orderDetailInfo!==null? orderDetailInfo.paymentStatus:""}</p>
-              </div>
-            </div>
-          </div> */}
+
           <div className="flex flex-row">
-            <p className="font-extrabold  text-slate-600 ">Thời gian giao hàng: </p><DateFormat date={ orderDetailInfo!==null? orderDetailInfo.pickUpTime:"2024-03-24T10:52:50.8804394"} />
+            { orderDetailInfo!==null?(
+              orderDetailInfo.status==="Canceled"?
+              <>
+                <p className="font-bold  text-slate-600 ">Đơn hàng bị hủy vào: </p><DateFormat date={ orderDetailInfo!==null? orderDetailInfo.modificationDate:"2024-03-24T10:52:50.8804394"} />
+              </>
+              :
+              orderDetailInfo.status=="Completed"?
+                <>
+                  <p className="font-bold  text-slate-600 ">Đã hoàn thành vào: </p><DateFormat date={ orderDetailInfo!==null? orderDetailInfo.modificationDate:"2024-03-24T10:52:50.8804394"} />
+                </>
+                :
+                <>
+                  <p className="font-bold  text-slate-600 ">Thời gian nhận hàng: </p><DateFormat date={ orderDetailInfo!==null? orderDetailInfo.pickUpTime:"2024-03-24T10:52:50.8804394"} />
+                </>
+            ):<></>}
           </div>
 
           
@@ -162,15 +181,17 @@ export default function OrderDetailPage() {
         <div className='flex flex-col gap-3 pl-4'>
           <div className="flex flex-col gap-3">
             <h2 className="font-semibold text-lg">Chi tiết đơn hàng</h2>
+            <div className=" overflow-y-auto h-[28rem]">
+              {orderDetailInfo!==null?
+              (orderDetailInfo.orderDetails.map((item,index)=>(
+                <div key={index}>
+                  <ProductOrderItem item={item} /> 
+                </div>
+              )))
+              :
+              (<><h2>Null</h2></>)}
+            </div>
            
-            {orderDetailInfo!==null?
-            (orderDetailInfo.orderDetails.map((item,index)=>(
-              <div key={index}>
-                <ProductOrderItem item={item} /> 
-              </div>
-            )))
-            :
-            (<><h2>Null</h2></>)}
 
             {/* <div>
               <textarea className='w-96'/>
@@ -178,7 +199,7 @@ export default function OrderDetailPage() {
           </div>
           <div className='flex flex-row'>
             <h6 className='font-semibold text-xl'>Tổng đơn:</h6>
-            <h6 className='pl-96 text-red-600 font-mono font-bold text-2xl'><NumberFormat number= {orderDetailInfo!==null? orderDetailInfo.total:30000}/> VND</h6>
+            <h6 className='pl-96 text-red-600 font-mono font-bold text-2xl'><NumberFormat number= {orderDetailInfo!==null? orderDetailInfo.total:30000}/> VNĐ</h6>
           </div>
           {getButton()}
         </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
-
-import pic1 from "../../assets/img/team-1-800x800.jpg"
+import store from "../../assets/img/store.jpeg"
+import ic_launcher from "../../assets/img/ic_launcher.png"
 
 const UserDropdown = () => {
   // dropdown props
@@ -33,12 +33,12 @@ const UserDropdown = () => {
             <img
               alt="..."
               className="w-full rounded-full align-middle border-none shadow-lg"
-              src={pic1}
+              src={store}
             />
           </span>
         </div>
       </a>
-      <div
+      {/* <div
         ref={popoverDropdownRef}
         className={
           (dropdownPopoverShow ? "block " : "hidden ") +
@@ -82,7 +82,7 @@ const UserDropdown = () => {
         >
           Seprated link
         </a>
-      </div>
+      </div> */}
     </>
   );
 };

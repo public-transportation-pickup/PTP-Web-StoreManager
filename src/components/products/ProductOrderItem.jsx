@@ -15,14 +15,14 @@ export default function ProductOrderItem({item}) {
             </div>
         </div>
         <p className='text-slate-500'><span>x {item.quantity}</span></p>
-        <p className='text-red-400'><span>Tổng: <NumberFormat number= {item.actualPrice * item.quantity}/> VNĐ</span></p>
+        <p className='text-red-400'><span> <NumberFormat number= {item.actualPrice * item.quantity}/> VNĐ</span></p>
     </div>
   )
 }
 
 
 
-export function OrderItemDetail({item}){
+export function OrderItemDetail({item}){  
   console.log(item);
     return(
       <>

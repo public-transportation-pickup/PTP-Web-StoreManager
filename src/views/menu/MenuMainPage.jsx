@@ -1,11 +1,11 @@
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { selectMenu,fetchMenus } from "../../redux/features/menuSlice";
 import { GetDate,GetDayOfWeek } from "../../libs/Commons/DateTimeFormat";
 import { FormatTime } from "../../libs/Commons/TimeFormat";
 import { ConfirmModal } from "../../components/Modals/Modal";
 import { DeleteProductPage } from "../../components/Products/DeleteProduct";
-import { DeleteMenu } from "../../api/menu-api";
+import { DeleteMenu,GetMenuByStoreId } from "../../api/menu-api";
 import { useAPIRequest,Actions } from "../../libs/Commons/api-request";
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,7 +28,7 @@ export default function MenuMainPage() {
 
     useEffect(()=>{
         setMenus(value);
-        // console.log(menus);
+        // console.log(value);
     },[value])
 
     const navigate= useNavigate();
@@ -54,6 +54,31 @@ export default function MenuMainPage() {
             toast.warning("Xóa lịch bán thất bại!",{autoClose:900})
         }
     },[deleteState]);
+
+    const inputRef = useRef();
+    const handleSearch= async ()=>{
+        // console.log(menus);
+        const searchTerm = inputRef.current.value.trim();
+        if(searchTerm!==''){
+            var filter= menus.filter((menu) =>
+                    menu.name
+                    .toLowerCase()
+                    .replace(/\s+/g, '')
+                    .includes(searchTerm.toLowerCase().replace(/\s+/g, ''))
+                );
+            // console.log(filter);
+            if(filter.length!==0){
+              setMenus(filter);
+            }else{
+              toast.warning(`Lịch bán không tồn tại`,{autoClose:900});
+              dispatch(fetchMenus());
+            }
+        }else{
+          // console.log('non'); 
+          dispatch(fetchMenus());
+        }
+        
+    }
   return (
   
     <>
@@ -64,11 +89,28 @@ export default function MenuMainPage() {
         }
       >
          <div className=" justify-end rounded-t-md bg-gray-100 px-0 max-w-full flex flex-grow flex-1 py-2 ">
+           
               <button 
                 onClick={()=>handleCreate()}
                 className="  text-base font-medium bg-gray-50 text-gray-400  py-[0.6rem] px-4 border border-gray-300 hover:border-blue-400 rounded">
                 Thêm mới
-              </button>   
+              </button>  
+              <div className="w-96 md:ml-2">   
+                  <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                  <div className="relative">
+                      <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                          <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                          </svg>
+                      </div>
+                      <input 
+                        ref={inputRef} 
+                        type="search" id="default-search" className="block w-full px-4 py-[0.85rem] ps-10 text-sm text-gray-900 border border-gray-300 rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by name..." required />
+                      <button 
+                        onClick={()=>handleSearch()}
+                        type="button" className="text-white absolute end-2.5 bottom-[0.4rem] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                  </div>
+              </div> 
             </div>
         <div className="rounded-t mb-0 px-4 py-3 border-0 bg-amber-300">
           <div className="flex flex-wrap items-center">
@@ -99,7 +141,7 @@ export default function MenuMainPage() {
                             Thời gian
                         </th> */}
                         <th scope="col" className="px-6 py-3">
-                            Khoảng thời gian cụ thể
+                            Ngày cụ thể
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Ghi chú
@@ -113,12 +155,12 @@ export default function MenuMainPage() {
                     {menus.length>0 ?(menus.map((item,index)=>(
                     <tr key={item.id}
                      className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                        <td className="px-6 py-4 flex flex-col">
+                        <td className="px-6 py-4 ">
                             {index}
                         </td>
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {item.name}
-                        </th>
+                        </td>
                         <td className="px-6 py-4 flex flex-col">
                             <div className="flex flex-row"> 
                                 <FormatTime time={item.startTime}/> 
@@ -134,9 +176,14 @@ export default function MenuMainPage() {
                         </td> */}
                         <td className="px-6 py-4">
                            <div className="flex flex-row">
-                                <GetDate date={item.startDate}/> 
-                                <span className="px-4"> - </span> 
-                                <GetDate date={item.endDate}/>
+                                {item.startDate!==null && item.endDate !==null?(
+                                    <>
+                                        <GetDate date={item.startDate}/> 
+                                        <span className="px-4"> - </span> 
+                                        <GetDate date={item.endDate}/>
+                                    </>
+                                ):(<></>)}
+                                
                             </div>
                         </td>
                         <td className="px-6 py-4 max-w-64">

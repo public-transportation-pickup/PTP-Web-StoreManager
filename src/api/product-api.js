@@ -1,7 +1,8 @@
 import axios from "axios";
-import { BASE_URL, CURRENT_USER } from "../libs/constants";
+import { BASE_URL } from "../libs/constants";
 
 export async function getProductByStoreId(param) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   // '/products?menuId=35512226-b59c-44e2-af5c-4e823970935a&CategoryName=Cate%20-%202&pageNumber=0&pageSize=10'
   // console.log(param);
   let STOREID = CURRENT_USER.user.storeId;
@@ -25,9 +26,7 @@ export async function getProductByStoreId(param) {
       "/products?pageNumber=" +
       param.pageNumber +
       "&pageSize=5" +
-      "&CategoryName=" +
-      param.cateName +
-      "&menuId=" +
+      `&CategoryName=${param.cateName.toString()}&menuId=` +
       param.menuId;
   }
   // console.log(url);
@@ -38,8 +37,29 @@ export async function getProductByStoreId(param) {
   return response.data;
 }
 
+export async function getAllProductByStoreId(param) {
+  // console.log(param);
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
+  let STOREID = CURRENT_USER.user.storeId;
+  let url =
+    BASE_URL +
+    "/stores/" +
+    STOREID +
+    "/products?pageNumber=0" +
+    param.pageNumber +
+    "&pageSize=100";
+
+  // console.log(url);
+  var response = await axios.get(url, {
+    headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
+  });
+  // console.log(response.data);
+  return response.data;
+}
+
 export async function UpdateProduct(product) {
-  // console.log("Product:", product);
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
+  console.log("Product:", product);
   var formData = new FormData();
   formData.append("Id", product.id);
   formData.append("CategoryId", product.categoryId);
@@ -51,7 +71,7 @@ export async function UpdateProduct(product) {
   formData.append("ManufacturingDate", product.manufacturingDate);
   formData.append("ExpirationDate", product.expirationDate);
   formData.append("StoreId", product.storeId);
-  formData.append("Status", "Active");
+  formData.append("Status", product.status);
   formData.append("MenuId", product.menuId);
   formData.append("QuantityInDay", product.quantityInDay);
   formData.append("ProductMenuId", product.productMenuId);
@@ -73,6 +93,7 @@ export async function UpdateProduct(product) {
 }
 
 export async function CreateProduct(product) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   // console.log("Product:", product);
   let STOREID = CURRENT_USER.user.storeId;
   var formData = new FormData();
@@ -100,6 +121,7 @@ export async function CreateProduct(product) {
 }
 
 export async function DeleteProduct(id) {
+  var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
   const response = await axios.delete(BASE_URL + "/products/" + id, {
     headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
   });

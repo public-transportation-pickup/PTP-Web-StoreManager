@@ -1,8 +1,10 @@
 import React from 'react';
 import { Chart } from "chart.js/auto";
+import { useEffect, useState } from "react";
 
-function CardLineChart() {
-  React.useEffect(() => {
+function CardLineChart({param}) {
+
+  useEffect(() => {
     var config = {
       type: "line",
       data: {
@@ -17,18 +19,18 @@ function CardLineChart() {
         ],
         datasets: [
           {
-            label: new Date().getFullYear(),
+            label: 'New',
             backgroundColor: "#4c51bf",
             borderColor: "#4c51bf",
-            data: [65, 78, 66, 44, 56, 67, 75],
+            data: param!==undefined?param.saleValuesNew:[65, 78, 66, 44, 56, 67, 75],
             fill: false,
           },
           {
-            label: new Date().getFullYear() - 1,
+            label: 'Last',
             fill: false,
             backgroundColor: "#fff",
             borderColor: "#fff",
-            data: [40.5, 68, 86, 74, 56, 60, 87],
+            data: param!==undefined?param.saleValuesLast  : [40.5, 68, 86, 74, 56, 60, 87],
           },
         ],
       },
@@ -111,7 +113,7 @@ function CardLineChart() {
     }
 
     window.myLine = new Chart(ctx, config);
-  }, []);
+  }, [param]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-slate-700">

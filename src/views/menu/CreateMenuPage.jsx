@@ -22,7 +22,7 @@ export default function CreateMenuPage() {
    //#region Api Request
     const[createState,requestCreate]=useAPIRequest(CreateMenu);
    //#endregion
-
+   const [toastLoading, setToastLoading]=useState(false);
     const[dateApply,setDayApply]=useState([]);
     const navigate=useNavigate();
 
@@ -62,7 +62,8 @@ export default function CreateMenuPage() {
 
     if ( createState.status === Actions.success  ) {
         toast.success("Thêm lịch bán thành công!",{autoClose:900});
-        navigate(`../`);
+        setToastLoading(true);
+        // navigate(`../`);
     }
     else if( createState.status === Actions.failure ){
         toast.warning("Tạo lịch bán thất bại!",{autoClose:900})
@@ -71,6 +72,18 @@ export default function CreateMenuPage() {
     
 },[createState]);
 
+useEffect(() => {
+    if (toastLoading) {
+      const timeout = setTimeout(() => {
+        navigate(`../`);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timeout);
+      }
+    }
+  }, [toastLoading]);
+
 useEffect(()=>{
     const dateApplyString = dateApply.join(', ');
     // console.log(dateApplyString);
@@ -78,8 +91,10 @@ useEffect(()=>{
 
   },[dateApply])
 
+  
+
 const handleBack=()=>{
-    navigate(`/admin/menus/index`);
+    navigate(`../`);
 }
 
   return (
@@ -191,7 +206,7 @@ const handleBack=()=>{
                                 </ul>
                                 {formik.errors.dateApply && <div className="text-red-600 px-2s">{formik.errors.dateApply}</div>}
                             </div>
-                                <div className="w-full">
+                                 <div className="w-[98%]">
                                     <label htmlFor="startTime" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Giờ bắt đầu</label>
                                     <input 
                                         type="time" 
@@ -203,7 +218,7 @@ const handleBack=()=>{
                                         required=""/>
                                     {formik.errors.startTime && <div className="text-red-600 px-2s">{formik.errors.startTime}</div>}
                                 </div>
-                                <div className="w-full">
+                                <div className="w-[98%]">
                                     <label htmlFor="endTime" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Giờ kết thúc</label>
                                     <input 
                                         type="time" 
@@ -215,20 +230,20 @@ const handleBack=()=>{
                                         required=""/>
                                         {formik.errors.endTime && <div className="text-red-600 px-2s">{formik.errors.endTime}</div>}
                                 </div>
-                                <div className="w-full">
+                                <div className="w-[98%]">
                                     <label htmlFor="startDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày bắt đầu (Tùy chọn)</label>
                                     <input 
-                                        type="date" 
+                                        type="datetime-local" 
                                         name="startDate" 
                                         id="startDate" 
                                         value={formik.values.startDate}
                                         onChange={formik.handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
                                 </div>
-                                <div className="w-full">
+                                <div className="w-[98%]">
                                     <label htmlFor="endDate" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ngày kết thúc  (Tùy chọn)</label>
                                     <input 
-                                        type="date"  
+                                        type="datetime-local"  
                                         name="endDate" 
                                         id="endDate" 
                                         value={formik.values.endDate}

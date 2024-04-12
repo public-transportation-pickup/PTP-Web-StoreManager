@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import {app} from '../../firebase.js'
+import {app,requestForToken} from '../../firebase.js'
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Actions,useAPIRequest } from '../../libs/Commons/api-request.js';
@@ -16,14 +16,6 @@ function Login() {
    const [loginState,requestLogin]=useAPIRequest(authentication);
    const navigate = useNavigate()
 
-  // const {currentUser}= useSelector(state=>state.auth);
-
-  //  const userInfor=useSelector(selectUserInfor);
-  //  const navigate = useNavigate()
-  //  const dispatch = useDispatch()
-  //  const { loading, userInfo, error } = useSelector((state) => state.auth)
-// -----
-
   useEffect(()=>{
     // console.log(user);
     if(user){
@@ -33,7 +25,7 @@ function Login() {
   },[user])
 
   const formik = useFormik({
-    initialValues: {email: "store55@gmail.com", password: "@Abcaz12345"} ,
+    initialValues: {email: "store76@gmail.com", password: "@Abcaz12345"} ,
     validate: (values) => {
       let errors = {};
       if (!values.email) {
@@ -64,9 +56,13 @@ function Login() {
             // console.log("user credetial:",userCredential.user.accessToken);
           
             // dispatch(userLogin(userCredential.user.accessToken));
-            requestLogin(
-              userCredential.user.accessToken
-            );
+            requestForToken().then((value) => {
+              requestLogin({
+              token:userCredential.user.accessToken,
+              fcmToken:value
+            }) 
+          });
+            
            
           // }else{
           //   console.log("No 'store' in email");
@@ -79,18 +75,13 @@ function Login() {
         }
   }
 
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     navigate('/')
-  //   }
-  // }, [navigate, currentUser])
 
   useEffect(() => {
     if (loginState.status !== Actions.loading) {
       formik.setSubmitting(false);
     }
     if (loginState.status === Actions.success) {
-      login(loginState.payload);
+        login(loginState.payload);
       //console.log("Login ok");
     }
   }, [loginState]);

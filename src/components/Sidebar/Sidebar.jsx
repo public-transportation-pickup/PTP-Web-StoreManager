@@ -4,17 +4,49 @@ import { Link } from "react-router-dom";
 
 import NotificationDropdown from "../Dropdowns/NotificationDropdown";
 import UserDropdown from "../Dropdowns/UserDropdown";
-import { updateMenus } from "../../redux/features/menuSlice";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../views/auth/AuthProvider";
-import { getMenus } from "../../apiV2/menu";
+import { useEffect, useState } from "react";
+import { GetBasicOrder } from "../../api/order-api";
+import { useAPIRequest,Actions } from "../../libs/Commons/api-request";
+import Connector from "../../libs/constants/signalr-connection.ts";
 
 function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const { logout } = useAuth();
-  const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const [orderBasic,setOrderBasic]=useState(null);
+  const [orderState,requestOrder]= useAPIRequest(GetBasicOrder);
+
+  //#region SignalR
+  // var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
+  // let STOREID = CURRENT_USER.user.storeId;
+  // const [message, setMessage] = useState("initial value");
+
+  // const { newMessage, events } = Connector();
+  // useEffect(() => {
+  //     events((username, message) => {
+  //         // console.log(username);
+  //         // console.log(message);
+  //         if(username.includes("Order") && message===STOREID){
+  //             setMessage(message)
+  //         }
+  //     });
+  // });
+  //#endregion
+
+//   useEffect(()=>{
+//     requestOrder();
+// },[message]);
+
+  // useEffect(()=>{
+  //     if(orderState.status==Actions.success){
+  //         setOrderBasic(orderState.payload);
+  //         // console.log(orderState.payload);
+  //     }
+  //     if(orderState.status==Actions.failure){
+  //         console.log(orderState.error);
+  //     }
+  // },[orderState,message]);
+
   const handleLogout = () => {
     logout();
   };
@@ -113,7 +145,7 @@ function Sidebar() {
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Trang chủ
+                  Thống kê
                 </Link>
               </li>
               <li className="items-center">
@@ -177,7 +209,29 @@ function Sidebar() {
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Đơn hàng
+                  Đơn hàng 
+                  {/* ({orderBasic!==null?orderBasic.total:0}) */}
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/admin/settings") !== -1
+                      ? "text-sky-500 hover:text-sky-600"
+                      : "text-slate-700 hover:text-slate-500")
+                  }
+                  to="transactions"
+                >
+                  <i
+                    className={
+                      "fa-solid fa-money-bill mr-2 text-sm " +
+                      (window.location.href.indexOf("/admin/settings") !== -1
+                        ? "opacity-75"
+                        : "text-slate-300")
+                    }
+                  ></i>{" "}
+                  Giao dịch
                 </Link>
               </li>
              
@@ -191,7 +245,7 @@ function Sidebar() {
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
-                  to="/admin/maps"
+                  to="settings"
                 >
                   <i
                     className={
@@ -201,7 +255,7 @@ function Sidebar() {
                         : "text-slate-300")
                     }
                   ></i>{" "}
-                  Maps
+                  Cài đặt
                 </Link>
               </li> */}
             </ul>
@@ -221,7 +275,7 @@ function Sidebar() {
                   onClick={handleLogout}
                 >
                   <i className="fas fa-right-from-bracket text-slate-400 mr-2 text-sm"></i>{" "}
-                  Logout
+                  Đăng xuất
                 </button>
               </li>
             </ul>

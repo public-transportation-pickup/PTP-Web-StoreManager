@@ -1,4 +1,4 @@
-import  { useState ,useEffect} from "react";
+import  { useState ,useEffect,useRef} from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch,useSelector } from "react-redux";
 import { selectProduct,fetchProducts } from "../../redux/features/productSlice.js";
@@ -7,7 +7,7 @@ import PaginationButton from "../Pagination/PaginationButton.jsx";
 import { toHoursAndMinutes } from "../../libs/constants/index.js";
 import {Actions, useAPIRequest } from '../../libs/Commons/api-request.js';
 import { getCategories } from '../../api/category-api.js';
-import { getProductByStoreId } from "../../api/product-api.js";
+import { getAllProductByStoreId } from "../../api/product-api.js";
 import { ToastContainer,toast } from "react-toastify";
 import CreateModal from "../Modals/Modal.jsx";
 import CreateProductPage from "../Products/CreateProductPage.jsx";
@@ -25,7 +25,8 @@ export const initialProductData = {
   description:'',
   imageURL:null,
   menuId:undefined,
-  quantityInDay:1
+  quantityInDay:1,
+  status:''
 };
 
 
@@ -95,6 +96,40 @@ const handleAdd=()=>{
   setProduct(initialProductData);
 };
 
+const inputRef = useRef();
+const handleSearch= async ()=>{
+    const searchTerm = inputRef.current.value.trim();
+    if(searchTerm!=''){
+        var data= await getAllProductByStoreId({
+          pageNumber:currentPage
+        });
+        var filter= data.items.filter((product) =>
+              product.name
+                .toLowerCase()
+                .replace(/\s+/g, '')
+                .includes(searchTerm.toLowerCase().replace(/\s+/g, ''))
+            );
+        // console.log(filter);
+        if(filter.length!==0){
+          setProducts(filter);
+        }else{
+          toast.warning(`Sản phẩm không tồn tại`,{autoClose:900});
+          dispatch(fetchProducts({
+            menuId:menuId,
+            cateName:null,
+            pageNumber:0
+          }));
+        }
+    }else{
+      // console.log('non'); 
+      dispatch(fetchProducts({
+        menuId:menuId,
+        cateName:null,
+        pageNumber:0
+      }));
+    }
+    
+}
 
 //#endregion
 
@@ -109,10 +144,27 @@ const handleAdd=()=>{
             <div className="relative  rounded-t-md bg-gray-100 px-2 max-w-full flex flex-grow flex-1 py-2">
               <button 
                 onClick={()=>handleAdd()}
-                className=" text-base font-medium bg-gray-50 text-gray-400  py-[0.4rem] px-4 border border-gray-300 hover:border-blue-400 rounded mx-5">
+                className=" text-base font-medium bg-gray-50 text-gray-400 h-12 w-[110px] py-[0.4rem] px-4 border border-gray-300 hover:border-blue-400 rounded mx-2">
                 Thêm mới
               </button>   
               <ComboBox setMenuId={setMenuId}/>
+
+              <div className="w-96 md:ml-96">   
+                  <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                  <div className="relative">
+                      <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                          <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                          </svg>
+                      </div>
+                      <input 
+                        ref={inputRef} 
+                        type="search" id="default-search" className="block w-full px-4 py-[0.85rem] ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by name..." required />
+                      <button 
+                        onClick={()=>handleSearch()}
+                        type="button" className="text-white absolute end-2.5 bottom-[0.4rem] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                  </div>
+              </div>
             </div>
             
         <div className="block w-full overflow-x-auto z-0">
@@ -149,18 +201,20 @@ const handleAdd=()=>{
                             has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200"
                             onClick={()=>setCateName(c.name)}
                          >
-                            <div className="w-full border-0 flex flex-row " >
-                              <img
-                                src={c.imageURL}
-                                alt="..."
-                                className="my-1 w-11 h-11 ml-3 rounded-full border-2 border-slate-50 shadow "></img>
+                            <div className="w-full border-0 h-13 flex flex-row " >
+                              <div className="mr-3">
+                                <img
+                                  src={c.imageURL}
+                                  alt="..."
+                                  className="my-1 w-12 h-11 ml-3 rounded-full border-2 border-slate-50 shadow "></img>
+                              </div>
 
-                              <div className="w-full h-full border-0 flex flex-col text-left hover:text-blue-700" >
-                                <span className="text-base text-gray-900 truncate dark:text-white px-4 pt-1" >{c.name}</span>
-                                <div className="flex flex-row">
+                              <div className="w-full h-full border-0 flex flex-col pt-3 text-left hover:text-blue-700" >
+                                <span className="text-lg text-gray-900 border-0  truncate dark:text-white px-4 " >{c.name}</span>
+                                {/* <div className="flex flex-row">
                                   <i className="fa-solid fa-bookmark  text-sm text-gray-500 truncate dark:text-gray-400 pb-1 pl-7" ></i>
                                   <span className="text-sm text-gray-500 truncate dark:text-gray-400 pl-2 pb-1 flex-row ">{c.description}</span>
-                                </div>  
+                                </div>   */}
                               </div>
                             </div>
                             <div className="border-0 w-fit align-right px-2"> 
@@ -209,14 +263,17 @@ const handleAdd=()=>{
                                 </span>
                               </div>
                               <div className="border-0 w-full flex flex-col">
-                                  {/* <span 
+                                  <span 
                                     className="text-base pt-11 text-gray-600 flex flex-row">
-                                      <p className="pr-2">Ngày sản xuất:</p> 14 - 2 - 2020
+                                      Đã bán (Trong ngày):<p className="pl-2"> {p.quantityUsed} / {p.quantityInDay}</p>
                                   </span>
                                   <span
                                     className="text-base pt-1 text-gray-600 flex flex-row">
-                                      <p className="pr-3">Ngày hết hạn:</p> 14 - 2 - 2020
-                                  </span> */}
+                                      Trạng thái:
+                                      <p className={(p.status==="Active"?'text-green-700 pl-3':'text-red-600 pl-3')}>
+                                        {p.status==='Active'?'Sẵn sàng phục vụ':"Tạm ngưng phục vụ"}
+                                      </p> 
+                                  </span>
                               </div>
                             </div>
                             <div className="border-0 w-fit align-right px-2"> 
@@ -241,6 +298,17 @@ const handleAdd=()=>{
           </table>
         </div>
       </div>
+       <div className="w-full my-4">
+            <div className="border border-indigo-300 p-4 rounded-lg flex flex-col justify-between">
+            <p className="text-xl underline">Hướng dẫn chung:</p>
+            <p>-  Chọn <span className="text-red-600 font-bold uppercase">món ăn</span> để xem chi tiết</p>
+            <p>- <span className="text-red-600 font-bold uppercase">Trạng thái</span> và số  <span className="text-red-600 font-bold uppercase">số lượng đã bán</span> sẽ được <span className="text-red-600 font-bold uppercase">làm mới</span> mỗi ngày</p>
+             {/* <span className="text-red-600 font-bold uppercase">món ăn</span> */}
+            <p>-  <span className="text-red-600 font-bold uppercase">Thời gian chuẩn bị</span> và <span className="text-red-600 font-bold uppercase">xử lý song song</span> dùng 
+                  để tính tổng thời gian chuẩn bị món khi đặt hàng ( VD: Món A có thể làm 5 phần trong 2 phút)</p>
+            
+            </div>   
+        </div>
       {/* <!--  Modal --> */}
         <CreateModal 
           title={'Product'}

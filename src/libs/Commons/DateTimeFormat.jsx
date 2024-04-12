@@ -9,8 +9,8 @@ const formatDate = (date) => {
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
   
-    const formattedDate = `${day}-${month}-${year}`;
-    const formattedTime = `${hours}h${minutes}m`;
+    const formattedDate = `${day}/${month}/${year}`;
+    const formattedTime = `${hours}:${minutes}`;
   
     return {
       formattedDate,
@@ -23,9 +23,7 @@ const formatDate = (date) => {
   
     return (
       <div>
-         <span>{formattedTime}</span>
-        <br></br>
-        <span>{formattedDate}</span>
+         <span>{formattedTime}</span> - <span>{formattedDate}</span>
 
       </div>
     );
@@ -37,9 +35,7 @@ const formatDate = (date) => {
     const { formattedDate, formattedTime } = formatDate(new Date(date));
   
     return (
-      <div>
-        <span>{formattedDate}</span>    <span>{formattedTime}</span>
-      </div>
+        <p className='pl-2'>  <span>{formattedTime}</span> - <span>{formattedDate}</span></p>  
     );
   };
 
