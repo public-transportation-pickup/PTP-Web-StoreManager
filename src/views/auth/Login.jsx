@@ -70,7 +70,7 @@ function Login() {
           // }
         
         } catch (error) {
-          toast.warning("Login fail!",{autoClose:900});
+          toast.warning("Đăng nhập thất bại!",{autoClose:900});
           console.log("Sign In fail:",error);
         }
   }
@@ -98,7 +98,7 @@ function Login() {
               <div className="rounded-t mb-0 px-6 py-6">
                 <div className="text-center">
                   <h6 className="text-700 text-xl font-bold">
-                    Sign in
+                    Đăng nhập
                   </h6>
                 </div>
                 {/* <div className="btn-wrapper text-center">
@@ -181,7 +181,7 @@ function Login() {
                         className="form-checkbox border-0 rounded text-slate-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                       />
                       <span className="ml-2 text-sm font-semibold text-slate-600">
-                        Remember me
+                        Nhớ mật khẩu
                       </span>
                     </label>
                   </div>
@@ -195,7 +195,7 @@ function Login() {
                       // disabled={formik.isSubmitting} 
                       // loading={formik.isSubmitting}
                     >
-                      Sign In
+                      Đăng nhập
                       {/* {loading?'Sign In' : 'Sign In ...'} */}
                     </button>
                   </div>

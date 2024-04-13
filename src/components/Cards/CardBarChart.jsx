@@ -14,17 +14,17 @@ function CardBarChart({param}) {
       type: "bar",
       data: {
         labels: [
-          "MON",
-          "TUE",
-          "WED",
-          "THU",
-          "FRI",
-          "SAT",
-          "SUN",
+          "T2",
+          "T3",
+          "T4",
+          "T5",
+          "T6",
+          "T7",
+          "CN",
         ],
         datasets: [
           {
-            label: 'New',
+            label: 'Tuần mới',
             backgroundColor: "#ed64a6",
             borderColor: "#ed64a6",
             data:newData,
@@ -32,7 +32,7 @@ function CardBarChart({param}) {
             barThickness: 8,
           },
           {
-            label: 'Last',
+            label: 'Tuần trước',
             fill: false,
             backgroundColor: "#4c51bf",
             borderColor: "#4c51bf",
@@ -118,10 +118,10 @@ function CardBarChart({param}) {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full max-w-full flex-grow flex-1">
               <h6 className="uppercase text-slate-400 mb-1 text-xs font-semibold">
-                Performance
+               Total orders
               </h6>
               <h2 className="text-slate-700 text-xl font-semibold">
-                Total orders
+                Tổng đơn hàng thành công
               </h2>
             </div>
           </div>

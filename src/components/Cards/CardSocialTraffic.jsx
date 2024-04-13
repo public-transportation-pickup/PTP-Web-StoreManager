@@ -11,7 +11,7 @@ function CardSocialTraffic({param}) {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
               <h3 className="font-semibold text-base text-slate-700">
-              Potential Customers
+              Khác hàng tiềm năng
               </h3>
             </div>
             {/* <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
@@ -30,16 +30,16 @@ function CardSocialTraffic({param}) {
             <thead className="thead-light">
               <tr>
                 <th className="px-3 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Name
+                  Tên
                 </th>
                 <th className="px-3 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Phone
+                  Số điện thoại
                 </th>
                 {/* <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Total order
                 </th> */}
                 <th className="px-3 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left min-w-140-px">
-                  Total spent
+                  Tổng chi tiêu
                 </th>
               </tr>
             </thead>

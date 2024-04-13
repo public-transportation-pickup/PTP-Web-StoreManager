@@ -105,10 +105,10 @@ export default function MenuMainPage() {
                       </div>
                       <input 
                         ref={inputRef} 
-                        type="search" id="default-search" className="block w-full px-4 py-[0.85rem] ps-10 text-sm text-gray-900 border border-gray-300 rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by name..." required />
+                        type="search" id="default-search" className="block w-full px-4 py-[0.85rem] ps-10 text-sm text-gray-900 border border-gray-300 rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tên sản phẩm..." required />
                       <button 
                         onClick={()=>handleSearch()}
-                        type="button" className="text-white absolute end-2.5 bottom-[0.4rem] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                        type="button" className="text-white absolute end-2.5 bottom-[0.4rem] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tìm kiếm</button>
                   </div>
               </div> 
             </div>
@@ -193,11 +193,11 @@ export default function MenuMainPage() {
                             <div className=" flex flex-row">
                                 <p 
                                     onClick={()=>handleUpdate(item.id)}
-                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</p>
+                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Cập nhật</p>
                                 <span className="px-1">|</span>
                                 <p 
                                     onClick={()=>handleDelete(item)}
-                                    className="font-medium text-red-600 dark:text-red-600 hover:underline">Delete</p>
+                                    className="font-medium text-red-600 dark:text-red-600 hover:underline">Xóa</p>
                             </div>
                             
                         </td>
