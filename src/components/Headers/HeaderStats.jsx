@@ -25,50 +25,50 @@ function HeaderStats({param}) {
             {/* Card stats */}
             {/* <div className="flex flex-wrap"> */}
                 <div className="flex flex-wrap">
-                  <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                  <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
-                  statSubtitle="Total Sales"
+                  statSubtitle="Tổng giá trị đơn hàng"
                   statTitle={param!=undefined?`${param.totalSalesNew}`:"0"}
                   statArrow={param!=undefined?((param.totalSalesNew-param.totalSalesLast) <0 ?"down":"up") :("up")}
                   statPercent={totalSalePercents!=='Infinity'? totalSalePercents:'0'}
                   statPercentColor={param!=undefined?((param.totalSalesNew-param.totalSalesLast) <0 ?"text-red-500":"text-emerald-500") :("text-red-500")}
-                  statDescripiron="Since last week"
+                  statDescripiron="So với tuần trước"
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"
                 />
               </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
-                  statSubtitle="Total Orders"
+                  statSubtitle="Đơn hàng"
                   statTitle={param!=undefined?`${param.totalOrdersNew}`:"0"}
                   statArrow={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"down":"up") :("up")}
                   statPercent={totalOrderPercent!=='Infinity'? totalSalePercents:'0'}
                   statPercentColor={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"text-red-500":"text-emerald-500") :("text-red-500")}
-                  statDescripiron="Since last week"
+                  statDescripiron="So với tuần trước"
                   statIconName="fas fa-chart-pie"
                   statIconColor="bg-orange-500"
                 />
               </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
-                  statSubtitle="Average order value"
+                  statSubtitle="Doanh thu trung bình"
                   statTitle={averageSaleValueNew}
                   statArrow={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"down":"up") :("up")}
                   statPercent={averagePercent!=='Infinity'? totalSalePercents:'0'}
                   statPercentColor={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"text-orange-500":"text-emerald-500") :("text-red-500")}
-                  statDescripiron="Since last week"
+                  statDescripiron="So với tuần trước"
                   statIconName="fas fa-percent"
                   statIconColor="bg-sky-500"
                 />
               </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
-                  statSubtitle="Visitor"
+                  statSubtitle="Khách hàng"
                   statTitle="49,65%"
                   statArrow="up"
                   statPercent="12"
                   statPercentColor="text-emerald-500"
-                  statDescripiron="Since last week"
+                  statDescripiron="So với tuần trước"
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
                 />
