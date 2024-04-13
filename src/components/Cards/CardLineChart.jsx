@@ -123,7 +123,7 @@ function CardLineChart({param}) {
               <h6 className="uppercase text-slate-100 mb-1 text-xs font-semibold">
               Sales value
               </h6>
-              <h2 className="text-white text-xl font-semibold">Tổng số tiền thu được</h2>
+              <h2 className="text-white text-xl font-semibold">Biểu đồ so sánh doanh thu</h2>
             </div>
           </div>
         </div>

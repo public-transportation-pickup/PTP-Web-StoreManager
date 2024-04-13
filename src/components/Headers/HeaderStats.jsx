@@ -25,7 +25,7 @@ function HeaderStats({param}) {
             {/* Card stats */}
             {/* <div className="flex flex-wrap"> */}
                 <div className="flex flex-wrap">
-                  <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                  <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
                   statSubtitle="Tổng giá trị đơn hàng"
                   statTitle={param!=undefined?`${param.totalSalesNew}`:"0"}
@@ -37,9 +37,9 @@ function HeaderStats({param}) {
                   statIconColor="bg-red-500"
                 />
               </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
-                  statSubtitle="Số lương đơn hàng thành công"
+                  statSubtitle="Đơn hàng"
                   statTitle={param!=undefined?`${param.totalOrdersNew}`:"0"}
                   statArrow={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"down":"up") :("up")}
                   statPercent={totalOrderPercent!=='Infinity'? totalSalePercents:'0'}
@@ -49,7 +49,7 @@ function HeaderStats({param}) {
                   statIconColor="bg-orange-500"
                 />
               </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
                   statSubtitle="Doanh thu trung bình"
                   statTitle={averageSaleValueNew}
@@ -61,9 +61,9 @@ function HeaderStats({param}) {
                   statIconColor="bg-sky-500"
                 />
               </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
-                  statSubtitle="Số lương khách mua hàng"
+                  statSubtitle="Khách hàng"
                   statTitle="49,65%"
                   statArrow="up"
                   statPercent="12"
