@@ -81,10 +81,10 @@ function TransactionTable() {
               </div>
               <input type="number"
                ref={inputRef}
-               id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by phone . . ." required />
+               id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập số điện thoại . . ." required />
               <button type="button" 
                   onClick={()=>handleSearch()}
-                  className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                  className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tìm kiếm</button>
           </div>
       </div>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-0 shadow-lg rounded">
@@ -170,7 +170,7 @@ function TransactionTable() {
             </tbody>
           </table>
           { transactions.length >0?
-                    <div className="bg-white items-center border-b align-middle dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
+                    <div className="bg-white items-center border-b border-t align-middle dark:bg-gray-800 dark:border-gray-700 border-0 border-slate-300 ">
                         <PaginationButton
                             setCurrentPage={setCurrentPage}
                             currentPage={currentPage}

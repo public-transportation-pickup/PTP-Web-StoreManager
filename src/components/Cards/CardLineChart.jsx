@@ -9,24 +9,24 @@ function CardLineChart({param}) {
       type: "line",
       data: {
         labels: [
-          "MON",
-          "TUE",
-          "WED",
-          "THU",
-          "FRI",
-          "SAT",
-          "SUN",
+          "T2",
+          "T3",
+          "T4",
+          "T5",
+          "T6",
+          "T7",
+          "CN",
         ],
         datasets: [
           {
-            label: 'New',
+            label: 'Tuần mới',
             backgroundColor: "#4c51bf",
             borderColor: "#4c51bf",
             data: param!==undefined?param.saleValuesNew:[65, 78, 66, 44, 56, 67, 75],
             fill: false,
           },
           {
-            label: 'Last',
+            label: 'Tuần trước',
             fill: false,
             backgroundColor: "#fff",
             borderColor: "#fff",
@@ -121,9 +121,9 @@ function CardLineChart({param}) {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full max-w-full flex-grow flex-1">
               <h6 className="uppercase text-slate-100 mb-1 text-xs font-semibold">
-                Overview
+              Sales value
               </h6>
-              <h2 className="text-white text-xl font-semibold">Sales value</h2>
+              <h2 className="text-white text-xl font-semibold">Biểu đồ so sánh doanh thu</h2>
             </div>
           </div>
         </div>

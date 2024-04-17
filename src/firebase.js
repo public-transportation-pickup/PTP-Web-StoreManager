@@ -48,7 +48,7 @@ export const requestForToken = () => {
 export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
-      console.log("payload", payload);
+      // console.log("payload", payload);
       resolve(payload);
     });
   });

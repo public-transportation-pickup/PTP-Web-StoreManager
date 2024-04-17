@@ -60,13 +60,13 @@ export default function CreateProductPage({product,handleClose}) {
         validate: (values) => {
           let errors = {};
           if (!values.name || values.name.trim().length === 0) {
-            errors.name = "Please enter name.";
+            errors.name = "Thông tin bắt buộc*";
           }
           if (!values.price || values.price === 0) {
-            errors.price = "Please enter price.";
+            errors.price = "Thông tin bắt buộc*";
           }
-          if (!values.categoryId || values.categoryId==='Select category') {
-            errors.categoryId = "Please select category.";
+          if (!values.categoryId || values.categoryId==='-- Loại sản phẩm --') {
+            errors.categoryId = "Vui lòng chon loại sản phẩm";
           }
           if(product.id!==undefined){
             if (!values.status || values.status==='Active') {
@@ -76,16 +76,28 @@ export default function CreateProductPage({product,handleClose}) {
               }
           }
           if (!values.menuId || values.menuId==='Chọn lịch bán') {
-            errors.menuId = "Thông tin bắt buộc";
+            errors.menuId = "Thông tin bắt buộc*";
           }
           if (!values.description ) {
-            errors.description = "Please enter description.";
+            errors.description = "Thông tin bắt buộc*";
           }
           if (!values.numProcessParallel ) {
-            errors.numProcessParallel = "Please enter number process parallel.";
+            errors.numProcessParallel = "Thông tin bắt buộc*";
+          }
+          if (!values.quantityInDay ) {
+            errors.numProcessParallel = "Thông tin bắt buộc*";
           }
           if (!values.preparationTime ) {
-            errors.preparationTime = "Please enter preparation time.";
+            errors.preparationTime = "Thông tin bắt buộc*";
+          }
+          if (values.numProcessParallel<=0 ) {
+            errors.numProcessParallel = "Số lượng không được bé hơn hoặc bằng 0*";
+          }
+          if (values.quantityInDay <=0) {
+            errors.numProcessParallel = "Số lượng không được bé hơn hoặc bằng 0*";
+          }
+          if (values.preparationTime <=0) {
+            errors.preparationTime = "Thời gian không được bé hơn hoặc bằng 0*";
           }
           return errors;
         },
@@ -251,7 +263,7 @@ export default function CreateProductPage({product,handleClose}) {
                                         value={formik.values.categoryId}
                                         onChange={formik.handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option>Select category</option>
+                                        <option>-- Loại sản phẩm --</option>
                                         {
                                             categories.map((c)=>{
                                                 return(
@@ -312,7 +324,7 @@ export default function CreateProductPage({product,handleClose}) {
                                         id="quantityInDay" 
                                         value={formik.values.quantityInDay}
                                         onChange={formik.handleChange}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nhập tên sản phẩm . . ." required=""/>
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nhập số lượng ước tính . . ." required=""/>
                                         {formik.errors.quantityInDay && <div className="text-red-600 px-2s">{formik.errors.quantityInDay}</div>}
                                 </div>
                                 <div  className="sm:col-span-2">

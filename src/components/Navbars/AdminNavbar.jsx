@@ -27,7 +27,7 @@ function Navbar() {
               <p className="border-0 px-3 py-3 text-slate-600  text-[15px] underline font-semibold w-full">Số dư: <NumberFormat number={1000000}/> VNĐ</p> */}
               <input
                 type="text"
-                placeholder="Search here..."
+                placeholder="Tìm kiếm ..."
                 className="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-slate-100 rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
               />
             </div>

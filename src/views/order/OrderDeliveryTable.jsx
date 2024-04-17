@@ -173,7 +173,7 @@ export default function OrderDeliveryTable() {
                 <tbody >
                 {listDeliveryOrder.length >0 && listDeliveryOrder.slice(currentPage*5, currentPage*5+5).map((item,index)=>(
                     <tr key={item.id}  className="bg-white border-b h-20 dark:bg-gray-800 dark:border-gray-700 border border-slate-300 ">
-                    <td className="px-6 h-20 py-2 border border-slate-300">
+                    <td className="px-6 h-20 w-10 py-2 border border-slate-300">
                         {index+1 +currentPage*5}
                     </td>
                     <td className="px-6 py-2  h-20 w-64 border border-slate-300">
@@ -210,11 +210,11 @@ export default function OrderDeliveryTable() {
                             }
             
                     </td>
-                    <td className="px-2 py-2 border  h-20 w-72 border-slate-300">
-                        <div className="flex gap-2">
-                            <button type="button" onClick={()=>handleConfirm(item.id)} className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Đã giao</button>
+                    <td className="px-2 py-2 border  h-20 w-32  border-slate-300">
+                        <div className="flex text-center mx-auto px-5 ">
+                            <button type="button" onClick={()=>handleConfirm(item.id)} className="bg-indigo-500 hover:opacity-80 rounded text-black p-4 py-1 text-sm">Đã giao</button>
                             {/* {console.log("Order id",item.id)} */}
-                            <Note button="Hủy đơn" noteStringFunc={handleDelete} id={item.id}/>
+                            {/* <Note button="Hủy đơn" noteStringFunc={handleDelete} id={item.id}/> */}
                         </div>
                     </td>
                 </tr>

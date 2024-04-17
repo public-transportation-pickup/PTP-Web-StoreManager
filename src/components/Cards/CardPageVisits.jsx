@@ -8,7 +8,7 @@ function CardPageVisits({param}) {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
               <h3 className="font-semibold text-base text-slate-700">
-              Best Selling
+              Sản phấm bán chạy nhất
               </h3>
             </div>
             {/* <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
@@ -30,13 +30,13 @@ function CardPageVisits({param}) {
                   
                 </th>
                 <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Product name
+                  Tên sản phầm
                 </th>
                 <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Price
+                  Giá tiền
                 </th>
                 <th className="text-center px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
-                  Quantity
+                  Số lượng đã bán
                 </th>
               </tr>
             </thead>
