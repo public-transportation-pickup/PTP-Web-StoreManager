@@ -24,16 +24,16 @@ export default function ProductOrderItem({item}) {
 
 
 
-export function OrderItemDetail({item}){  
-  // console.log(item);
-    return(
-      <>
-        <div className="flex flex-row gap-2">
-            <p className="text-sm font-bold	"  >-</p>
-            <p>{item.productName}</p>
-            <p>x{item.quantity}</p>
-            <p><strong className="pl-1"> <NumberFormat number={item.productPrice} /> VNĐ</strong></p>
-        </div>
-      </>
-    )
-}
+// export function OrderItemDetail({item}){  
+//   // console.log(item);
+//     return(
+//       <>
+//         <div className="flex flex-row gap-2">
+//             <p className="text-sm font-bold	"  >-</p>
+//             <p>{item.productName}</p>
+//             <p>x{item.quantity}</p>
+//             <p><strong className="pl-1"> <NumberFormat number={item.productPrice} /> VNĐ</strong></p>
+//         </div>
+//       </>
+//     )
+// }

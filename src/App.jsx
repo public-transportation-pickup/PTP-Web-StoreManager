@@ -25,6 +25,7 @@ import OrderAllTable from "./views/order/OrderAllTable";
 import OrderDetailPage from "./views/order/OrderDetailPage";
 import UpdateMenuPage from "./views/menu/UpdateMenuPage";
 import Transactions from "./views/admin/Transactions";
+// import Profile from "./views/Profile";
 function App() {
   
   return (
@@ -33,6 +34,7 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/sign-in" element={<Auth />} />
+            {/* <Route path="/profile" element={<Profile />} /> */}
             <Route element={<PrivateRoutes/>}>
               <Route path="/" exact element={<Admin />}>
                 <Route  index element={<Dashboard />} />
