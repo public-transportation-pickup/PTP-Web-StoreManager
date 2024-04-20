@@ -6,13 +6,19 @@ export async function getProductByStoreId(param) {
   // '/products?menuId=35512226-b59c-44e2-af5c-4e823970935a&CategoryName=Cate%20-%202&pageNumber=0&pageSize=10'
   // console.log(param);
   let STOREID = CURRENT_USER.user.storeId;
-  let url = null;
+  let url =
+    BASE_URL +
+    "/stores/" +
+    STOREID +
+    "/products?pageNumber=" +
+    param.pageNumber +
+    "&pageSize=5";
   if (param.menuId !== undefined) {
     url =
       BASE_URL +
       "/stores/" +
       STOREID +
-      "/products?pageNumber=0" +
+      "/products?pageNumber=" +
       param.pageNumber +
       "&pageSize=5&menuId=" +
       param.menuId;

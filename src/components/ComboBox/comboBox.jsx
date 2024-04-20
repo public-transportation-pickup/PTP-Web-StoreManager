@@ -24,7 +24,7 @@ export default function ComboBox({setMenuId}) {
     if(menuState.status===Actions.success){
       // console.log(menuState.payload);
       setMenus(menuState.payload);
-      setSelected(menuState.payload[menuState.payload.length-1])
+      // setSelected(menuState.payload[menuState.payload.length-1])
     }
 
   },[menuState]);
@@ -52,6 +52,7 @@ useEffect(()=>{
           focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm border border-gray-300">
             <Combobox.Input
               className="w-full border-none bg-gray-50 py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+              placeholder='Chọn lịch bán'
               displayValue={(menu) => menu.name}
               onChange={(event) => setQuery(event.target.value)}
             />

@@ -26,8 +26,11 @@ function CardPageVisits({param}) {
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
-                <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                {/* <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   
+                </th> */}
+                <th className=" bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  {/* Tên sản phầm */}
                 </th>
                 <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Tên sản phầm
@@ -43,14 +46,17 @@ function CardPageVisits({param}) {
             <tbody>
               {param.length>0 ?(param.map((item,index)=>(
                 <tr key={item.id}>
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  {index +1 }
-                  {/* <img
+                  {/* <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                  {index +1 }        
+                  </th> */}
+                  <td className="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      <img
                       src={item.imageURL}
                       alt="..."
-                      className="my-1 w-[4rem] h-[4rem] ml-3 rounded-md border-2 border-slate-50 shadow "></img> */}
-                  </th>
+                      className=" w-[2rem] h-[2rem] ml-3 rounded-md border-2 border-slate-50 shadow "></img>
+                  </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    
                       {item.productName}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">

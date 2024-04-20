@@ -12,6 +12,7 @@ import { ToastContainer,toast } from "react-toastify";
 import CreateModal from "../Modals/Modal.jsx";
 import CreateProductPage from "../Products/CreateProductPage.jsx";
 import ComboBox from "../ComboBox/comboBox.jsx";
+import NumberFormat from "../../libs/Commons/NumberFormat.jsx";
 
 export const initialProductData = {
   categoryId:undefined,
@@ -254,13 +255,13 @@ const handleSearch= async ()=>{
                                   className="text-base pt-1 px-9 text-gray-600"> 
                                   <i className="fa-regular fa-clock pr-2"> </i>
                                   {/* Thời gian chuẩn bị: {toHoursAndMinutes(p.preparationTime)}/{p.numProcessParallel} */}
-                                  Thời gian chuẩn bị: {p.preparationTime} phút/{p.numProcessParallel} phần
+                                  Thời gian chuẩn bị: {p.preparationTime}phút/{p.numProcessParallel} phần
                                 </span>
                                 <span
                                   className="text-base pt-1 px-9 text-gray-600">
                                   <i className="fa-solid fa-money-bill pr-2"></i>
                                   Giá:
-                                  {p.price} VNĐ
+                                  <NumberFormat number={p.price}/> VNĐ
                                 </span>
                               </div>
                               <div className="border-0 w-full flex flex-col">
