@@ -1,20 +1,31 @@
 // components
-
+import React from 'react';
 import CardStats from "../Cards/CardStats";
 import { useLocation } from "react-router-dom";
 
 function HeaderStats({param}) {
-
+  console.log(param);
   var totalSalePercents=param!=undefined?`${RoundedNumber(Math.abs((param.totalSalesNew-param.totalSalesLast)/param.totalSalesLast))}`:"0";
   var totalOrderPercent=param!=undefined?`${RoundedNumber(Math.abs((param.totalOrdersNew-param.totalOrdersLast)/param.totalOrdersLast))}`:"0";
   var averagePercent=param!=undefined?`${RoundedNumber(Math.abs((param.averageSaleValueNew-param.averageSaleValueLast)/param.averageSaleValueLast))}`:"0";
-  var averageSaleValueNew=param!=undefined?`${RoundedNumber(param.averageSaleValueNew)}`:"0"
+  var visitorPercent=param!=undefined?`${RoundedNumber(Math.abs((param.visitorsNew-param.visitorsLast)/param.visitorsLast))}`:"0";
+  var averageSaleValueNew=param!=undefined?`${formatNumber(param.averageSaleValueNew)} VNĐ`:"0 VNĐ"
   // console.log(averagePercent);
   function RoundedNumber(num) {
     const roundedNum = num.toFixed(2);
   
     return `${roundedNum}`;
   }
+
+  function formatNumber (number) {
+    const formatter = new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  
+    return formatter.format(number);
+  };
+  
   return (
     <div>
       {/* Header */}
@@ -28,7 +39,7 @@ function HeaderStats({param}) {
                   <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
                   statSubtitle="Tổng giá trị đơn hàng"
-                  statTitle={param!=undefined?`${param.totalSalesNew}`:"0"}
+                  statTitle={param!=undefined?`${formatNumber(param.totalSalesNew)} VNĐ`:"0 VNĐ"}
                   statArrow={param!=undefined?((param.totalSalesNew-param.totalSalesLast) <0 ?"down":"up") :("up")}
                   statPercent={totalSalePercents!=='Infinity'? totalSalePercents:'0'}
                   statPercentColor={param!=undefined?((param.totalSalesNew-param.totalSalesLast) <0 ?"text-red-500":"text-emerald-500") :("text-red-500")}
@@ -42,7 +53,7 @@ function HeaderStats({param}) {
                   statSubtitle="Đơn hàng"
                   statTitle={param!=undefined?`${param.totalOrdersNew}`:"0"}
                   statArrow={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"down":"up") :("up")}
-                  statPercent={totalOrderPercent!=='Infinity'? totalSalePercents:'0'}
+                  statPercent={totalOrderPercent!=='Infinity'? totalOrderPercent:'0'}
                   statPercentColor={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"text-red-500":"text-emerald-500") :("text-red-500")}
                   statDescripiron="So với tuần trước"
                   statIconName="fas fa-chart-pie"
@@ -54,7 +65,7 @@ function HeaderStats({param}) {
                   statSubtitle="Doanh thu trung bình"
                   statTitle={averageSaleValueNew}
                   statArrow={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"down":"up") :("up")}
-                  statPercent={averagePercent!=='Infinity'? totalSalePercents:'0'}
+                  statPercent={averagePercent!=='Infinity'? averagePercent:'0'}
                   statPercentColor={param!=undefined?((param.averageSaleValueNew-param.averageSaleValueLast) <0 ?"text-orange-500":"text-emerald-500") :("text-red-500")}
                   statDescripiron="So với tuần trước"
                   statIconName="fas fa-percent"
@@ -64,10 +75,10 @@ function HeaderStats({param}) {
               <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
                   statSubtitle="Khách hàng"
-                  statTitle="49,65%"
+                  statTitle={param!=undefined?`${param.visitorsNew}`:"0"}
                   statArrow="up"
-                  statPercent="12"
-                  statPercentColor="text-emerald-500"
+                  statPercent={visitorPercent!=='Infinity'? visitorPercent:'0'}
+                  statPercentColor={param!=undefined?((param.visitorsNew-param.visitorsLast) <0 ?"text-orange-500":"text-emerald-500") :("text-red-500")}
                   statDescripiron="So với tuần trước"
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
