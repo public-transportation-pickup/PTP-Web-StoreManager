@@ -2,7 +2,6 @@ import ReactImg from '../../assets/img/react.jpg';
 import NumberFormat from '../../libs/Commons/NumberFormat';
 
 export default function ProductOrderItem({item}) {
-  // console.log(item);
   return (
     <div className='flex flex-row gap-2 items-center py-6 overflow-auto'>
         <div className='flex flex-row gap-2 items-center'>
