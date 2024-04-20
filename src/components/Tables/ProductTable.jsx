@@ -2,7 +2,7 @@ import  { useState ,useEffect,useRef} from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch,useSelector } from "react-redux";
 import { selectProduct,fetchProducts } from "../../redux/features/productSlice.js";
-// components
+// components 
 import PaginationButton from "../Pagination/PaginationButton.jsx";
 import { toHoursAndMinutes } from "../../libs/constants/index.js";
 import {Actions, useAPIRequest } from '../../libs/Commons/api-request.js';
@@ -12,6 +12,7 @@ import { ToastContainer,toast } from "react-toastify";
 import CreateModal from "../Modals/Modal.jsx";
 import CreateProductPage from "../Products/CreateProductPage.jsx";
 import ComboBox from "../ComboBox/comboBox.jsx";
+import NumberFormat from "../../libs/Commons/NumberFormat.jsx";
 
 export const initialProductData = {
   categoryId:undefined,
@@ -254,13 +255,13 @@ const handleSearch= async ()=>{
                                   className="text-base pt-1 px-9 text-gray-600"> 
                                   <i className="fa-regular fa-clock pr-2"> </i>
                                   {/* Thời gian chuẩn bị: {toHoursAndMinutes(p.preparationTime)}/{p.numProcessParallel} */}
-                                  Thời gian chuẩn bị: {p.preparationTime} phút/{p.numProcessParallel} phần
+                                  Thời gian chuẩn bị: {p.preparationTime}phút/{p.numProcessParallel} phần
                                 </span>
                                 <span
                                   className="text-base pt-1 px-9 text-gray-600">
                                   <i className="fa-solid fa-money-bill pr-2"></i>
                                   Giá:
-                                  {p.price} VNĐ
+                                  <NumberFormat number={p.price}/> VNĐ
                                 </span>
                               </div>
                               <div className="border-0 w-full flex flex-col">

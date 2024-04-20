@@ -1,7 +1,7 @@
 //import PropTypes from 'prop-types'
 import { HiMiniWallet,HiMiniUserCircle  } from "react-icons/hi2";
 import { RiInformationFill } from "react-icons/ri";
-import ProductOrderItem from '../../components/products/ProductOrderItem';
+import ProductOrderItem from "../../components/Products/ProductOrderItem.jsx";
 import { useParams } from 'react-router';
 import { useEffect, useState } from "react";
 import { UpdateOrder,GetOrderById } from "../../api/order-api";

@@ -81,7 +81,13 @@ function Login() {
       formik.setSubmitting(false);
     }
     if (loginState.status === Actions.success) {
+      if(loginState.payload.user.roleName==='StoreManager')
+      {
         login(loginState.payload);
+      }
+      else{
+        toast.warning("Tài khoản không tồn tại!",{autoClose:900});
+      }
       //console.log("Login ok");
     }
   }, [loginState]);
