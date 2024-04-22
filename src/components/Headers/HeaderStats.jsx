@@ -4,13 +4,11 @@ import CardStats from "../Cards/CardStats";
 import { useLocation } from "react-router-dom";
 
 function HeaderStats({param}) {
-  // console.log(param);
   var totalSalePercents=param!=undefined?`${RoundedNumber(Math.abs((param.totalSalesNew-param.totalSalesLast)/param.totalSalesLast))}`:"0";
   var totalOrderPercent=param!=undefined?`${RoundedNumber(Math.abs((param.totalOrdersNew-param.totalOrdersLast)/param.totalOrdersLast))}`:"0";
   var averagePercent=param!=undefined?`${RoundedNumber(Math.abs((param.averageSaleValueNew-param.averageSaleValueLast)/param.averageSaleValueLast))}`:"0";
   var visitorPercent=param!=undefined?`${RoundedNumber(Math.abs((param.visitorsNew-param.visitorsLast)/param.visitorsLast))}`:"0";
   var averageSaleValueNew=param!=undefined?`${formatNumber(param.averageSaleValueNew)} VNĐ`:"0 VNĐ"
-  // console.log(averagePercent);
   function RoundedNumber(num) {
     const roundedNum = num.toFixed(2);
   

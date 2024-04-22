@@ -35,6 +35,21 @@ export async function getProductByStoreId(param) {
       `&CategoryName=${param.cateName.toString()}&menuId=` +
       param.menuId;
   }
+
+  if (
+    param.cateName !== null &&
+    param.cateName !== undefined &&
+    param.menuId === undefined
+  ) {
+    url =
+      BASE_URL +
+      "/stores/" +
+      STOREID +
+      "/products?pageNumber=" +
+      param.pageNumber +
+      "&pageSize=5" +
+      `&CategoryName=${param.cateName.toString()}`;
+  }
   // console.log(url);
   var response = await axios.get(url, {
     headers: { Authorization: `Bearer ${CURRENT_USER.token}` },
@@ -81,6 +96,7 @@ export async function UpdateProduct(product) {
   formData.append("MenuId", product.menuId);
   formData.append("QuantityInDay", product.quantityInDay);
   formData.append("ProductMenuId", product.productMenuId);
+  formData.append("SalePrice", product.salePrice);
   if ("file" in product) {
     formData.append("Image", product.file);
   }
