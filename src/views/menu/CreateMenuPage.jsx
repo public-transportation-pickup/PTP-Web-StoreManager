@@ -61,7 +61,7 @@ export default function CreateMenuPage() {
     }
 
     if ( createState.status === Actions.success  ) {
-        toast.success("Thêm lịch bán thành công!",{autoClose:900});
+        toast.success("Tạo lịch bán thành công!",{autoClose:900});
         setToastLoading(true);
         // navigate(`../`);
     }

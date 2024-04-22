@@ -107,36 +107,8 @@ function Login() {
                     Đăng nhập
                   </h6>
                 </div>
-                {/* <div className="btn-wrapper text-center">
-                  <button
-                    className="bg-white active:bg-slate-50 text-slate-700 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={pic1}
-                    />
-                    Github
-                  </button>
-                  <button
-                    className="bg-white active:bg-slate-50 text-slate-700 px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={pic2}
-                    />
-                    Google
-                  </button>
-                </div>
-                <hr className="mt-6 border-b-1 border-slate-300" /> */}
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                {/* <div className="text-slate-400 text-center mb-3 font-bold">
-                  <small>Or sign in with credentials</small>
-                </div> */}
                 <form onSubmit={formik.handleSubmit}>
                   <div className="relative w-full mb-3">
                     <label
@@ -208,22 +180,6 @@ function Login() {
                 </form>
               </div>
             </div>
-            {/* <div className="flex flex-wrap mt-6 relative">
-              <div className="w-1/2">
-                <a
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  className="text-slate-200"
-                >
-                  <small>Forgot password?</small>
-                </a>
-              </div>
-              <div className="w-1/2 text-right">
-                <Link to="/auth/register" className="text-slate-200">
-                  <small>Create new account</small>
-                </Link>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
