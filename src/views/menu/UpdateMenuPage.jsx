@@ -320,7 +320,7 @@ useEffect(()=>{
                             onClick={()=>setShowConfirm(true)}
                             className=" w-full text-center px-5 py-2 mt-1 sm:mt-1 text-base font-medium  text-white border-2 border-gray-400 bg-red-500
                                     rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-red-400">      
-                            Xóa sản phẩm
+                            Xóa lịch bán
                         </button>
                     </form>
                 </div>

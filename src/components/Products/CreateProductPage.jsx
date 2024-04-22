@@ -327,18 +327,21 @@ export default function CreateProductPage({product,handleClose}) {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nhập số lượng ước tính . . ." required=""/>
                                         {formik.errors.quantityInDay && <div className="text-red-600 px-2s">{formik.errors.quantityInDay}</div>}
                                 </div>
-                                <div className="sm:col-span-2">
-                                    <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Giá bán tại cửa hàng</label>
-                                    <input 
-                                        type="number" 
-                                        name="salePrice" 
-                                        id="salePrice"
-                                        value={formik.values.salePrice}
-                                        onChange={formik.handleChange}    
-                                        min={0} 
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nhập giá tiền . . ." required=""/>
-                                        {formik.errors.salePrice && <div className="text-red-600 px-2s">{formik.errors.salePrice}</div>}
-                                </div>
+                                {product.id!==undefined?
+                                    <div className="sm:col-span-2">
+                                        <label htmlFor="salePrice" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Giá bán tại cửa hàng</label>
+                                        <input 
+                                            type="number" 
+                                            name="salePrice" 
+                                            id="salePrice"
+                                            value={formik.values.salePrice}
+                                            onChange={formik.handleChange}    
+                                            min={0} 
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nhập giá tiền . . ." required=""/>
+                                            {formik.errors.salePrice && <div className="text-red-600 px-2s">{formik.errors.salePrice}</div>}
+                                    </div>
+                                    :<></>
+                                }
                                 <div  className="sm:col-span-2">
                                     <label htmlFor="menuId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lịch bán</label>
                                     <select id="menuId" 
@@ -358,7 +361,8 @@ export default function CreateProductPage({product,handleClose}) {
                                     </select>
                                     {formik.errors.menuId && <div className="text-red-600 px-2s">{formik.errors.menuId}</div>}
                                 </div> 
-                                {product.id!==undefined?                                <div  className="sm:col-span-2">
+                                {product.id!==undefined?                                
+                                <div  className="sm:col-span-2">
                                     <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Trạng thái</label>
                                     <select id="status" 
                                         name="status"

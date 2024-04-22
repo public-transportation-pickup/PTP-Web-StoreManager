@@ -1,6 +1,6 @@
 
 import pic1 from "../assets/img/register_bg_2.png"
-
+import PTPLOGOCOLORVER from "../assets/img/PTPLOGOCOLORVER.png"
 // components
 
 //import Navbar from "../components/Navbars/AuthNavbar";
@@ -20,17 +20,17 @@ function Auth() {
       <main>
         <section className="relative w-full h-full py-40 min-h-screen">
           <div
-            className="absolute top-0 w-full h-full bg-slate-800 bg-no-repeat bg-full"
+            className="absolute top-0 w-full h-full  bg-slate-800 bg-no-repeat bg-cover bg-center"
             style={{
               backgroundImage:
-                "url(" + pic1 + ")",
+                "url(" + PTPLOGOCOLORVER + ")",
             }}
           ></div>
-          <div>
+          <div >
 
           </div>
           <Login/>
-          <FooterSmall absolute />
+          {/* <FooterSmall absolute /> */}
         </section>
       </main>
     </>
