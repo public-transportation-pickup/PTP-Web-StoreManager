@@ -27,7 +27,8 @@ export const initialProductData = {
   imageURL:null,
   menuId:undefined,
   quantityInDay:1,
-  status:''
+  status:'',
+  salePrice:0
 };
 
 
@@ -247,10 +248,16 @@ const handleSearch= async ()=>{
                                 className="my-1 w-[6rem] h-[6.1rem] ml-3 rounded-md border-2 border-slate-50 shadow "></img>
                             <div className="w-full flex flex-row">
                               <div className="border-0 pl-3 border-red-200 w-fit flex flex-col" >
-                                <span 
-                                  className="text-2xl px-4 pt-2 font-serif text-red-500">
-                                  {p.name}
-                                </span>
+                               <p className="pt-2 inline-block">
+                                  <span 
+                                    className="text-2xl px-4 pt-2 font-serif text-red-500">
+                                    {p.name}
+                                  </span>
+                                  <span 
+                                    className="text-base pt-2 text-slate-500">
+                                    ( <NumberFormat number={p.salePrice}/> VNĐ)
+                                  </span>
+                               </p>
                                 <span 
                                   className="text-base pt-1 px-9 text-gray-600"> 
                                   <i className="fa-regular fa-clock pr-2"> </i>
@@ -260,7 +267,7 @@ const handleSearch= async ()=>{
                                 <span
                                   className="text-base pt-1 px-9 text-gray-600">
                                   <i className="fa-solid fa-money-bill pr-2"></i>
-                                  Giá:
+                                  Giá gốc:
                                   <NumberFormat number={p.price}/> VNĐ
                                 </span>
                               </div>
