@@ -210,11 +210,11 @@ export default function OrderDeliveryTable() {
                             }
             
                     </td>
-                    <td className="px-2 py-2 border  h-20 w-32  border-slate-300">
+                    <td className="px-2 py-2 border  h-20 w-[13rem]  border-slate-300">
                         <div className="flex text-center mx-auto px-5 ">
-                            <button type="button" onClick={()=>handleConfirm(item.id)} className="bg-indigo-500 hover:opacity-80 rounded text-black p-4 py-1 text-sm">Đã giao</button>
+                            <button type="button" onClick={()=>handleConfirm(item.id)} className="bg-indigo-500 hover:opacity-80 rounded-lg text-black p-3 py-1 text-sm">Đã giao</button>
                             {/* {console.log("Order id",item.id)} */}
-                            {/* <Note button="Hủy đơn" noteStringFunc={handleDelete} id={item.id}/> */}
+                            <Note button="Hủy đơn" noteStringFunc={handleDelete} id={item.id}/>
                         </div>
                     </td>
                 </tr>
