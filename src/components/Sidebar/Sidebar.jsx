@@ -5,48 +5,12 @@ import { Link } from "react-router-dom";
 import NotificationDropdown from "../Dropdowns/NotificationDropdown";
 import UserDropdown from "../Dropdowns/UserDropdown";
 import { useAuth } from "../../views/auth/AuthProvider";
-import { useEffect, useState } from "react";
-import { GetBasicOrder } from "../../api/order-api";
-import { useAPIRequest,Actions } from "../../libs/Commons/api-request";
-import Connector from "../../libs/constants/signalr-connection.ts";
+import { useLocation } from "react-router-dom";
 
 function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+  const {pathname}= useLocation();
   const { logout } = useAuth();
-  const [orderBasic,setOrderBasic]=useState(null);
-  const [orderState,requestOrder]= useAPIRequest(GetBasicOrder);
-
-  //#region SignalR
-  // var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
-  // let STOREID = CURRENT_USER.user.storeId;
-  // const [message, setMessage] = useState("initial value");
-
-  // const { newMessage, events } = Connector();
-  // useEffect(() => {
-  //     events((username, message) => {
-  //         // console.log(username);
-  //         // console.log(message);
-  //         if(username.includes("Order") && message===STOREID){
-  //             setMessage(message)
-  //         }
-  //     });
-  // });
-  //#endregion
-
-//   useEffect(()=>{
-//     requestOrder();
-// },[message]);
-
-  // useEffect(()=>{
-  //     if(orderState.status==Actions.success){
-  //         setOrderBasic(orderState.payload);
-  //         // console.log(orderState.payload);
-  //     }
-  //     if(orderState.status==Actions.failure){
-  //         console.log(orderState.error);
-  //     }
-  // },[orderState,message]);
-
   const handleLogout = () => {
     logout();
   };
@@ -131,7 +95,7 @@ function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
+                    (pathname==='/'
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
@@ -140,7 +104,7 @@ function Sidebar() {
                   <i
                     className={
                       "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
+                      (pathname==='/'
                         ? "opacity-75"
                         : "text-slate-300")
                     }
@@ -152,7 +116,7 @@ function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/menus") !== -1
+                    (pathname.includes('menus')
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
@@ -161,7 +125,7 @@ function Sidebar() {
                   <i
                     className={
                       "fas fa-table mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/menus") !== -1
+                      (pathname.includes('menus')
                         ? "opacity-75"
                         : "text-slate-300")
                     }
@@ -174,7 +138,7 @@ function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/products") !== -1
+                    (pathname.includes('products')
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
@@ -183,7 +147,7 @@ function Sidebar() {
                   <i
                     className={
                       "fa-solid fa-utensils mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/products") !== -1
+                      (pathname.includes('products')
                         ? "opacity-75"
                         : "text-slate-300")
                     }
@@ -195,7 +159,7 @@ function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/settings") !== -1
+                    (pathname.includes('orders')
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
@@ -204,7 +168,7 @@ function Sidebar() {
                   <i
                     className={
                       "fa-solid fa-bag-shopping mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
+                      (pathname.includes('orders')
                         ? "opacity-75"
                         : "text-slate-300")
                     }
@@ -217,7 +181,28 @@ function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/settings") !== -1
+                    (pathname.includes('statistics')
+                      ? "text-sky-500 hover:text-sky-600"
+                      : "text-slate-700 hover:text-slate-500")
+                  }
+                  to="statistics"
+                >
+                  <i
+                    className={
+                      "fa-solid fa-chart-simple mr-2 text-sm " +
+                      (pathname.includes('statistics')
+                        ? "opacity-75"
+                        : "text-slate-300")
+                    }
+                  ></i>{" "}
+                  Doanh thu 
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (pathname.includes('transactions')
                       ? "text-sky-500 hover:text-sky-600"
                       : "text-slate-700 hover:text-slate-500")
                   }
@@ -226,7 +211,7 @@ function Sidebar() {
                   <i
                     className={
                       "fa-solid fa-money-bill mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
+                      (pathname.includes('transactions')
                         ? "opacity-75"
                         : "text-slate-300")
                     }

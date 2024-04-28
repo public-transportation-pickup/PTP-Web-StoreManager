@@ -16,7 +16,7 @@ function Navbar() {
             href=".."
             // onClick={(e) => e.preventDefault()}
           >
-            {auth.user.fullName}
+          Xin chào - {auth.user.fullName}
           </a>
           {/* Form */}
           <div className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto pt-0 mr-3 text-sm ">

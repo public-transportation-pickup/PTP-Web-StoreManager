@@ -4,7 +4,7 @@ import { selectMenu,fetchMenus } from "../../redux/features/menuSlice";
 import { GetDate,GetDayOfWeek } from "../../libs/Commons/DateTimeFormat";
 import { FormatTime } from "../../libs/Commons/TimeFormat";
 import { ConfirmModal } from "../../components/Modals/Modal";
-import { DeleteProductPage } from "../../components/Products/DeleteProduct";
+import { DeleteMenuDialog } from "../../components/menus/DeleteMenu";
 import { DeleteMenu,GetMenuByStoreId } from "../../api/menu-api";
 import { useAPIRequest,Actions } from "../../libs/Commons/api-request";
 import { ToastContainer,toast } from 'react-toastify';
@@ -190,6 +190,7 @@ export default function MenuMainPage() {
                             {item.description}
                         </td>
                         <td className="px-3 py-4">
+                            {!item.name.includes('Tất cả các buổi')?
                             <div className=" flex flex-row">
                                 <p 
                                     onClick={()=>handleUpdate(item.id)}
@@ -199,6 +200,10 @@ export default function MenuMainPage() {
                                     onClick={()=>handleDelete(item)}
                                     className="font-medium text-red-600 dark:text-red-600 hover:underline">Xóa</p>
                             </div>
+                            :
+                            <></>
+                            }
+                            
                             
                         </td>
                     </tr>
@@ -215,7 +220,7 @@ export default function MenuMainPage() {
             onClose={()=>{
                 setShowConfirm(false)
             }}>
-                <DeleteProductPage
+                <DeleteMenuDialog
                     onClose={(result)=>{
                         if(result){
                             requestDelete(menu.id);

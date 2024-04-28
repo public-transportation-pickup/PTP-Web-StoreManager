@@ -25,6 +25,8 @@ import OrderAllTable from "./views/order/OrderAllTable";
 import OrderDetailPage from "./views/order/OrderDetailPage";
 import UpdateMenuPage from "./views/menu/UpdateMenuPage";
 import Transactions from "./views/admin/Transactions";
+import Statistics from "./views/admin/Statistics";
+import Orders from "./views/admin/Orders";
 // import Profile from "./views/Profile";
 function App() {
   
@@ -42,7 +44,13 @@ function App() {
                 <Route path="settings" element={<Settings />} />
                 <Route path="products" element={<Products />} />
                 <Route path="transactions" element={<Transactions />} />
-                
+
+                <Route path="statistics">
+                  <Route path="" element={<Statistics />} />
+                  <Route path=":date" element={<Orders/>}/>
+                  <Route path="detail/:orderId" element={<OrderDetailPage/>}/>
+                </Route>
+
                 <Route path="menus">
                   <Route path="" element={<Menus />} />
                   <Route path="create" element={<CreateMenuPage/>}/>

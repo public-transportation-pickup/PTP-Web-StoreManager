@@ -280,7 +280,7 @@ export default function CreateProductPage({product,handleClose}) {
                                         type="datetime-local" 
                                         name="manufacturingDate" 
                                         id="ManufacturingDate" 
-                                        value={formik.values.manufacturingDate}
+                                        value={formik.values.manufacturingDate!==null?formik.values.manufacturingDate:""}
                                         onChange={formik.handleChange}   
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1-1-1999" required=""/>
                                 </div>
@@ -290,7 +290,7 @@ export default function CreateProductPage({product,handleClose}) {
                                         type="datetime-local" 
                                         name="expirationDate" 
                                         id="ExpirationDate" 
-                                        value={formik.values.expirationDate}
+                                        value={formik.values.expirationDate!==null?formik.values.expirationDate:""}
                                         onChange={formik.handleChange}   
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1-2-2002" required=""/>
                                 </div>

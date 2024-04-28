@@ -40,26 +40,6 @@ export default function OrderCancelTable() {
     }
    
 
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     // Dispatch the fetchOrders action when the component mounts
-    //     dispatch(fetchOrders({
-    //         phoneNumber:phoneNumber,
-    //         pageNumber:currentPage!==undefined?currentPage:0,
-    //         status:'Canceled'
-    //     }));
-    // }, [dispatch,currentPage,phoneNumber]);
-
-    // var value= useSelector(selectOrder);
-    // // console.log(value);
-
-    
-    // useEffect(()=>{
-    //     setlist(value.items!==undefined?value.items:[]);
-    //     setCurrentPage(value.pageIndex!==undefined? value.pageIndex: 0);
-    //     setTotalPage(value.totalPagesCount);
-    // },[value]);
-
     const phoneNumberRegex = new RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
     const inputRef = useRef();
     const handleSearch=async ()=>{
@@ -80,11 +60,11 @@ export default function OrderCancelTable() {
                   }else{
                     var data= await GetOrderByStoreIdV2({ status:'Canceled'})
                     setlist(data.items);
-                    toast.warning(`Sản phẩm không tồn tại`,{autoClose:900});
+                    toast.warning(`Số điện thoại không tồn tại!`,{autoClose:900});
                   }
             }
             else{
-                toast.warning("Phone is incorrect format",{autoClose:900});
+                toast.warning("Số điện thoại không đúng!",{autoClose:900});
             }
         }else{
             // console.log('non');

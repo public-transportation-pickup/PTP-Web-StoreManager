@@ -36,24 +36,6 @@ export default function OrderCompleteTable() {
         }
     },[ordersState])
 
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     // Dispatch the fetchOrders action when the component mounts
-    //     dispatch(fetchOrders({
-    //         phoneNumber:phoneNumber,
-    //         pageNumber:currentPage!==undefined?currentPage:0,
-    //         status:'Completed'
-    //     }));
-    // }, [dispatch,currentPage,phoneNumber]);
-
-    // var value= useSelector(selectOrder);
-    // // console.log(value);
-    // useEffect(()=>{
-    //     setlist(value.items!==undefined?value.items:[]);
-    //     setCurrentPage(value.pageIndex);
-    //     setTotalPage(value.totalPagesCount);
-    // },[value]);
-
     const phoneNumberRegex = new RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
     const inputRef = useRef();
     const handleSearch= async ()=>{
@@ -72,13 +54,13 @@ export default function OrderCompleteTable() {
                 if(filter.length>0){
                     setlist(filter);
                   }else{
-                    toast.warning(`Sản phẩm không tồn tại`,{autoClose:900});
+                    toast.warning(`Số điện thoại không tồn tại!`,{autoClose:900});
                     var data= await GetOrderByStoreIdV2({ status:'Completed'})
                     setlist(data.items);
                   }
             }
             else{
-                toast.warning("Phone is incorrect format",{autoClose:900});
+                toast.warning("Số điện thoại không đúng!",{autoClose:900});
             }
         }else{
             // console.log('non');
