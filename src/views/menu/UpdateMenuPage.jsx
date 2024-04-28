@@ -7,8 +7,7 @@ import { UpdateMenu,GetMenuById,DeleteMenu } from "../../api/menu-api";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router";
 import { ConfirmModal } from "../../components/Modals/Modal";
-import { DeleteProductPage } from "../../components/Products/DeleteProduct";
-
+import { DeleteMenuDialog } from "../../components/menus/DeleteMenu";
 export const initialMenu = {
     name: "",
     description: "",
@@ -333,7 +332,7 @@ useEffect(()=>{
         onClose={()=>{
             setShowConfirm(false)
         }}>
-            <DeleteProductPage
+            <DeleteMenuDialog
                 onClose={(result)=>{
                     if(result){
                         requestDelete(param.menuId);

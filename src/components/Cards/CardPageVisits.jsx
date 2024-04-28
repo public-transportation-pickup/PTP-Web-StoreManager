@@ -36,7 +36,7 @@ function CardPageVisits({param}) {
                   Tên sản phầm
                 </th>
                 <th className="px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Giá tiền
+                  Giá sản phẩm
                 </th>
                 <th className="text-center px-6 bg-slate-50 text-slate-500 align-middle border border-solid border-slate-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                   Số lượng đã bán

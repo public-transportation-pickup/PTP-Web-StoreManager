@@ -48,7 +48,7 @@ function HeaderStats({param}) {
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-3">
                 <CardStats
-                  statSubtitle="Đơn hàng"
+                  statSubtitle="Đơn hàng thành công"
                   statTitle={param!=undefined?`${param.totalOrdersNew}`:"0"}
                   statArrow={param!=undefined?((param.totalOrdersNew-param.totalOrdersLast) <0 ?"down":"up") :("up")}
                   statPercent={totalOrderPercent!=='Infinity'? totalOrderPercent:'0'}

@@ -71,7 +71,7 @@ export default function OrderPrepareTable() {
     }
 
     const handleDelete=async(value)=>{
-        console.log("Reason value on order confirm table:",value);
+        // console.log("Reason value on order confirm table:",value);
         requestUpdate({
             id:value.id,
             canceledReason:value.reason,
@@ -109,11 +109,11 @@ export default function OrderPrepareTable() {
                   }else{
                     var data= await GetOrderByStoreIdV2({ status:'Preparing'})
                     setlist(data.items);
-                    toast.warning(`Sản phẩm không tồn tại`,{autoClose:900});
+                    toast.warning(`Số điện thoại không tồn tại!`,{autoClose:900});
                   }
             }
             else{
-                toast.warning("Phone is incorrect format",{autoClose:900});
+                toast.warning("Số điện thoại không đúng!",{autoClose:900});
             }
         }else{
             // console.log('non');

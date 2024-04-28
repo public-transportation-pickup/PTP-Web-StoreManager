@@ -125,11 +125,11 @@ export default function OrderConfirmTable() {
                   }else{
                     var data= await GetOrderByStoreIdV2({ status:'Waiting'})
                     setlist(data.items);
-                    toast.warning(`Sản phẩm không tồn tại`,{autoClose:900});
+                    toast.warning(`Số điện thoại không tồn tại!`,{autoClose:900});
                   }
             }
             else{
-                toast.warning("Phone is incorrect format",{autoClose:900});
+                toast.warning("Số điện thoại không đúng!",{autoClose:900});
             }
         }else{
             // console.log('non');

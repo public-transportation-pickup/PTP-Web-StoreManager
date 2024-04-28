@@ -2,7 +2,7 @@
 import { HiMiniWallet,HiMiniUserCircle  } from "react-icons/hi2";
 import { RiInformationFill } from "react-icons/ri";
 import ProductOrderItem from "../../components/Products/ProductOrderItem"
-import { useParams } from 'react-router';
+import { useParams,useLocation } from 'react-router';
 import { useEffect, useState } from "react";
 import { UpdateOrder,GetOrderById } from "../../api/order-api";
 import {ToastContainer, toast} from 'react-toastify';
@@ -15,6 +15,7 @@ import { GetStatusFormat,GetPaymentFormat } from "../../libs/Commons/ConvertStri
 
 export default function OrderDetailPage() {
     const param= useParams();
+    const {pathname}= useLocation();
     // console.log("Order detail page",param.orderId)
     const [orderDetailInfo, setDetailOrderInfo]=useState(null);
     const [orderState,requestOrder]=useAPIRequest(GetOrderById);
@@ -100,8 +101,8 @@ export default function OrderDetailPage() {
 
   return (
     <>
-      <ToastContainer className="w-100 h-10"/>
-      <div className=" h-screen">
+      <ToastContainer className="w-100 h-1"/>
+      <div className={pathname.includes('detail')? " h-screen mt-4" :" h-screen mt-0"}>
         <h2 className="pb-4 text-center text-2xl">Chi tiết đơn hàng</h2>
         <div className='flex flex-row divide-x gap-6'>
         <div className='flex flex-col divide-y px-5 max-w-md'>

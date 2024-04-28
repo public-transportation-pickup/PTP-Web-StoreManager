@@ -17,16 +17,16 @@ import NumberFormat from "../../libs/Commons/NumberFormat.jsx";
 export const initialProductData = {
   categoryId:undefined,
   name:'',
-  numProcessParallel:1,
-  preparationTime:1,
-  price:1,
-  expirationDate:'2024-03-23T00:00:00',
-  manufacturingDate:'2024-03-23T00:00:00',
+  numProcessParallel:0,
+  preparationTime:0,
+  price:0,
+  expirationDate:'',
+  manufacturingDate:'',
   id:undefined,
   description:'',
   imageURL:null,
   menuId:undefined,
-  quantityInDay:1,
+  quantityInDay:0,
   status:'',
   salePrice:0
 };
