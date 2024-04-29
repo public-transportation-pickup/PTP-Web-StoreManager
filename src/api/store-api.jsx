@@ -10,7 +10,6 @@ export async function getStoreByUserId() {
 
 export async function GetStoreReport() {
   var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
-  // console.log(JSON.parse(user));
   let STOREID = CURRENT_USER.user.storeId;
   var url = BASE_URL + "/stores/" + STOREID + "?isReport=true";
   var response = await axios.get(url, {
@@ -21,7 +20,6 @@ export async function GetStoreReport() {
 
 export async function GetDateReport(param) {
   var CURRENT_USER = JSON.parse(localStorage.getItem("user"));
-  // console.log(param);
   let STOREID = CURRENT_USER.user.storeId;
   var url = BASE_URL + "/stores/" + STOREID + "/reports";
   if(param.startDate!==null && param.endDate!==null){
