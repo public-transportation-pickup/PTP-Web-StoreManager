@@ -1,5 +1,5 @@
 // components
-import { GetStoreReport } from "../../api/store-api.jsx";
+import { GetStoreReport } from "../../api/store-api.js";
 // import CardLineChart from "../../components/Cards/CardLineChart";
 import { ToastContainer,toast } from "react-toastify";
 import { useEffect, useState,useContext } from "react";
